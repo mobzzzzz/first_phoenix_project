@@ -5,7 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>최민수의 자기소개</title>
-
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script >
+        
+        function promissToggle(){
+            $('#studyToggle').toggle();
+            let display = $('#studyToggle').css("display")
+            if(display == "none") {
+                $('#studyButton').text("약속 보기")
+            } else {
+                $('#studyButton').text("약속 숨기기")
+            }
+        }
+    </script>
     <style>
         .write {
             background-color: yellow;
@@ -17,18 +30,20 @@
         .blogMale {
             margin : 10px auto 0 auto;  
             width : 300px; 
-            background-color: red;
+            /* background-color: red; */
             /* padding : 0 200px 0 200px; */
         }
         .blogImg {
-            margin : 10px auto 0 auto;   
-            
-            /* width : 100%;  */
+            margin : 10px auto 10px auto;   
             display: block;
         }
         .linkBox {
             margin : 0 auto 0 auto;  
             width : 300px;
+        }
+        .study>button {
+            width : 100px;
+            height : 30px;
         }
     </style>
 </head>
@@ -48,7 +63,21 @@
     </div>
     <hr>
     <!-- 여기서 부터 시작 -->
+    <div class = "study">
+        <h3>5. 자기 학습 약속</h3>
+        <button type="button" class="btn btn-info" onclick="promissToggle()" id = "studyButton">약속 확인</button>
+        <div id = "studyToggle">
+            <ul>
+                <li>일단 한 번 해보자</li>
+                <li>배우고 끝이 아니라 사용해보자</li>
+                <li>에러를 만나면 즐겨보자</li>
+                <li>느리다 해서 급하게 하지 말자 대충 넘기는 게 더 위험하다.</li>
+                <li>마음 편히 먹고 해보자</li>
+            </ul>
+        </div>
+    </div>
     <div class="blog">
+        <h3>6. 자신의 블로그 주소</h3>
         <h3 class="blogHeadLine"> &nbsp; &nbsp;↓↓↓↓ 블로그 링크 ↓↓↓↓</h3>
         <div class = "linkBox">
             <a class="blogMale" href="https://hifumialice.tistory.com/">
