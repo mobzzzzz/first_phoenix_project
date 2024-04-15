@@ -5,6 +5,11 @@ window.addEventListener('resize', function() {
 
   // 사용자가 리사이즈를 멈춘 후 250ms 후에 새로고침.
   resizeTimer = setTimeout(function() {
+    if(window.innerHeight<500)
+    {
+      document.getElementById('btn').style.fontSize='10px';
+      print.console.log("asd");
+    }
     window.location.reload();
   }, 250);
 });
