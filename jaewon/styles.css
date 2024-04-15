@@ -1,0 +1,24 @@
+.profile_image {
+  text-align: center;
+  width: 20%;
+  height: auto;
+  margin: 50px auto 0 auto;
+}
+
+.row {
+  width: 40%;
+  margin: 30px auto 0 auto;
+}
+
+.row > dt {
+  text-align: right;
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+}
+
+body {
+  height: 100%;
+}
