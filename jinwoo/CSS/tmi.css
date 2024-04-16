@@ -1,7 +1,7 @@
 #tmi-user-component{
     position : fixed;
-    width:580px;
-    height:500px;
+    width:500px;
+    height:600px;
     top:30%;
     left:35%;
     background:white;
@@ -13,4 +13,7 @@
 }
 .bottom-right-tmi-user-component-subtitle{
     width:50px;
+}
+#bottom-right-tmi-user-component-del-btn{
+    width:100%
 }
