@@ -49,13 +49,20 @@
 .icon-blog{
     color:orange;
 }
+/*하단 정보 속 아이콘 중 깃허브 모양 색상 */
 .icon-github{
     color:#24292F;
 }
-#bottom-image{
+/*TMI 버튼 위치*/
+#bottom-right{
+    display:flex;
+    justify-content: right;
+    align-items: end;
     width: 100%;
     height:350px;
-    background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f1b1ac1e-5047-424e-afd5-18feb475dd04/de3wad8-5e9e3e1c-5e8f-4d9e-a61b-9b8591600529.png/v1/fill/w_1280,h_720,q_80,strp/totoro__wallpaper__by_mfujiart_de3wad8-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzIwIiwicGF0aCI6IlwvZlwvZjFiMWFjMWUtNTA0Ny00MjRlLWFmZDUtMThmZWI0NzVkZDA0XC9kZTN3YWQ4LTVlOWUzZTFjLTVlOGYtNGQ5ZS1hNjFiLTliODU5MTYwMDUyOS5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.0THbCtFN_9wH84GT0qe6UJLejW15R4oDN0SHOqLrdQY");
-    background-size: cover;
-    background-position: center;
+}
+/*TMI 버튼 크기 및 위치 세부 조정*/
+#bottom-right-tmi-warning-icon{
+    font-size:30px;
+    margin-right: 5%;
 }

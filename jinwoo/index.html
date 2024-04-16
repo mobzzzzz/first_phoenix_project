@@ -14,6 +14,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="CSS/animation.css">
+    <link rel="stylesheet" href="CSS/modal.css">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/f7affbdaa9.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
@@ -48,7 +49,7 @@
                 <span>Kotlin_2기</span>
             </div>
             <div>
-                <span>Ko Jin Woo</span>
+                <span id="middle-left-userlastname-for-easter-egg">Ko</span><span>Jin Woo</span>
             </div>
         </div>
         <div id="middle-rihgt-usermotto-box">
@@ -178,7 +179,27 @@
             </div>
         </div>
 
-        <div id="bottom-image">
+        <div id="bottom-right">
+            <i style="display:none" id="bottom-right-tmi-warning-icon" class="fas fa-triangle-exclamation"></i>
+        </div>
+
+        <div id="tmi-modal-box" style="display:none">
+            <div>
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                    <button type="button" class="btn btn-danger">마음 먹었어</button>
+
+                    <button type="button" class="btn btn-success">잘못 눌렀어 미안</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="tmi-user-component" style="display:none">
+            <img
+                src="https://postfiles.pstatic.net/MjAyNDA0MTZfMzAg/MDAxNzEzMjUzNjI0MzIx.DF6kP25hH9hRQn1IpZJIPNgmPIr6VicVDOvQhVIdeisg.TI1ItG9rnuf_ja9xCzn2E2hRpytvOwSyrztZA-19xigg.JPEG/M.jpg?type=w580">
+            <div class="bottom-right-tmi-user-component">축구</div>
+            <div>게임</div>
+            <div>노래</div>
         </div>
     </div>
 
