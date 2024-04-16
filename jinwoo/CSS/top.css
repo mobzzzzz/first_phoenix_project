@@ -1,0 +1,13 @@
+#top {
+    height:10%;
+    display:flex;
+    align-items: start;
+    justify-content: right;
+    margin : 5% 5% 0% 0%;
+}
+#top-right-mbti-title{
+    font-size:45px;
+}
+.top-right-mbti-items{
+    font-size:35px;
+}
