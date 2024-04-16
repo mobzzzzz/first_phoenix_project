@@ -11,11 +11,14 @@
     <link rel="stylesheet" href="CSS/top.css">
     <link rel="stylesheet" href="CSS/middle.css">
     <link rel="stylesheet" href="CSS/bottom.css">
-    <link rel="stylesheet" href="CSS/animation.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="CSS/animation.css">
+    <link rel="stylesheet" href="CSS/modal.css">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/f7affbdaa9.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -25,10 +28,17 @@
                 <span id="top-right-mbti-title">MBTI</span>
             </div>
             <div>
-                <span class="top-right-mbti-items">친해지면:ENTJ</span>
+                <span class="top-right-mbti-items">친해지면</span>
+                <span style="display:none" class="top-right-mbti-items top-right-mbti-items-alphabets">:<span
+                        id="top-right-mbti-easter-egg-e" class="top-right-mbti-items">E</span>NTJ</span>
             </div>
             <div>
-                <span class="top-right-mbti-items">어색할땐:INFJ</span>
+                <span class="top-right-mbti-items">어색할땐</span>
+                <span style="display:none" class="top-right-mbti-items top-right-mbti-items-alphabets">:INFJ</span>
+            </div>
+            <div>
+                <span style="display:none" id="top-right-mbti-easter-egg" class="top-right-mbti-items">검사하면
+                    ENFJ..</span>
             </div>
         </div>
     </div>
@@ -39,11 +49,12 @@
                 <span>Kotlin_2기</span>
             </div>
             <div>
-                <span>Ko Jin Woo</span>
+                <span id="middle-left-userlastname-for-easter-egg">Ko</span><span>Jin Woo</span>
             </div>
         </div>
         <div id="middle-rihgt-usermotto-box">
             알아감에 행복을 느끼는
+
         </div>
 
     </div>
@@ -57,9 +68,10 @@
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                팀워크
+                            <button id="bottom-information-subtitle-button" class="accordion-button" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                                aria-controls="collapseOne">
+                                함께해요
                             </button>
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show"
@@ -70,8 +82,11 @@
                                         <div class="bottom-information-contents-all"
                                             class="bottom-information-list-left-content">협업 스타일</div>
                                         <div class="bottom-information-list-right-content">
-                                            <div class="bottom-information-contents-all">:상대방의 의견을 최대한 수용하는 편,</div>
-                                            <div class="bottom-information-contents-all">공유, 피드백 좋아요</div>
+                                            <div class="bottom-information-contents-all">:상대방의 의견을 최대한 수용하는 편,
+                                                <i class="fas fa-handshake icon-human"></i>
+                                            </div>
+                                            <div class="bottom-information-contents-all">공유, 피드백 좋아요 <i
+                                                    class="fas fa-thumbs-up icon-human"></i></div>
                                         </div>
 
                                     </li>
@@ -91,17 +106,18 @@
                                 <ul>
                                     <li class="bottom-information-content-list">
                                         <div class="bottom-information-contents-all"
-                                            class="bottom-information-list-left-content">미소 짓게 하는 법<i
-                                                class="fa-regular fa-face-laugh-beam"></i></div>
+                                            class="bottom-information-list-left-content">미소 짓게 하는 법</div>
                                         <div class="bottom-information-contents-all"
                                             class="bottom-information-list-right-content">: 역지사지 ( 서로 존중하는 분위기 행복해요 )
+                                            <i class="fas fa-laugh-beam icon-human"></i>
                                         </div>
                                     </li>
                                     <li class="bottom-information-content-list">
                                         <div class="bottom-information-contents-all"
                                             class="bottom-information-list-left-content">인상 쓰게 하는 법</div>
                                         <div class="bottom-information-contents-all"
-                                            class="bottom-information-list-right-content">: 내로남불 / 아시타비 ( 속상해요 . . .)
+                                            class="bottom-information-list-right-content">: 내로남불 / 아시타비 ( 속상해요 . . .) <i
+                                                class="fas fa-sad-cry icon-human"></i>
                                         </div>
                                     </li>
                                 </ul>
@@ -123,16 +139,18 @@
                                             class="bottom-information-list-left-content">추구하는 목표</div>
                                         <div class="bottom-information-contents-all"
                                             class="bottom-information-list-right-content">: 어떤팀이든 잘 녹아들 수 있는 개발자가 되는 것
+                                            <i class="fas fa-smile-wink icon-human"></i>
                                         </div>
                                     </li>
                                     <li class="bottom-information-content-list">
                                         <div class="bottom-information-contents-all"
                                             class="bottom-information-list-left-content">자기 학습 약속</div>
                                         <div class="bottom-information-list-right-content">
-                                            <div class="bottom-information-contents-all">: TIL 매일 실천하기</div>
+                                            <div class="bottom-information-contents-all">: TIL 매일 실천하기 <i
+                                                    class="fas fa-fire icon-fire"></i></div>
                                             <div class="bottom-information-contents-all">(블로그, 코딩공부, 알고리즘
-                                                중에 한가지 이상)</div>
-                                        </div>
+                                                중에 한가지 이상)
+                                            </div>
                                     </li>
                                     <li class="bottom-information-content-list">
                                         <div class="bottom-information-contents-all"
@@ -140,8 +158,18 @@
                                         <div class="bottom-information-contents-all"
                                             class="bottom-information-list-right-content"><span
                                                 class="bottom-information-contents-all">:</span><a
-                                                href="https://jwkane.tistory.com/">
-                                                https://jwkane.tistory.com/</a>
+                                                href="https://jwkane.tistory.com/" target="_blank">
+                                                https://jwkane.tistory.com/</a> <i class="fas fa-blog icon-blog"></i>
+                                    </li>
+                                    <li class="bottom-information-content-list">
+                                        <div class="bottom-information-contents-all"
+                                            class="bottom-information-list-left-content">GitHub 주소</div>
+                                        <div class="bottom-information-contents-all"
+                                            class="bottom-information-list-right-content"><span
+                                                class="bottom-information-contents-all">:</span><a
+                                                href="https://github.com/Kozy5" target="_blank">
+                                                https://github.com/Kozy5</a></i>
+                                            <i class="fa-brands fa-github icon-github"></i>
                                     </li>
                                 </ul>
                             </div>
@@ -150,14 +178,40 @@
                 </div>
             </div>
         </div>
+
+        <div id="bottom-right">
+            <i style="display:none" id="bottom-right-tmi-warning-icon" class="fas fa-triangle-exclamation"></i>
+        </div>
+
+        <div id="tmi-modal-box" style="display:none">
+            <div>
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                    <button type="button" class="btn btn-danger">마음 먹었어</button>
+
+                    <button type="button" class="btn btn-success">잘못 눌렀어 미안</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="tmi-user-component" style="display:none">
+            <img
+                src="https://postfiles.pstatic.net/MjAyNDA0MTZfMzAg/MDAxNzEzMjUzNjI0MzIx.DF6kP25hH9hRQn1IpZJIPNgmPIr6VicVDOvQhVIdeisg.TI1ItG9rnuf_ja9xCzn2E2hRpytvOwSyrztZA-19xigg.JPEG/M.jpg?type=w580">
+            <div class="bottom-right-tmi-user-component">축구</div>
+            <div>게임</div>
+            <div>노래</div>
+        </div>
     </div>
 
 
 
-    <script src="JS/app.js"></script>
+    <script src="JS/top.js"></script>
+    <script src="JS/middle.js"></script>
+    <script src="JS/bottom.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
 </body>
 
 </html>
