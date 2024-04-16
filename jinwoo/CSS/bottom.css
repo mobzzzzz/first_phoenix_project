@@ -2,6 +2,10 @@
     height:40%;
     margin-left:5%;
 }
+#bottom-information-box-column{
+    animation:move-bottom-to-top-info 1.5s ease-out backwards;
+    animation-delay : 3s;
+}
 .bottom-information-content-list {
     display: flex;
     flex-direction: row;

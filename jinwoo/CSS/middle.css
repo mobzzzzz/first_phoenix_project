@@ -10,7 +10,8 @@
     justify-content: center;
     width:30%;
     font-size:70px;
-    margin-left:5%
+    margin-left:5%;
+    animation : move-left-to-right-text 1.5s ease-out;
     
 }
 #middle-rihgt-usermotto-box{
@@ -19,4 +20,6 @@
     justify-content: center;
     width: 70%;
     font-size:95px;
+    animation:opacity-effect 3s backwards;
+    animation-delay: 2s;
 }

@@ -5,6 +5,11 @@
     justify-content: right;
     margin : 5% 5% 0% 0%;
 }
+#top-right-mbti-box{
+    animation:move-top-to-bottom 1.5s ease-out backwards;
+    animation-delay:4s;
+
+}
 #top-right-mbti-title{
     font-size:45px;
 }
