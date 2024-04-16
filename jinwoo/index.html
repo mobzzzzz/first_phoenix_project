@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/top.css">
     <link rel="stylesheet" href="CSS/middle.css">
@@ -15,6 +16,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="CSS/animation.css">
     <link rel="stylesheet" href="CSS/modal.css">
+
     <title>Document</title>
     <script src="https://kit.fontawesome.com/f7affbdaa9.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
@@ -182,28 +184,25 @@
         <div id="bottom-right">
             <i style="display:none" id="bottom-right-tmi-warning-icon" class="fas fa-triangle-exclamation"></i>
         </div>
+    </div>
 
-        <div id="tmi-modal-box" style="display:none">
-            <div>
-                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                    <button type="button" class="btn btn-danger">마음 먹었어</button>
-
-                    <button type="button" class="btn btn-success">잘못 눌렀어 미안</button>
-                </div>
+    <div id="tmi-modal-box" style="display:none">
+        <div id="tmi-modal-outer">
+            <span id="tmi-modal-inner-text">TMI입니다.. 그래도 보시겠습니까..??</span>
+            <div id="tmi-modal-inner-button-box"><button type="button" class="btn btn-danger">마음 먹었어</button>
+                <button type="button" class="btn btn-success">잘못 눌렀어 미안</button>
             </div>
 
         </div>
-
-        <div id="tmi-user-component" style="display:none">
-            <img
-                src="https://postfiles.pstatic.net/MjAyNDA0MTZfMzAg/MDAxNzEzMjUzNjI0MzIx.DF6kP25hH9hRQn1IpZJIPNgmPIr6VicVDOvQhVIdeisg.TI1ItG9rnuf_ja9xCzn2E2hRpytvOwSyrztZA-19xigg.JPEG/M.jpg?type=w580">
-            <div class="bottom-right-tmi-user-component">축구</div>
-            <div>게임</div>
-            <div>노래</div>
-        </div>
     </div>
 
-
+    <div id="tmi-user-component" style="display:none">
+        <img
+            src="https://postfiles.pstatic.net/MjAyNDA0MTZfMzAg/MDAxNzEzMjUzNjI0MzIx.DF6kP25hH9hRQn1IpZJIPNgmPIr6VicVDOvQhVIdeisg.TI1ItG9rnuf_ja9xCzn2E2hRpytvOwSyrztZA-19xigg.JPEG/M.jpg?type=w580">
+        <div class="bottom-right-tmi-user-component">축구</div>
+        <div>게임</div>
+        <div>노래</div>
+    </div>
 
     <script src="JS/top.js"></script>
     <script src="JS/middle.js"></script>

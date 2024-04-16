@@ -1,0 +1,31 @@
+#tmi-modal-box{
+    position:fixed;
+    width: 100%;
+    height:100%;
+    top:0;
+    left:0;
+    display: flex;
+    background:rgba(0,0,0,0.5);
+}
+#tmi-modal-outer{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position:absolute;
+    top:40%;
+    right:40%;
+    width:350px;
+    height:200px;
+    background-color: white;
+}
+#tmi-modal-inner-button-box{
+    display: flex;
+    margin-top: 20px;
+}
+#tmi-modal-inner-button-box > button{
+    margin: 0px 5px;
+}
+#tmi-modal-inner-text{
+    color:black;
+}
