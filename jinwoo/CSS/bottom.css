@@ -1,31 +1,53 @@
+/*하단 메인*/
 #bottom {
     height:40%;
     margin-left:5%;
 }
+/*하단 정보 부분 전체 애니메이션 적용*/
 #bottom-information-box-column{
     animation:move-bottom-to-top-info 1.5s ease-out backwards;
     animation-delay : 3s;
 }
+/*하단 정보에 제목 부분*/
+#bottom-information-title{
+    font-size : 50px;
+}
+/*하단 정보 아코디언의 크기를 결정 */
+#bottom-information-content-box{
+    width: 40%;
+}
+/*하단 정보 속 리스트 속 좌 우 나누어 왼쪽 정렬*/
 .bottom-information-content-list {
     display: flex;
     flex-direction: row;
     justify-content: left;
 }
-#bottom-information-title{
-    font-size : 50px;
-}
+/*하단 정보 속 리스트 속 좌 우 나눈것 중 왼쪽 부분에 최대 크기를 정함으로써
+콜론 위치를 맞추기 위함 */
 .bottom-information-list-left-content{
     width:200px;
 }
-#bottom-information-content-box{
-    width: 40%;
-    border-top:1px solid #C5C0B8;
-}
+
+/*하단 정보 속 리스트 속 폰트 사이즈 */
 .bottom-information-content-list{
     font-size:20px;
-    width:90%;
-    margin:10px 0px;
 }
+/*하단 정보 속 리스트 속 폰트 색상 */
 .bottom-information-contents-all{
     color:black;
+}
+/*하단 정보 속 아이콘 중 사람과 관련된 것 색상 */
+.icon-human{
+    color:bisque;
+}
+/*하단 정보 속 아이콘 중 불 모양 색상 */
+.icon-fire{
+    color:firebrick;
+}
+/*하단 정보 속 아이콘 중 블로그 모양 색상 */
+.icon-blog{
+    color:orange;
+}
+.icon-github{
+    color:#24292F;
 }

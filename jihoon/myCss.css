@@ -14,8 +14,8 @@
   
   .inner {
     border: 0px;
-    padding-left: 20px;
-    padding-right: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
     margin-top: -15px;
     width: 100%;
   }
@@ -26,21 +26,22 @@
     position: relative;
     top: 20px;
   }
-  
-  #btn{
+
+  .button-left{
+    position: relative;
     background-color: dodgerblue;
     border: 0px;
     font-size: 70px;
     color: white;
-  }
-
-  .button-left{
-    position: relative;
     right: 100px;
   }
 
   .button-right{
     position: relative;
+    background-color: dodgerblue;
+    border: 0px;
+    font-size: 70px;
+    color: white;
     left: 100px;
   }
 
