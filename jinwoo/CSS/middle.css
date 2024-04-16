@@ -1,0 +1,22 @@
+#middle {
+    height:40%;;
+    display: flex;
+    flex-direction: row;
+}
+#middle-left-username-box{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    width:30%;
+    font-size:70px;
+    margin-left:5%
+    
+}
+#middle-rihgt-usermotto-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    font-size:95px;
+}

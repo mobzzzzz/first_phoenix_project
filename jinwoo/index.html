@@ -1,11 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>피닉스 미니프로젝트</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/top.css">
+    <link rel="stylesheet" href="CSS/middle.css">
+    <link rel="stylesheet" href="CSS/bottom.css">
+    <link rel="stylesheet" href="CSS/animation.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/f7affbdaa9.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
-    
+    <div id="top">
+        <div id="top-right-mbti-box">
+            <div>
+                <span id="top-right-mbti-title">MBTI</span>
+            </div>
+            <div>
+                <span class="top-right-mbti-items">친해지면:ENTJ</span>
+            </div>
+            <div>
+                <span class="top-right-mbti-items">어색할땐:INFJ</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="middle">
+        <div id="middle-left-username-box">
+            <div>
+                <span>Kotlin_2기</span>
+            </div>
+            <div>
+                <span>Ko Jin Woo</span>
+            </div>
+        </div>
+        <div id="middle-rihgt-usermotto-box">
+            알아감에 행복을 느끼는
+        </div>
+
+    </div>
+
+    <div id="bottom">
+        <div id="bottom-information-box-column">
+            <div id="bottom-information-title">
+                Information
+            </div>
+            <div id="bottom-information-content-box">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                팀워크
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li class="bottom-information-content-list">
+                                        <div class="bottom-information-contents-all"
+                                            class="bottom-information-list-left-content">협업 스타일</div>
+                                        <div class="bottom-information-list-right-content">
+                                            <div class="bottom-information-contents-all">:상대방의 의견을 최대한 수용하는 편,</div>
+                                            <div class="bottom-information-contents-all">공유, 피드백 좋아요</div>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                울다가 웃으면
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li class="bottom-information-content-list">
+                                        <div class="bottom-information-contents-all"
+                                            class="bottom-information-list-left-content">미소 짓게 하는 법<i
+                                                class="fa-regular fa-face-laugh-beam"></i></div>
+                                        <div class="bottom-information-contents-all"
+                                            class="bottom-information-list-right-content">: 역지사지 ( 서로 존중하는 분위기 행복해요 )
+                                        </div>
+                                    </li>
+                                    <li class="bottom-information-content-list">
+                                        <div class="bottom-information-contents-all"
+                                            class="bottom-information-list-left-content">인상 쓰게 하는 법</div>
+                                        <div class="bottom-information-contents-all"
+                                            class="bottom-information-list-right-content">: 내로남불 / 아시타비 ( 속상해요 . . .)
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                목표와 약속 그리고
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li class="bottom-information-content-list">
+                                        <div class="bottom-information-contents-all"
+                                            class="bottom-information-list-left-content">추구하는 목표</div>
+                                        <div class="bottom-information-contents-all"
+                                            class="bottom-information-list-right-content">: 어떤팀이든 잘 녹아들 수 있는 개발자가 되는 것
+                                        </div>
+                                    </li>
+                                    <li class="bottom-information-content-list">
+                                        <div class="bottom-information-contents-all"
+                                            class="bottom-information-list-left-content">자기 학습 약속</div>
+                                        <div class="bottom-information-list-right-content">
+                                            <div class="bottom-information-contents-all">: TIL 매일 실천하기</div>
+                                            <div class="bottom-information-contents-all">(블로그, 코딩공부, 알고리즘
+                                                중에 한가지 이상)</div>
+                                        </div>
+                                    </li>
+                                    <li class="bottom-information-content-list">
+                                        <div class="bottom-information-contents-all"
+                                            class="bottom-information-list-left-content">블로그 주소</div>
+                                        <div class="bottom-information-contents-all"
+                                            class="bottom-information-list-right-content"><span
+                                                class="bottom-information-contents-all">:</span><a
+                                                href="https://jwkane.tistory.com/">
+                                                https://jwkane.tistory.com/</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="JS/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

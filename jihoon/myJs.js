@@ -1,15 +1,18 @@
 let resizeTimer; // 타이머를 저장할 변수
-
 window.addEventListener('resize', function() {
-  // 이미 예약된 타이머가 있다면 취소합니다.
+  // 이미 예약된 타이머가 있다면 취소.
   clearTimeout(resizeTimer);
 
-  // 사용자가 리사이즈를 멈춘 후 250ms 후에 새로고침 합니다.
+  // 사용자가 리사이즈를 멈춘 후 250ms 후에 새로고침.
   resizeTimer = setTimeout(function() {
+    if(window.innerHeight<500)
+    {
+      document.getElementById('btn').style.fontSize='10px';
+      print.console.log("asd");
+    }
     window.location.reload();
   }, 250);
 });
-
   
 
 /*
@@ -34,12 +37,12 @@ const buttonRight = document.querySelector('.button-right');
 
 buttonLeft.addEventListener('click', () => {
   currentIndex--;
-  currentIndex = currentIndex < 0 ? inners.length-1 : currentIndex; // index값이 0보다 작아질 경우 0으로 변경
+  currentIndex = currentIndex < 0 ? inners.length-1 : currentIndex; // index값이 0보다 작아질 경우 마지막으로 이동
   innerList.style.marginLeft = `-${outer.clientWidth * currentIndex}px`; // index만큼 margin을 주어 옆으로 밀기
 });
 
 buttonRight.addEventListener('click', () => {
   currentIndex++;
-  currentIndex = currentIndex >= inners.length ? 0 : currentIndex; // index값이 inner의 총 개수보다 많아질 경우 마지막 인덱스값으로 변경
+  currentIndex = currentIndex >= inners.length ? 0 : currentIndex; // index값이 inner의 총 개수보다 많아질 경우 처음으로 이동
   innerList.style.marginLeft = `-${outer.clientWidth * currentIndex}px`; // index만큼 margin을 주어 옆으로 밀기
 });

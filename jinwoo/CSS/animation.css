@@ -1,0 +1,14 @@
+@keyframes move-left-to-right-text {
+    from{
+        position:relative;
+        left:-1000px;
+        opacity:0%;
+    }
+    to{
+        position:relative;
+        left:0px;
+        opacity:100%;
+
+    }
+    
+}
