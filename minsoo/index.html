@@ -22,8 +22,21 @@
         function goalToggle() {
             $('#goalDiv').toggle();
         }
+
+        function mbtiBtn(){
+            $('#mbtiImg').toggle();
+        }
     </script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Brush+Script&display=swap');
+
+        * {
+
+            font-family: "Dongle", sans-serif;
+            font-weight: 200;
+            font-style: normal;
+        }
+
         .blogHeadLine {
             margin: 0 auto 0 auto;
             width: 300px;
@@ -72,36 +85,49 @@
             background-color: black;
             width: 35%;
         }
+
         .main {
-            margin : 0 auto 0 auto;
-            width : 500px;
+            margin: 0 auto 0 auto;
+            width: 500px;
         }
+
         .pShadow {
             text-shadow: 3px 2px 7px blue;
         }
+
+        .headLine2 {
+            color: magenta;
+        }
+
+        .headLine1 {
+            color: green;
+        }
+
+
     </style>
 </head>
 
 <body>
-    <div class = "main">
+    <div class="main">
 
         <div class="explain">
-            <h3>1. mbti</h3>
-            <img src="https://cdn.highnews.co.kr/news/photo/202302/369_1517_218.png" alt="MBTI : ISTP">
+            <h3 class="headLine1" onclick="mbtiBtn()" >1. MBTI ← 클릭</h3>
+            <div id = "mbtiImg" style="display: none;"><img src="https://cdn.highnews.co.kr/news/photo/202302/369_1517_218.png" alt="MBTI : ISTP"></div>
         </div>
         <div class="advantage">
-            <h3 >2.자신의 장점</h3>
-            <p class = "pShadow" >남 생각을 많이 해요 / 열심히 해요 </p>
+            <h3 class="headLine2">2.자신의 장점</h3>
+            <p class="pShadow">남 생각을 많이 해요 </p>
+            <p class="pShadow"> 열심히 해요 </p>
         </div>
         <div class="teamPlay">
-            <h3>3.협업 스타일</h3>
+            <h3 class="headLine1">3.협업 스타일</h3>
             <ol>
                 <li>팀원과 맞출려고 해요</li>
                 <li>맡은 바는 최대한 합니다.</li>
             </ol>
         </div>
         <div class="featureAndGoal">
-            <h3>4. 궁극적인 목표</h3>
+            <h3 class="headLine2">4. 궁극적인 목표</h3>
             <button type="button" class="btn btn-primary" id="goal" onclick="goalToggle()">목표</button>
             <div class="goal" id="goalDiv" style="display : none">
                 <div class="goalTextDiv">
@@ -115,7 +141,7 @@
             </div>
         </div>
         <div class="study">
-            <h3>5. 자기 학습 약속</h3>
+            <h3 class="headLine1">5. 자기 학습 약속</h3>
             <button type="button" class="btn btn-info" onclick="promissToggle()" id="studyButton">약속 확인</button>
             <div id="studyToggle" style="display: none;">
                 <ul>
@@ -128,7 +154,7 @@
             </div>
         </div>
         <div class="blog">
-            <h3>6. 자신의 블로그 주소</h3>
+            <h3 class="headLine2">6. 자신의 블로그 주소</h3>
             <h3 class="blogHeadLine"> &nbsp; &nbsp;↓↓↓↓ 블로그 링크 ↓↓↓↓</h3>
             <div class="linkBox">
                 <h3>&nbsp;&nbsp;https://hifumialice.tistory.com/</h3>
@@ -141,7 +167,7 @@
             <h3 class="blogHeadLine"> &nbsp;&nbsp;↑↑↑↑ 이미지 클릭 ↑↑↑↑</h3>
         </div>
     </div>
-    
+
 </body>
 
 </html>
