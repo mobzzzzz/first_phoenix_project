@@ -72,66 +72,76 @@
             background-color: black;
             width: 35%;
         }
+        .main {
+            margin : 0 auto 0 auto;
+            width : 500px;
+        }
+        .pShadow {
+            text-shadow: 3px 2px 7px blue;
+        }
     </style>
 </head>
 
 <body>
-    
-    <div class="explain">
-        <h3>1. mbti</h3>
-        <img src="https://cdn.highnews.co.kr/news/photo/202302/369_1517_218.png" alt="MBTI : ISTP">
-    </div>
-    <div class="advantage">
-        <h3>2.자신의 장점</h3>
-        <p>남 생각을 많이 해요 / 열심히 해요 </p>
-    </div>
-    <div class="teamPlay">
-        <h3>3.협업 스타일</h3>
-        <ol>
-            <li>팀원과 맞출려고 해요</li>
-            <li>맡은 바는 최대한 합니다.</li>
-        </ol>
-    </div>
-    <div class="featureAndGoal">
-        <h3>4. 궁극적인 목표</h3>
-        <button type="button" class="btn btn-primary" id="goal" onclick="goalToggle()">목표</button>
-        <div class="goal" id = "goalDiv" style = "display : none">
-            <div class="goalTextDiv" >
-                <div class="goalText">
-                    <p>즐기는 프로그래머가 되고 싶어요!</p> <br>
-                    <p>팀원들과 소통을 잘 하고 싶어요!</p> <br>
-                    <p>필요로 하는 사람이 될래요!</p>
-                </div>
+    <div class = "main">
 
+        <div class="explain">
+            <h3>1. mbti</h3>
+            <img src="https://cdn.highnews.co.kr/news/photo/202302/369_1517_218.png" alt="MBTI : ISTP">
+        </div>
+        <div class="advantage">
+            <h3 >2.자신의 장점</h3>
+            <p class = "pShadow" >남 생각을 많이 해요 / 열심히 해요 </p>
+        </div>
+        <div class="teamPlay">
+            <h3>3.협업 스타일</h3>
+            <ol>
+                <li>팀원과 맞출려고 해요</li>
+                <li>맡은 바는 최대한 합니다.</li>
+            </ol>
+        </div>
+        <div class="featureAndGoal">
+            <h3>4. 궁극적인 목표</h3>
+            <button type="button" class="btn btn-primary" id="goal" onclick="goalToggle()">목표</button>
+            <div class="goal" id="goalDiv" style="display : none">
+                <div class="goalTextDiv">
+                    <div class="goalText">
+                        <p>즐기는 프로그래머가 되고 싶어요!</p> <br>
+                        <p>팀원들과 소통을 잘 하고 싶어요!</p> <br>
+                        <p>필요로 하는 사람이 될래요!</p>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
-    <div class="study">
-        <h3>5. 자기 학습 약속</h3>
-        <button type="button" class="btn btn-info" onclick="promissToggle()" id="studyButton">약속 확인</button>
-        <div id="studyToggle" style="display: none;">
-            <ul>
-                <li>일단 한 번 해보자</li>
-                <li>배우고 끝이 아니라 사용해보자</li>
-                <li>에러를 만나면 즐겨보자</li>
-                <li>느리다 해서 급하게 하지 말자 대충 넘기는 게 더 위험하다.</li>
-                <li>마음 편히 먹고 해보자</li>
-            </ul>
+        <div class="study">
+            <h3>5. 자기 학습 약속</h3>
+            <button type="button" class="btn btn-info" onclick="promissToggle()" id="studyButton">약속 확인</button>
+            <div id="studyToggle" style="display: none;">
+                <ul>
+                    <li>일단 한 번 해보자</li>
+                    <li>배우고 끝이 아니라 사용해보자</li>
+                    <li>에러를 만나면 즐겨보자</li>
+                    <li>느리다 해서 급하게 하지 말자 대충 넘기는 게 더 위험하다.</li>
+                    <li>마음 편히 먹고 해보자</li>
+                </ul>
+            </div>
+        </div>
+        <div class="blog">
+            <h3>6. 자신의 블로그 주소</h3>
+            <h3 class="blogHeadLine"> &nbsp; &nbsp;↓↓↓↓ 블로그 링크 ↓↓↓↓</h3>
+            <div class="linkBox">
+                <h3>&nbsp;&nbsp;https://hifumialice.tistory.com/</h3>
+                <a class="blogMale" href="https://hifumialice.tistory.com/">
+                    <img class="blogImg"
+                        src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdgEvvJ%2FbtsGB2RcjLu%2FQFzSh5zafT9xg5PqC2lQn0%2Fimg.jpg"
+                        alt="https://hifumialice.tistory.com/">
+                </a>
+            </div>
+            <h3 class="blogHeadLine"> &nbsp;&nbsp;↑↑↑↑ 이미지 클릭 ↑↑↑↑</h3>
         </div>
     </div>
-    <div class="blog">
-        <h3>6. 자신의 블로그 주소</h3>
-        <h3 class="blogHeadLine"> &nbsp; &nbsp;↓↓↓↓ 블로그 링크 ↓↓↓↓</h3>
-        <div class="linkBox">
-            <h3>&nbsp;&nbsp;https://hifumialice.tistory.com/</h3>
-            <a class="blogMale" href="https://hifumialice.tistory.com/">
-                <img class="blogImg"
-                    src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdgEvvJ%2FbtsGB2RcjLu%2FQFzSh5zafT9xg5PqC2lQn0%2Fimg.jpg"
-                    alt="https://hifumialice.tistory.com/">
-            </a>
-        </div>
-        <h3 class="blogHeadLine"> &nbsp;&nbsp;↑↑↑↑ 이미지 클릭 ↑↑↑↑</h3>
-    </div>
+    
 </body>
 
 </html>
