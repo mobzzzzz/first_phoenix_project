@@ -38,7 +38,7 @@
 }
 /*하단 정보 속 아이콘 중 사람과 관련된 것 색상 */
 .icon-human{
-    color:wheat;
+    color:bisque;
 }
 /*하단 정보 속 아이콘 중 불 모양 색상 */
 .icon-fire{
@@ -47,4 +47,7 @@
 /*하단 정보 속 아이콘 중 블로그 모양 색상 */
 .icon-blog{
     color:orange;
+}
+.icon-github{
+    color:#24292F;
 }
