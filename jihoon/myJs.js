@@ -5,14 +5,10 @@ window.addEventListener('resize', function() {
 
   // 사용자가 리사이즈를 멈춘 후 250ms 후에 새로고침.
   resizeTimer = setTimeout(function() {
-    if(window.innerHeight<500)
-    {
-      document.getElementById('btn').style.fontSize='10px';
-      print.console.log("asd");
-    }
     window.location.reload();
   }, 250);
 });
+
   
 
 /*
@@ -23,11 +19,18 @@ const innerList = document.querySelector('.inner-list');
 const inners = document.querySelectorAll('.inner');
 let currentIndex = 0; // 현재 슬라이드 화면 인덱스
 
+if (window.innerHeight < 500) {
+  document.getElementById('btnlist').style.top = '10px';
+  document.getElementById('btnL').style.fontSize = '20px';
+  document.getElementById('btnR').style.fontSize = '20px';
+}
+
 inners.forEach((inner) => {
-  inner.style.width = `${outer.clientWidth}px`; // inner의 width를 모두 outer의 width로 만들기
+  inner.style.width = `${(outer.clientWidth==385)? outer.clientWidth+15 : outer.clientWidth}px`; // inner의 width를 모두 outer의 width로 만들기
 })
 
-innerList.style.width = `${outer.clientWidth * inners.length}px`; // innerList의 width를 inner의 width * inner의 개수로 만들기
+
+innerList.style.width = `${(outer.clientWidth==385)? (outer.clientWidth+15)*inners.length : outer.clientWidth * inners.length}px`; // innerList의 width를 inner의 width * inner의 개수로 만들기
 
 /*
   버튼에 이벤트 등록하기
