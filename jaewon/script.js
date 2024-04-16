@@ -30,5 +30,16 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function updateProfileImage(image) {
-  profileImage.src = image;
+  //   profileImage.classList.toggle("fade");
+  profileImage.classList.add("fade-out");
+  setTimeout(function () {
+    profileImage.src = image;
+
+    // profileImage.classList.toggle("fade");
+    profileImage.classList.remove("fade-out");
+    profileImage.classList.add("fade-in");
+    setTimeout(function () {
+      profileImage.classList.remove("fade-in");
+    }, 300);
+  }, 300);
 }
