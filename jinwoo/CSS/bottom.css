@@ -54,7 +54,7 @@
     color:#24292F;
 }
 /*TMI 버튼 위치*/
-#bottom-right-tmi-user-component{
+#bottom-right{
     display:flex;
     justify-content: right;
     align-items: end;
