@@ -1,8 +1,28 @@
-.profile_image {
-  text-align: center;
+.profile_image_container {
+  position: relative;
+
+  /* inline-block 으로 지정하면 컨텐츠만큼의 크기를 가지기 때문에 좌측정렬이 된다. 때문에 block 으로 지정해 가로 전체를 영역으로 지정한다. */
+  /* 만약 상위 container (예: body) align이 center라면 inline-block 으로 지정해도 중앙 정렬이 된다.*/
+  display: block;
   width: 20%;
   height: auto;
   margin: 50px auto 0 auto;
+}
+
+.profile_image_container > button {
+  position: absolute;
+  width: 30px;
+  background-color: rgb(0, 0, 0, 0.3);
+  height: 100%;
+  border: none;
+}
+
+#left_button {
+  left: 0;
+}
+
+#right_button {
+  right: 0;
 }
 
 .row {
@@ -17,8 +37,4 @@
 .icon {
   width: 22px;
   height: 22px;
-}
-
-body {
-  height: 100%;
 }
