@@ -31,7 +31,7 @@ function setItem(key, value) {//버튼클릭 시에 임시JSON에 값 저장
 
 ////////////////////////////////////////////////////////////////////////////
 //div사이즈 동적으로 세팅하는 기능//
-///////////////////////////
+////////////////////////////
 const outer = document.querySelector('.outer');
 const innerList = document.querySelector('.inner-list');
 const inners = document.querySelectorAll('.inner');
