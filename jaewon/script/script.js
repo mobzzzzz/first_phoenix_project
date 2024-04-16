@@ -4,9 +4,9 @@ let nextButton;
 
 document.addEventListener("DOMContentLoaded", function () {
   const profileImages = [
-    "profile_image1.jpeg",
-    "profile_image2.jpeg",
-    "profile_image3.jpeg",
+    "images/profile_image1.jpeg",
+    "images/profile_image2.jpeg",
+    "images/profile_image3.jpeg",
   ];
 
   var currentIndex = 0;
