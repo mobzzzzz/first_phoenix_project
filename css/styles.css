@@ -1,0 +1,25 @@
+.top_navigation {
+    background-color: darksalmon;
+}
+
+.top_navigation_span {
+    margin: 0 auto 0 auto;
+}
+
+.content_container {
+    margin-top: 30px;
+}
+
+.figure_introduction {
+    color: black;
+}
+
+.card_group_introduction {
+    width: 65%;
+    margin: 30px auto 0 auto;
+}
+
+.card-text {
+    padding: 30px auto 30px auto;
+    text-align: center;
+}
