@@ -13,7 +13,7 @@
         import { getFirestore } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
         import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
         import { getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-        import { doc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"
+        import { docs, setDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
         // Your web app's Firebase configuration
@@ -34,13 +34,10 @@
             let Text = $('#targetText').val();
             const collectionRef = db.collection('jihoon-objective');
             if (Text != '' && Text != null) {
-                let docu = { 'content': Text };
+                let doc = { 'content': Text };
                 $('#targetText').val('');
 
-                collectionRef.doc("asd").set({
-                   docu
-                });
-                //await addDoc(collection(db, "jihoon-objective"), doc);
+                await addDoc(collection(db, "jihoon-objective"), doc);
             }
             window.location.reload();
         })
@@ -50,7 +47,7 @@
             if (Text != '' && Text != null) {
                 let doc = { 'content': Text };
                 $('#GuestbookText').val('');
-                await addDoc(collection(db, `jihoon-guestbook/`), doc)
+                await setDoc(docs(db, "jihoon-guestbook/", `${index++}`), doc)
             }
             window.location.reload();
         })
