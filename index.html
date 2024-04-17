@@ -10,16 +10,77 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+        </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script >
 
 
+        // 함수로 버튼 클릭 동작 --> type이 모듈로 되서 의미 없어짐 나중에 지울 것
+        function goalAdd() {
+
+            let text = $('#goalText').val()
+            let addText = `            
+            <li>${text}</li>            
+            `;
+            // console.log(text)
+            $('#postinglist').append(addText)
+            // window.location.reload();
+        }
+
+        function guestAdd() {
+            let idInput = $('#nicknameInput').val()
+            let commentInput = $('#commentInput').val()
+
+            // 날짜 및 시간
+            let today = new Date();
+            let year = today.getFullYear();
+            let month = today.getMonth() + 1;
+            let day = today.getDate();
+            let hours = today.getHours(); // 시
+            let minutes = today.getMinutes();  // 분
+            let seconds = today.getSeconds();  // 초
+
+            let addText = `
+            <div class="commentList">
+                <p id="nicknameRead">${idInput}</p>
+                <p id="contentRead">${commentInput}</p>
+                <p id="timeRead">${year}-${month}-${day} ${hours}:${minutes}:${seconds}</p>                
+            </div>
+            `;
+            $('#postingGuest').append(addText)
+
+            
+
+            // 디버깅
+            // console.log("동작했다.");
+            // console.log(idInput);
+            // console.log(commentInput);
+            console.log(year);
+            console.log(month);
+            console.log(day);
+            console.log(hours);
+            console.log(minutes);
+            console.log(seconds);
+        }
+        function guestOpenClose() {
+            $(`#postingGuest`).toggle();
+            $(`#addGuest`).toggle();
+            if ($(`#postingGuest`).css("display") == "none") {
+                $(`#guestButton`).text("방명록 열기")
+            } else {
+                $(`#guestButton`).text("방명록 닫기")
+            }
+
+        }
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap');
 
         /* 소개 페이지 css */
         .subject {
-
+            /* width : 90vw; */
             color: white;
             background-color: gray;
             /* 안의 내용 가운데 정렬 */
@@ -31,18 +92,165 @@
             font-family: "Noto Serif KR", serif;
             font-weight: 400;
             font-style: normal;
+
         }
 
+        /* 자기소개 박스 */
         .indicate_box {
-            width: 1000px;
+            width: 80%;
             /* background-color: red; */
 
             margin: 40px auto 0 auto;
         }
+
+        /* 자기소개 박스의 이름 */
         .name {
             text-align: center;
-            font-size : 15px;
-            height : 10px;
+            font-size: 15px;
+            height: 10px;
+        }
+
+        /* 목표 박스 꾸미기*/
+        .goalBox {
+            width: 80%;
+            margin: 50px auto 0 auto;
+            /* background-color: green; */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .teamGoal {
+            background-color: pink;
+            text-align: center;
+
+            width: 80%;
+
+        }
+
+        .goalList {
+            margin-top: 15px;
+            /* background-color: yellow; */
+            width: 90%;
+            font-size: 20px;
+        }
+
+        #goalInput {
+            height: 50px;
+            /* background-color: red; */
+        }
+
+        #goalText {
+            border: 0px;
+            border-radius: 0%;
+            border-bottom: 2px solid rgb(0, 180, 180);
+            margin-right: 15px;
+            margin-left: 10px;
+            /* background-color: black; */
+            /* height: 25px; */
+        }
+
+        #goalInput>button {
+            background-color: rgb(246, 83, 210);
+            color: white;
+            border-radius: 0%;
+            margin-right: 10px;
+            /* height : 25px;
+            font-size:15px; */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #goalInput>p {
+            font-size: 25px;
+            margin: 0 0 0 5px;
+            height: 25px;
+
+        }
+
+        /*  방명록 꾸미기 */
+        .guestBox {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            margin: 50px auto 0 auto;
+
+            background-color: yellow;
+            width: 80vw;
+        }
+
+        /* 방명록 내역 꾸미기 */
+        .commentListBox {
+            border: 2px solid black;
+            width: 80%;
+            background-color: black;
+        }
+
+        .commentList {
+
+            background-color: green;
+            display: flex;
+            flex-direction: row;
+            /* align-items: center; */
+            justify-content: space-between;
+            width: 100%;
+
+        }
+
+        /* 작성자 내용 시간 영역 */
+        #nicknameRead {
+            text-align: center;
+            background-color: red;
+            width: 20%;
+        }
+
+        #contentRead {
+            text-align: center;
+            background-color: purple;
+            width: 60%;
+        }
+
+        #timeRead {
+            text-align: center;
+            width: 20%;
+            background-color: yellow;
+            height: 50px;
+        }
+
+        #guestButton {
+            width: 80%;
+            text-align: center;
+            height: 50px;
+            background-color: rgb(221, 120, 255);
+            margin-top: 20px;
+        }
+
+        .commentBox {
+            background-color: red;
+            width: 80%;
+            height: 150px;
+        }
+
+        #nicknameInput {
+            width: 90%;
+            margin: 25px auto 0 5%;
+        }
+
+        #commentInput {
+            width: 80%;
+            margin: 25px 10px 0 5%;
+            height: 30%;
+        }
+
+        .commentBox>button {
+            width: 10%;
+            height: 30%;
+            background-color: skyblue;
         }
     </style>
 </head>
@@ -56,60 +264,107 @@
         <div class="row row-cols-1 row-cols-md-4 g-4">
             <div class="col">
                 <div class="card h-100">
-                    <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdgEvvJ%2FbtsGB2RcjLu%2FQFzSh5zafT9xg5PqC2lQn0%2Fimg.jpg"
-                        class="card-img-top" alt="...">
+                    <a href="jinwoo/index.html"><img
+                            src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdgEvvJ%2FbtsGB2RcjLu%2FQFzSh5zafT9xg5PqC2lQn0%2Fimg.jpg"
+                            class="card-img-top" alt="이미지 오류"></a>
+
                     <div class="card-body">
                         <p class="card-title">한줄 소개</p>
-                        
-                    </div>                    
-                    <div class="card-footer" >
-                        <p class = "name">고진우</p>
+
+                    </div>
+                    <div class="card-footer">
+                        <p class="name">고진우</p>
                     </div>
                 </div>
             </div>
 
             <div class="col">
                 <div class="card h-100">
-                    <img src="jaewon/images/profile_image3.jpeg"
-                        class="card-img-top" alt="...">
+                    <a href="jihoon/index.html"><img src="jaewon/images/profile_image3.jpeg" class="card-img-top"
+                            alt="error"></a>
                     <div class="card-body">
                         <p class="card-title">한줄 소개</p>
-                        
-                    </div>                    
-                    <div class="card-footer" >
-                        <p class = "name">권지훈</p>
+
+                    </div>
+                    <div class="card-footer">
+                        <p class="name">권지훈</p>
                     </div>
                 </div>
             </div>
 
             <div class="col">
                 <div class="card h-100">
-                    <img src="jaewon/images/profile_image2.jpeg"
-                        class="card-img-top" alt="...">
+                    <a href="jaewon/mypage.html"><img src="jaewon/images/profile_image2.jpeg" class="card-img-top"
+                            alt="..."></a>
                     <div class="card-body">
                         <p class="card-title">한줄 소개</p>
-                        
-                    </div>                    
-                    <div class="card-footer" >
-                        <p class = "name">노재원</p>
+
+                    </div>
+                    <div class="card-footer">
+                        <p class="name">노재원</p>
                     </div>
                 </div>
             </div>
 
             <div class="col">
                 <div class="card h-100">
-                    <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdgEvvJ%2FbtsGB2RcjLu%2FQFzSh5zafT9xg5PqC2lQn0%2Fimg.jpg"
-                        class="card-img-top" alt="...">
+                    <a href="minsoo/index.html"><img
+                            src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdgEvvJ%2FbtsGB2RcjLu%2FQFzSh5zafT9xg5PqC2lQn0%2Fimg.jpg"
+                            class="card-img-top" alt="..."></a>
                     <div class="card-body">
                         <p class="card-title">한줄 소개</p>
-                        
-                    </div>                    
-                    <div class="card-footer" >
-                        <p class = "name">최민수</p>
+
+                    </div>
+                    <div class="card-footer">
+                        <p class="name">최민수</p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="goalBox">
+        <div class="teamGoal">
+            <h3>팀의 목표</h3>
+        </div>
+        <div class="goalList">
+            <ul id="postinglist">
+                <li>목표1</li>
+                <li>목표2</li>
+                <li>목표3</li>
+            </ul>
+            <div class="input-group mb-3" id="goalInput">
+                <p>+</p>
+                <input type="text" class="form-control" placeholder="" aria-label="content"
+                    aria-describedby="button-addon2" id="goalText">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2"
+                    onclick="goalAdd()">추가</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="guestBox">
+        <div class="commentListBox" id="postingGuest" style="display: none;">
+            <div class="commentList">
+                <p id="nicknameRead">작성자</p>
+                <p id="contentRead">내용</p>
+                <p id="timeRead">시간</p>
+                <!-- <h2>작성된 것</h2> -->
+            </div>
+            <!-- <div class="commentList">
+                <p id="nicknameRead">작성자</p>
+                <p id="contentRead">내용</p>
+                <p id="timeRead">시간</p>
+                
+            </div> -->
+        </div>
+
+        <div class="commentBox" id="addGuest" style="display: none;">
+            <input type="email" id="nicknameInput" placeholder="별명">
+            <input type="text" id="commentInput" placeholder="내용">
+            <button onclick="guestAdd()">추가</button>
+        </div>
+        <button id="guestButton" onclick="guestOpenClose()">방명록 열기</button>
     </div>
 </body>
 
