@@ -32,12 +32,11 @@
         let index=0;
         $("#btnTarget").click(async function () {
             let Text = $('#targetText').val();
-            const collectionRef = db.collection('jihoon-objective');
             if (Text != '' && Text != null) {
                 let docs = { 'content': Text };
                 $('#targetText').val('');
                 let ind = index.toString();
-                await setDoc(doc(db, "jihoon-objective",ind), docs)
+                await setDoc(doc(db, "jihoon-objective",index.toString()), docs)
             }
             window.location.reload();
         })
@@ -48,7 +47,7 @@
                 let docs = { 'content': Text };
                 $('#GuestbookText').val('');
                 let ind = index.toString();
-                await setDoc(doc(db, "jihoon-guestbook", ind), docs)
+                await setDoc(doc(db, "jihoon-guestbook", index.toString()), docs)
             }
             window.location.reload();
         })
