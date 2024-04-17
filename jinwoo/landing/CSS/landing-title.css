@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    animation:phoenix-descent 5s backwards ease-out;
 }
 #landing-title-text{
     font-size:4vw;

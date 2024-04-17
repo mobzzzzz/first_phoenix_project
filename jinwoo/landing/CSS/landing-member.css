@@ -8,4 +8,5 @@
     border:1px solid #C5C0B8;
     font-size:1vw;
     padding:1% 2%;
+    animation:move-right-to-left-text 2s backwards ease-out;
 }

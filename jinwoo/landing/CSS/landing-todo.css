@@ -2,6 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    animation:opacity-effect 3s ease-out backwards;
+    animation-delay:3s;
 }
 #landing-todo-outer{
     width:50vw;
