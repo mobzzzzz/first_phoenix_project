@@ -13,7 +13,7 @@
         import { getFirestore } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
         import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
         import { getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-        import { docs, setDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"
+        import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
         // Your web app's Firebase configuration
@@ -34,10 +34,10 @@
             let Text = $('#targetText').val();
             const collectionRef = db.collection('jihoon-objective');
             if (Text != '' && Text != null) {
-                let doc = { 'content': Text };
+                let docs = { 'content': Text };
                 $('#targetText').val('');
-
-                await addDoc(collection(db, "jihoon-objective"), doc);
+                let ind = index.toString();
+                await setDoc(doc(db, "jihoon-objective",ind), docs)
             }
             window.location.reload();
         })
@@ -45,9 +45,10 @@
         $("#btnGuestbook").click(async function () {
             let Text = $('#GuestbookText').val();
             if (Text != '' && Text != null) {
-                let doc = { 'content': Text };
+                let docs = { 'content': Text };
                 $('#GuestbookText').val('');
-                await setDoc(docs(db, "jihoon-guestbook/", `${index++}`), doc)
+                let ind = index.toString();
+                await setDoc(doc(db, "jihoon-guestbook", ind), docs)
             }
             window.location.reload();
         })
@@ -55,14 +56,14 @@
        
         
         let guestbook =  await getDocs(collection(db, "jihoon-guestbook"));
-        guestbook.forEach((doc) => {
-            if (doc.data()['content'] != null && doc.data()['content'] != "") {
-                let row = doc.data();
+        guestbook.forEach((docs) => {
+            if (docs.data()['content'] != null && docs.data()['content'] != "") {
+                let row = docs.data();
                 console.log(row);
                 let text = `
             <div id="collapseGuestbook" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                    <strong>${doc.data()['content']}</strong>
+                    <strong>${docs.data()['content']}</strong>
                 </div>
             </div>`;
                 $('#guestbookItem').append(text)
@@ -70,29 +71,20 @@
         });
 
         let objective = await getDocs(collection(db, "jihoon-objective"));
-        objective.forEach((doc) => {
-            if (doc.data()['content'] != null && doc.data()['content'] != "") {
-                let row = doc.data();
+        objective.forEach((docs) => {
+            if (docs.data()['content'] != null && docs.data()['content'] != "") {
+                let row = docs.data();
                 console.log(row);
                 let text = `
             <div id="collapseTarget" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                    <strong>${doc.data()['content']}</strong>
+                    <strong>${docs.data()['content']}</strong>
                 </div>
             </div>`;
                 $('#targetItem').append(text)
             }
         });
 
-        $("#asd").click(async function () {
-            let objective = await getDocs(collection(db, "jihoon-objective"));
-            await deleteDoc(doc(db, 'content', "DC"))
-            window.location.reload();
-        })
-
-        function divReload(divId) {
-            $(divId).load(window.location.href + divId);
-        }
     </script>
 
 </head>
