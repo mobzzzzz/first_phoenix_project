@@ -14,12 +14,20 @@
         </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <link rel="stylesheet" href="css/all_css.css">
+    <!-- <script src="javaScript/all_script.js" type="module" ></script>
+    <script type="module">
+        import {hello} from '/javaScript/all_script';
+        hello();
+    </script> -->
+    
     <script type="module">
 
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
         import { getFirestore } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
         import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+        import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"; // 문서 이름을 지정할 수 있게
         import { getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
@@ -41,30 +49,33 @@
         // 목표 저장하기
         $("#button1").click(async function () {
             let text = $('#goalText').val()
-            let doc = { "content": text };
-            await addDoc(collection(db, "minsu-objective"), doc);
-            window.location.reload(); // 화면을 다시 불러와서 남아있는거 없애기
-
-            // 디버깅
-            // console.log("작동함")
-            // alert("목표 저장 완료");
-
+            if (text == "") {
+                // console.log("비어있음")
+                alert("목표를 입력해주세요!");
+            } else {
+                let docs = { "content": text };
+                // await adds(collection(db, "minsu-objective"), doc);
+                let today = new Date();
+                let time = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate()}${today.getHours()}${today.getMinutes()}${today.getSeconds()}`;
+                await setDoc(doc(db,"minsu-objective",time),docs);
+                window.location.reload(); // 화면을 다시 불러와서 남아있는거 없애기
+            }
         })
 
         // 목표 가져오기
         let docs_goal = await getDocs(collection(db, "minsu-objective"));
         docs_goal.forEach(element => {
             let rows = element.data();
-            console.log(rows["content"])
-            let addText = `            
-            <li>${rows["content"]}</li>            
+            // console.log(rows["content"])
+            let addText = `
+            <li>${rows["content"]}</li>
             `;
             $('#postinglist').append(addText)
         });
 
         // 토글 
         $("#guestButton").click(async function () {
-            console.log("열자")
+            // console.log("열자")
             $(`#postingGuest`).toggle();
             $(`#addGuest`).toggle();
             $(`#guestSubject`).toggle();
@@ -88,20 +99,28 @@
             let hours = today.getHours(); // 시
             let minutes = today.getMinutes();  // 분
             let seconds = today.getSeconds();  // 초
-
-            let doc = { 
-                "idInput": idInput ,
-                "commentInput": commentInput ,
-                "year": year ,
-                "month": month ,
-                "day": day ,
-                "hours": hours ,
-                "minutes": minutes ,
-                "seconds": seconds 
-            };
-            await addDoc(collection(db, "minsu-guestbook"), doc);
-            window.location.reload(); // 화면을 다시 불러와서 남아있는거 없애기
             
+            if (idInput=="" || commentInput==""){
+                alert("별명 또는 댓글을 입력해주세요!");
+            } else {
+                let docs = {
+                "idInput": idInput,
+                "commentInput": commentInput,
+                "year": year,
+                "month": month,
+                "day": day,
+                "hours": hours,
+                "minutes": minutes,
+                "seconds": seconds
+            };
+            // await addDoc(collection(db, "minsu-guestbook"), doc);
+    
+            let time = `${year}${month}${day}${hours}${minutes}${seconds}`;
+            await setDoc(doc(db,"minsu-objective",time),docs);
+            window.location.reload(); // 화면을 다시 불러와서 남아있는거 없애기
+            }
+            
+
             // 디버깅
             // console.log("작동함")
             // alert("목표 저장 완료");
@@ -110,267 +129,23 @@
 
         // 방명록 가져오기
         let docs_guest = await getDocs(collection(db, "minsu-guestbook"));
+
         docs_guest.forEach(element => {
             let rows = element.data();
-            console.log(rows["idInput"])
+            // console.log(rows["idInput"])
             let addText = `
-            <div class="commentList">
-                <p id="nicknameRead">${rows["idInput"]}</p>
-                <p id="contentRead">${rows["commentInput"]}</p>
-                <p id="timeRead">${rows["year"]}-${rows["month"]}-${rows["day"]} ${rows["hours"]}:${rows["minutes"]}:${rows["seconds"]}</p>                
-            </div>
-            `;
+    <div class="commentList">
+        <p id="nicknameRead">${rows["idInput"]}</p>
+        <p id="contentRead">${rows["commentInput"]}</p>
+        <p id="timeRead">${rows["year"]}-${rows["month"]}-${rows["day"]} ${rows["hours"]}:${rows["minutes"]}:${rows["seconds"]}</p>
+    </div>
+    `;
             $('#postingGuest').append(addText)
         });
+
         // 동작하기 끝
 
-
-        // 함수로 버튼 클릭 동작 --> type이 모듈로 되서 의미 없어짐 나중에 지울 것
-        function goalAdd() {
-
-            let text = $('#goalText').val()
-            let addText = `            
-            <li>${text}</li>            
-            `;
-            // console.log(text)
-            $('#postinglist').append(addText)
-            // window.location.reload();
-        }
-
-        function guestAdd() {
-            let idInput = $('#nicknameInput').val()
-            let commentInput = $('#commentInput').val()
-
-            // 날짜 및 시간
-            let today = new Date();
-            let year = today.getFullYear();
-            let month = today.getMonth() + 1;
-            let day = today.getDate();
-            let hours = today.getHours(); // 시
-            let minutes = today.getMinutes();  // 분
-            let seconds = today.getSeconds();  // 초
-
-            let addText = `
-            <div class="commentList">
-                <p id="nicknameRead">${idInput}</p>
-                <p id="contentRead">${commentInput}</p>
-                <p id="timeRead">${year}-${month}-${day} ${hours}:${minutes}:${seconds}</p>                
-            </div>
-            `;
-            $('#postingGuest').append(addText)
-
-
-
-            // 디버깅
-            // console.log("동작했다.");
-            // console.log(idInput);
-            // console.log(commentInput);
-            // console.log(year);
-            // console.log(month);
-            // console.log(day);
-            // console.log(hours);
-            // console.log(minutes);
-            // console.log(seconds);
-        }
-        function guestOpenClose() {
-            $(`#postingGuest`).toggle();
-            $(`#addGuest`).toggle();
-            if ($(`#postingGuest`).css("display") == "none") {
-                $(`#guestButton`).text("방명록 열기")
-            } else {
-                $(`#guestButton`).text("방명록 닫기")
-            }
-
-        }
     </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap');
-
-        /* 소개 페이지 css */
-        .subject {
-            /* width : 90vw; */
-            color: white;
-            background-color: gray;
-            /* 안의 내용 가운데 정렬 */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            /* 폰트 적용 */
-            font-family: "Noto Serif KR", serif;
-            font-weight: 400;
-            font-style: normal;
-
-        }
-
-        /* 자기소개 박스 */
-        .indicate_box {
-            width: 80%;
-            /* background-color: red; */
-
-            margin: 40px auto 0 auto;
-        }
-
-        /* 자기소개 박스의 이름 */
-        .name {
-            text-align: center;
-            font-size: 15px;
-            height: 10px;
-        }
-
-        /* 목표 박스 꾸미기*/
-        .goalBox {
-            width: 80%;
-            margin: 50px auto 0 auto;
-            /* background-color: green; */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .teamGoal {
-            background-color: pink;
-            text-align: center;
-
-            width: 80%;
-
-        }
-
-        .goalList {
-            margin-top: 15px;
-            /* background-color: yellow; */
-            width: 90%;
-            font-size: 20px;
-        }
-
-        #goalInput {
-            height: 50px;
-            /* background-color: red; */
-        }
-
-        #goalText {
-            border: 0px;
-            border-radius: 0%;
-            border-bottom: 2px solid rgb(0, 180, 180);
-            margin-right: 15px;
-            margin-left: 10px;
-            /* background-color: black; */
-            /* height: 25px; */
-        }
-
-        #goalInput>button {
-            background-color: rgb(246, 83, 210);
-            color: white;
-            border-radius: 0%;
-            margin-right: 10px;
-            /* height : 25px;
-            font-size:15px; */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #goalInput>p {
-            font-size: 25px;
-            margin: 0 0 0 5px;
-            height: 25px;
-
-        }
-
-        /*  방명록 꾸미기 */
-        .guestBox {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-
-            margin: 50px auto 0 auto;
-
-            /* background-color: yellow; */
-            width: 80vw;
-        }
-
-        /* 방명록 내역 꾸미기 */
-        #guestSubject {
-            background-color: gray;
-            margin-bottom: 5px;;
-            width: 80%;
-            text-align: center;
-        }
-        .commentListBox {
-            /* border: 2px solid black; */
-            width: 80%;
-            /* background-color: black; */
-        }
-
-        .commentList {
-
-            /* background-color: green; */
-            display: flex;
-            flex-direction: row;
-            /* align-items: center; */
-            justify-content: space-between;
-            width: 100%;
-
-        }
-
-        /* 작성자 내용 시간 영역 */
-        
-        #nicknameRead {
-            text-align: center;
-            /* background-color: red; */
-            width: 20%;
-            border:1px solid black;
-        }
-
-        #contentRead {
-            text-align: center;
-            /* background-color: purple; */
-            width: 60%;
-            border:1px solid black;
-        }
-
-        #timeRead {
-            text-align: center;
-            width: 20%;
-            /* background-color: yellow; */
-            height: 50px;
-            border:1px solid black;
-        }
-
-        #guestButton {
-            width: 80%;
-            text-align: center;
-            height: 50px;
-            background-color: rgb(221, 120, 255);
-            margin-top: 20px;
-        }
-
-        .commentBox {
-            background-color: rgb(177, 71, 142);
-            width: 80%;
-            height: 150px;
-        }
-
-        #nicknameInput {
-            width: 90%;
-            margin: 25px auto 0 5%;
-        }
-
-        #commentInput {
-            width: 80%;
-            margin: 25px 10px 0 5%;
-            height: 30%;
-        }
-
-        .commentBox>button {
-            width: 10%;
-            height: 30%;
-            background-color: skyblue;
-        }
-    </style>
 </head>
 
 <body>
@@ -476,9 +251,9 @@
         <div class="commentBox" id="addGuest" style="display: none;">
             <input type="email" id="nicknameInput" placeholder="별명">
             <input type="text" id="commentInput" placeholder="내용">
-            <button id="guestAdd" >추가</button> <!-- onclick="guestAdd()" -->
+            <button id="guestAdd">추가</button> <!-- onclick="guestAdd()" -->
         </div>
-        <button id="guestButton" >방명록 열기</button> <!-- onclick="guestOpenClose()" -->
+        <button id="guestButton">방명록 열기</button> <!-- onclick="guestOpenClose()" -->
     </div>
 </body>
 
