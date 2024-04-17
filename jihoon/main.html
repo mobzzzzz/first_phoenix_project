@@ -8,6 +8,67 @@
     <link rel="stylesheet" href="mainCss.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+        import { getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDz4wh7z369v-whnyYeWaI3quPab2hxFmA",
+            authDomain: "phoenix-first-project.firebaseapp.com",
+            projectId: "phoenix-first-project",
+            storageBucket: "phoenix-first-project.appspot.com",
+            messagingSenderId: "943608506043",
+            appId: "1:943608506043:web:c6dc699ceedf5090406b9e"
+        };
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        $("#btnTarget").click(async function () {
+            let Text = $('#targetText').val();
+            let doc = { 'content': Text };
+            $('#targetText').val('');
+            await addDoc(collection(db, "jihoon-objective"), doc);
+        })
+
+        $("#btnGuestbook").click(async function () {
+            let Text = $('#GuestbookText').val();
+            let doc = { 'content': Text };
+            $('#GuestbookText').val('');
+            await addDoc(collection(db, "jihoon-guestbook"), doc);
+        })
+
+        let guestbook = await getDocs(collection(db, "jihoon-guestbook"));
+        guestbook.forEach((doc) => {
+            let row = doc.data();
+            console.log(row);
+            let text=`
+            <div id="collapseGuestbook" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>${doc.data()['content']}</strong>
+                </div>
+            </div>`;
+            $('#guestbookItem').append(text)
+        }); 
+
+        let objective = await getDocs(collection(db, "jihoon-objective"));
+        objective.forEach((doc) => {
+            let row = doc.data();
+            console.log(row);
+            let text=`
+            <div id="collapseTarget" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>${doc.data()['content']}</strong>
+                </div>
+            </div>`;
+            $('#targetItem').append(text)
+        }); 
+    </script>
+
 </head>
 
 <body>
@@ -20,7 +81,7 @@
                 <p class="card-text">조장의 정석! 조정석!</p>
             </div>
             <div class="card-footer">
-                <small class="text-body-secondary">Last updated 3 mins ago</small>
+                <small class="text-body-secondary">블로그 가보자고!</small>
             </div>
         </div>
         <div class="card">
@@ -31,7 +92,7 @@
                 <p class="card-text">Css재밌다! 씨잼!</p>
             </div>
             <div class="card-footer">
-                <small class="text-body-secondary">Last updated 3 mins ago</small>
+                <small class="text-body-secondary">블로그 가보자고!</small>
             </div>
         </div>
         <div class="card">
@@ -39,10 +100,10 @@
                 class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">최민수</h5>
-                <p class="card-text">알고리즘 라이브코딩! 알라!</p>
+                <p class="card-text">장애, 원인분석, young! 장원영!</p>
             </div>
             <div class="card-footer">
-                <small class="text-body-secondary">Last updated 3 mins ago</small>
+                <small class="text-body-secondary">블로그 가보자고!</small>
             </div>
         </div>
         <div class="card">
@@ -53,9 +114,69 @@
                 <p class="card-text">안녕하세요 권지훈입니다.</p>
             </div>
             <div class="card-footer">
-                <small class="text-body-secondary">Last updated 3 mins ago</small>
+                <small class="text-body-secondary">블로그 입니다.</small>
             </div>
         </div>
     </div>
+
+    <div class="accordionTarget" id="accordionTarget">
+        <div class="accordion-item" id="targetItem">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseTarget" aria-expanded="false" aria-controls="collapseTwo">
+                    우리의 목표
+                </button>
+            </h2>
+            <div id="collapseTarget" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>여기서 내용읽기</strong>
+                </div>
+            </div>
+            <div id="collapseTarget" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>여기서 내용읽기</strong>
+                </div>
+            </div>
+            <div id="collapseTarget" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>여기서 내용읽기</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="input-group mb-3" id="initTarget">
+        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
+            aria-describedby="btnTarget" id='targetText'>
+        <button class="btn btn-outline-secondary" type="button" id="btnTarget">추가</button>
+    </div>
+
+
+    <div class="accordionGuestbook" id="accordionGuestbook">
+        <div class="accordion-item" id="guestbookItem">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseGuestbook" aria-expanded="false" aria-controls="collapseTwo">
+                    여기서 방명록
+                </button>
+            </h2>
+            <div id="collapseGuestbook" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>여기서 내용읽기</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="input-group mb-3" id="initGuestbook">
+        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
+            aria-describedby="btnGuestbook" id='GuestbookText'>
+        <button class="btn btn-outline-secondary" type="button" id="btnGuestbook">추가</button>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="mainJs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

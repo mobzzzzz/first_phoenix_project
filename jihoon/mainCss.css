@@ -2,4 +2,24 @@
     width: 70vw;
     position: absolute;
     left: 15%;
+    top: 10%;
+    text-align: center;
+}
+
+#accordionTarget{
+    width: 70vw;
+    position: absolute;
+    left: 15%;
+    top: 60%;
+}
+
+#accordionGuestbook
+{
+    width: 70vw;
+    top: 100%;
+}
+
+#initTarget{
+    width: 70vw;
+    margin-bottom: 20px;
 }
