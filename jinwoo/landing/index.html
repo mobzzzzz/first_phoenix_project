@@ -59,16 +59,16 @@
     <nav id="landing-member">
         <ul class="nav__list">
             <li class="nav__btn">
-                <a class="nav__link" href="friends.html"><abbr title="친구"><img src="">예시1</abbr></a>
+                <a class="nav__link" href="friends.html"><abbr title="사이트 만들기 원툴.."><img src="">고진우</abbr></a>
             </li>
             <li class="nav__btn">
-                <a class="nav__link" href="friends.html"><abbr title="친구"><img src="">예시2</abbr></a>
+                <a class="nav__link" href="friends.html"><abbr title="팀장님!"><img src="">노재원</abbr></a>
             </li>
             <li class="nav__btn">
-                <a class="nav__link" href="friends.html"><abbr title="친구"><img src="">예시3</abbr></a>
+                <a class="nav__link" href="friends.html"><abbr title="알고리즘 고수!"><img src="">권지훈</abbr></a>
             </li>
             <li class="nav__btn">
-                <a class="nav__link" href="friends.html"><abbr title="친구"><img src="">예시4</abbr></a>
+                <a class="nav__link" href="friends.html"><abbr title="알고리즘 고수!"><img src="">최민수</abbr></a>
             </li>
         </ul>
     </nav>
@@ -96,28 +96,64 @@
 
     <div id="landing-post">
         <div id="landing-post-box">
-            <div>
-                새가 전달해주는 편지 <i class="fas fa-scroll"></i> (전서구)
+            <div id="landing-post-title-box">
+                <div id="landing-post-title">새가 전달해주는 편지 <i class="fas fa-scroll"></i> (전서구)</div>
             </div>
-            <div id="landing-post-write">
+            <form id="landing-post-write">
                 <div>
-                    <div>nickname</div>
+                    <input type="text" maxlength="5" style="word-wrap:break-word" placeholder="나는"
+                        id="landing-post-write-nickname" class="btn btn-outline-info">
                 </div>
                 <div>
-                    <div>
-                        내용
+                    <div id="landing-post-write-content">
+                        <input type="text" maxlength="40" placeholder="하고 싶은 말은.." id="landing-post-write-content"
+                            class="btn btn-outline-success">
                     </div>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-outline-success">새 날리기 <i
-                            class="fas fa-file-import"></i></button>
+                    <button id="landing-post-write-content-button" type="button" class="btn btn-outline-success">새 날리기
+                        <i class="fas fa-file-import"></i></button>
                 </div>
-            </div>
+            </form>
             <div id="landing-post-read">
-                <div>
-                    방명록 내용 띄우기
+                <div id="landing-post-read-main">
+                    <div><i id="landing-post-read-icon-bird" class="fa-solid fa-dove"></i></div>
+                    <div id="landing-post-read-box">
+                        <div id="landing-post-read-nickname">@Nickname <span
+                                id="landing-post-read-write-date">4월17일3시22분</span>
+                        </div>
+                        <div id="landing-post-read-content">
+                            <div>
+                                <span id="landing-post-read-content-text">최강 불사조의 페이지의 댓글입니다. 화이팅 화이팅 입니다.</span>
+                            </div>
+                            <div>
+                                <button id="landing-post-read-content-button" type="button" class="btn btn-danger">새
+                                    복귀요청</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
+        </div>
+    </div>
+
+    <div>
+        <div>
+            공지사항
+        </div>
+    </div>
+    <div>
+        <div>
+            Parteners
+        </div>
+        <div>
+            Developers
+        </div>
+    </div>
+    <div>
+        <div>
+            회사 소개
         </div>
 
     </div>
