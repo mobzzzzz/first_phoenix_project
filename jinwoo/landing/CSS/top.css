@@ -1,0 +1,21 @@
+/*상단 메인*/
+#top {
+    height:10%;
+    display:flex;
+    align-items: start;
+    justify-content: right;
+    margin : 5% 5% 0% 0%;
+}
+/*우측 상단 MBTI 부분 애니메이션 적용*/
+#top-right-mbti-box{
+    animation:move-top-to-bottom 1.5s ease-out backwards;
+    animation-delay:4s;
+}
+/*우측 상단 MBTI 부분 제목 폰트 사이즈*/
+#top-right-mbti-title{
+    font-size:45px;
+}
+/*우측 상단 MBTI 부분 제목 외 내용 폰트 사이즈*/
+.top-right-mbti-items{
+    font-size:35px;
+}

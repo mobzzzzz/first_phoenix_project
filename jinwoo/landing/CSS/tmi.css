@@ -1,0 +1,19 @@
+#tmi-user-component{
+    position : fixed;
+    width:500px;
+    height:600px;
+    top:30%;
+    left:35%;
+    background:white;
+}
+.bottom-right-tmi-user-component{
+    display: flex;
+    justify-content: left;
+    margin-bottom: 5px;
+}
+.bottom-right-tmi-user-component-subtitle{
+    width:50px;
+}
+#bottom-right-tmi-user-component-del-btn{
+    width:100%
+}

@@ -1,0 +1,28 @@
+/*중단 메인*/
+#middle {
+    height:40%;;
+    display: flex;
+    flex-direction: row;
+}
+/*중단 좌측 사용자 이름 부분*/
+#middle-left-username-box{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    width:30%;
+    font-size:70px;
+    margin-left:5%;
+    animation : move-left-to-right-text 1.5s ease-out;
+    
+}
+/*중단 우측 좌우명 부분*/
+#middle-rihgt-usermotto-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    font-size:95px;
+    animation:opacity-effect 3s backwards;
+    animation-delay: 2s;
+}

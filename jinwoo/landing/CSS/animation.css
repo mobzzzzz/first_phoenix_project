@@ -1,0 +1,51 @@
+/*위에서 아래로 내려오는 애니메이션(투명도 변화) */
+@keyframes move-top-to-bottom{
+    from{
+        position : relative;
+        top : -500px;
+        opacity:0%;
+    }
+    to{
+        position : relative;
+        top : 0px;
+        opacity:100%;
+
+    }
+}
+/*왼쪽에서 오른쪽으로 이동하는 애니메이션(투명도 변화) */
+@keyframes move-left-to-right-text {
+    from{
+        position:relative;
+        left:-500px;
+        opacity:0%;
+    }
+    to{
+        position:relative;
+        left:0px;
+        opacity:100%;
+
+    }
+    
+}
+/*아래에서 위로 이동하는 애니메이션(투명도 변화) */
+@keyframes move-bottom-to-top-info{
+    from{
+        position : relative;
+        bottom : -1000px;
+        opacity:0%;
+    }
+    to{
+        position : relative;
+        bottom:0px;
+        opacity:100%;
+    }
+}
+/* 순수 투명도 변화 */
+@keyframes opacity-effect{
+    from{ 
+        opacity:0%;
+    }
+    to{
+        opacity:100%;
+    }
+}
