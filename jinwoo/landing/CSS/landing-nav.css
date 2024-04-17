@@ -1,0 +1,11 @@
+#landing-nav{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80vw;
+    height: 6vw;
+    margin: 3% auto;
+    border:1px solid #C5C0B8;
+    font-size:100%;
+    padding:2.5% 2%;
+}

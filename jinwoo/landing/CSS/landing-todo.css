@@ -1,0 +1,31 @@
+#landing-todo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#landing-todo-outer{
+    width:50vw;
+    height:auto;
+    border-radius: 5%;
+}
+#landing-todo-title-box{
+    display: flex;
+    justify-content: center;
+    width:100%;
+    padding: 1% 0%;
+    border:1px solid #C5C0B8;
+}
+#landing-todo-title-text{
+    font-size:1.3vw;
+}
+#landing-todo-content-box{
+    display: flex;
+    flex-direction: column;
+}
+.landing-todo-content-list-item{
+    font-size:1vw;
+}
+.landing-todo-content-button-add{
+    width:100%;
+    height:2vw;
+}

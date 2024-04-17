@@ -1,0 +1,23 @@
+#landing-introduce{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#lading-introduce-outer{
+    width:50vw;
+    height:300px;
+    display:flex;
+    flex-direction: column ;
+    justify-content: left;
+    align-items: center;
+    border : 1px solid #C5C0B8;
+}
+#lading-introduce-title{
+    border-bottom : 1px solid #C5C0B8;
+    padding : 8px 0px;
+    margin-bottom:10px;
+    font-size:2.2vw;
+}
+#lading-introduce-content{
+    font-size:1.5vw;
+}
