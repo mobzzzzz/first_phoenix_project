@@ -8,8 +8,9 @@ $("#landing-nav-button-todo").click(function(){
     window.scroll({top:600,behavior: "smooth"})
 })
 $("#landing-nav-button-post").click(function(){
-    window.scroll({top:820,behavior: "smooth"})
+    window.scroll({top:5000,behavior: "smooth"})
 })
+
 
 $("#landing-nav-button-scroll-up").click(function(){
     window.scroll({top:0,behavior: "smooth"})

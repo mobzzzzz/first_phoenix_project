@@ -24,8 +24,19 @@
     display: flex;
     flex-direction: column;
 }
+#landing-todo-read-content{
+    display: flex;
+    justify-content: space-between;
+}
+.landing-todo-content-list-item-box{
+    margin-top:1vh;
+    margin-bottom: 2vh;
+}
 .landing-todo-content-list-item{
     font-size:1vw;
+}
+#landing-todo-content-form{
+    margin:5vh 0vh;
 }
 .landing-todo-content-button-add{
     display: flex;
@@ -35,5 +46,7 @@
     width:50vw;
     height:2.2vw;
     font-size:1vw;
-
+}
+#laning-todo-content-write-button{
+    margin-bottom:1%;
 }

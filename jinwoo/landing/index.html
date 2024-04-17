@@ -28,6 +28,69 @@
     <script src="https://kit.fontawesome.com/f7affbdaa9.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <script type="module">
+        // Firebase SDK 라이브러리 가져오기
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+        import { getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+        import {
+            doc,
+            deleteDoc,
+        } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDz4wh7z369v-whnyYeWaI3quPab2hxFmA",
+            authDomain: "phoenix-first-project.firebaseapp.com",
+            projectId: "phoenix-first-project",
+            storageBucket: "phoenix-first-project.appspot.com",
+            messagingSenderId: "943608506043",
+            appId: "1:943608506043:web:c6dc699ceedf5090406b9e"
+        };
+
+
+        // Firebase 인스턴스 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        $("#landing-todo-content-write-button").click(async function () {
+            let doc = {
+                'content': $("#landing-todo-content-write-input").val()
+            };
+            await addDoc(collection(db, "jinwoo-objective"), doc);
+            alert("항해를 시작합니다");
+            window.location.reload();
+        })
+
+        let docs = await getDocs(collection(db, "jinwoo-objective"));
+        docs.forEach((doc) => {
+            let rows = doc.data();
+            let content = rows["content"];
+            let docid = doc.id;
+            console.dir(doc)
+
+            let todo_html = ` <div id="landing-todo-read-content">
+                <div class="landing-todo-content-list-item-box">
+                    <span class="landing-todo-content-list-item"><i class="fa-solid fa-sailboat"></i> ${content} </span>
+                </div>
+                <div class="landing-todo-content-list-item-box">
+                    <button id="landing-todo-content-list-item-delete-button" type="button"
+                        class="btn btn-danger"><i class="fas fa-anchor"></i>항해 종료 <span style ="display:none">${docid}</span></button>
+                </div>
+            </div>`;
+            $("#landing-todo-content-list").append(todo_html);
+        });
+        $(document).on("click", "#landing-todo-content-list-item-delete-button", async function (delevent) {
+            let deldocid = delevent.target.children["1"].innerHTML;
+            await deleteDoc(doc(db, "jinwoo-objective", deldocid));
+            alert("항해 종료");
+            window.location.reload();
+        });
+
+
+
+    </script>
 </head>
 
 <body>
@@ -83,19 +146,33 @@
         <div id="landing-todo-outer">
             <div id="landing-todo-title-box">
                 <div id="landing-todo-title-text">
-                    항해 지도 <i class="fas fa-ship"></i>
+                    항해 지도 / 무엇을 향해 가나요? <i class="fas fa-ship"></i>
                 </div>
             </div>
             <div id="landing-todo-content-box">
-                <ul id="landing-todo-content-list">
-                    <li class="landing-todo-content-list-item">목표 1 <i class="fas fa-anchor"></i></li>
-                    <li class="landing-todo-content-list-item">목표 1 <i class="fas fa-anchor"></i></li>
-                    <li class="landing-todo-content-list-item">목표 1 <i class="fas fa-anchor"></i></li>
-                </ul>
-                <div>
-                    <button type="button" class="btn btn-primary landing-todo-content-button-add">
-                        <span class="landing-todo-content-button-add">출항하라!</span></button>
+
+                <div id="landing-todo-content-list">
+
+                    <div id="landing-todo-read-content">
+                        <div class="landing-todo-content-list-item-box">
+                            <span class="landing-todo-content-list-item"><i class="fa-solid fa-sailboat"></i> 최강 불사조의
+                                페이지의 댓글입니다. 화이팅 화이팅 입니다.</span>
+                        </div>
+                        <div class="landing-todo-content-list-item-box">
+                            <button id="landing-todo-content-list-item-delete-button" type="button"
+                                class="btn btn-danger"><i class="fas fa-anchor"></i>항해 종료</button>
+                        </div>
+                    </div>
+
                 </div>
+
+                <form id="landing-todo-content-form">
+                    <input type="text" maxlength="40" placeholder="항로 설정, 돛 펼치기" id="landing-todo-content-write-input"
+                        class="btn btn-outline-primary landing-todo-content-button-add">
+                    <button id="landing-todo-content-write-button" type="button"
+                        class="btn btn-primary landing-todo-content-button-add">
+                        <span class="landing-todo-content-button-add">출항!</span></button>
+                </form>
             </div>
         </div>
     </div>
@@ -123,6 +200,8 @@
             </form>
 
             <div id="landing-post-read">
+
+
                 <div id="landing-post-read-main">
                     <div><i id="landing-post-read-icon-bird" class="fa-solid fa-dove"></i></div>
                     <div id="landing-post-read-box">
@@ -141,8 +220,8 @@
                     </div>
                 </div>
 
-            </div>
 
+            </div>
 
         </div>
     </div>
@@ -209,9 +288,8 @@
         <div><button id="bottom-right-tmi-user-component-del-btn" type="button" class="btn btn-info">없애기</button></div>
     </div>
     -->
-    <script src="JS/landing-top.js"></script>
-    <script src="JS/landing-middle.js"></script>
-    <script src="JS/landing-bottom.js"></script>
+    <script src="JS/landing-todo.js"></script>
+    <script src="JS/landing-post.js"></script>
     <script src="JS/landing-modal.js"></script>
     <script src="JS/landing-nav.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
