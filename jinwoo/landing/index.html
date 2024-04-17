@@ -15,7 +15,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="CSS/animation.css">
     <link rel="stylesheet" href="CSS/modal.css">
-    <link rel="stylesheet" href="CSS/tmi.css">
+
     <title>Document</title>
     <script src="https://kit.fontawesome.com/f7affbdaa9.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
@@ -23,168 +23,100 @@
 </head>
 
 <body>
-    <div id="top">
-        <div id="top-right-mbti-box">
+    <div id="landing-title">
+        <div>불사조</div>
+    </div>
+    <nav class="landing-nav">
+        <ul class="nav__list">
+            <li class="nav__btn">
+                <a class="nav__link" href="friends.html"><abbr title="친구"><i class="fas fa-user fa-2x"></i></abbr></a>
+            </li>
+            <li class="nav__btn">
+                <a class="nav__link" href="chats.html"><span
+                        class="nav__noti nav__chat-noti__position message-noti badge">999+</span><abbr title="채팅"><i
+                            class="far fa-comment fa-2x"></i></abbr></a>
+            </li>
+            <li class="nav__btn">
+                <a class="nav__link" href="find.html"><abbr title="추가메뉴"><i class="fas fa-search fa-2x"></i></abbr></a>
+            </li>
+            <li class="nav__btn">
+                <a class="nav__link" href="more.html">
+                    <span class="nav__noti nav__ellipsis-noti__position dot-noti badge"> </span><abbr title="더보기"><i
+                            class="fas fa-ellipsis-h fa-2x"></i></abbr></a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="landing-introduce">
+        <div>
+            <div>sub title</div>
+            <div>content</div>
+        </div>
+    </div>
+    <nav class="landing-member">
+        <ul class="nav__list">
+            <li class="nav__btn">
+                <a class="nav__link" href="friends.html"><abbr title="친구"><i class="fas fa-user fa-2x"></i></abbr></a>
+            </li>
+            <li class="nav__btn">
+                <a class="nav__link" href="chats.html"><span
+                        class="nav__noti nav__chat-noti__position message-noti badge">999+</span><abbr title="채팅"><i
+                            class="far fa-comment fa-2x"></i></abbr></a>
+            </li>
+            <li class="nav__btn">
+                <a class="nav__link" href="find.html"><abbr title="추가메뉴"><i class="fas fa-search fa-2x"></i></abbr></a>
+            </li>
+            <li class="nav__btn">
+                <a class="nav__link" href="more.html">
+                    <span class="nav__noti nav__ellipsis-noti__position dot-noti badge"> </span><abbr title="더보기"><i
+                            class="fas fa-ellipsis-h fa-2x"></i></abbr></a>
+            </li>
+        </ul>
+    </nav>
+    <div id="landing-todo">
+        <div>
             <div>
-                <span id="top-right-mbti-title">MBTI</span>
+                팀의 목표
             </div>
+        </div>
+        <div>
+            <ul id="list">
+                <li>목표 1</li>
+                <li>목표 1</li>
+                <li>목표 1</li>
+            </ul>
             <div>
-                <span class="top-right-mbti-items">친해지면</span>
-                <span style="display:none" class="top-right-mbti-items top-right-mbti-items-alphabets">:<span
-                        id="top-right-mbti-easter-egg-e" class="top-right-mbti-items">E</span>NTJ</span>
-            </div>
-            <div>
-                <span class="top-right-mbti-items">어색할땐</span>
-                <span style="display:none" class="top-right-mbti-items top-right-mbti-items-alphabets">:INFJ</span>
-            </div>
-            <div>
-                <span style="display:none" id="top-right-mbti-easter-egg" class="top-right-mbti-items">검사하면
-                    ENFJ..</span>
+                <button>추가</button>
             </div>
         </div>
     </div>
 
-    <div id="middle">
-        <div id="middle-left-username-box">
+    <div id="landing-post">
+        <div>
             <div>
-                <span>Kotlin_2기</span>
+                <div>nickname</div>
             </div>
             <div>
-                <span id="middle-left-userlastname-for-easter-egg">Ko</span><span>Jin Woo</span>
-            </div>
-        </div>
-        <div id="middle-rihgt-usermotto-box">
-            알아감에 행복을 느끼는
-
-        </div>
-
-    </div>
-
-    <div id="bottom">
-        <div id="bottom-information-box-column">
-            <div id="bottom-information-title">
-                Information
-            </div>
-            <div id="bottom-information-content-box">
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button id="bottom-information-subtitle-button" class="accordion-button" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
-                                aria-controls="collapseOne">
-                                함께해요
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <ul>
-                                    <li class="bottom-information-content-list">
-                                        <div class="bottom-information-contents-all"
-                                            class="bottom-information-list-left-content">협업 스타일</div>
-                                        <div class="bottom-information-list-right-content">
-                                            <div class="bottom-information-contents-all">:상대방의 의견을 최대한 수용하는 편,
-                                                <i class="fas fa-handshake icon-human"></i>
-                                            </div>
-                                            <div class="bottom-information-contents-all">공유, 피드백 좋아요 <i
-                                                    class="fas fa-thumbs-up icon-human"></i></div>
-                                        </div>
-
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                울다가 웃으면
-                            </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <ul>
-                                    <li class="bottom-information-content-list">
-                                        <div class="bottom-information-contents-all"
-                                            class="bottom-information-list-left-content">미소 짓게 하는 법</div>
-                                        <div class="bottom-information-contents-all"
-                                            class="bottom-information-list-right-content">: 역지사지 ( 서로 존중하는 분위기 행복해요 )
-                                            <i class="fas fa-laugh-beam icon-human"></i>
-                                        </div>
-                                    </li>
-                                    <li class="bottom-information-content-list">
-                                        <div class="bottom-information-contents-all"
-                                            class="bottom-information-list-left-content">인상 쓰게 하는 법</div>
-                                        <div class="bottom-information-contents-all"
-                                            class="bottom-information-list-right-content">: 내로남불 / 아시타비 ( 속상해요 . . .) <i
-                                                class="fas fa-sad-cry icon-human"></i>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                목표와 약속 그리고
-                            </button>
-                        </h2>
-                        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <ul>
-                                    <li class="bottom-information-content-list">
-                                        <div class="bottom-information-contents-all"
-                                            class="bottom-information-list-left-content">추구하는 목표</div>
-                                        <div class="bottom-information-contents-all"
-                                            class="bottom-information-list-right-content">: 어떤팀이든 잘 녹아들 수 있는 개발자가 되는 것
-                                            <i class="fas fa-smile-wink icon-human"></i>
-                                        </div>
-                                    </li>
-                                    <li class="bottom-information-content-list">
-                                        <div class="bottom-information-contents-all"
-                                            class="bottom-information-list-left-content">자기 학습 약속</div>
-                                        <div class="bottom-information-list-right-content">
-                                            <div class="bottom-information-contents-all">: TIL 매일 실천하기 <i
-                                                    class="fas fa-fire icon-fire"></i></div>
-                                            <div class="bottom-information-contents-all">(블로그, 코딩공부, 알고리즘
-                                                중에 한가지 이상)
-                                            </div>
-                                    </li>
-                                    <li class="bottom-information-content-list">
-                                        <div class="bottom-information-contents-all"
-                                            class="bottom-information-list-left-content">블로그 주소</div>
-                                        <div class="bottom-information-contents-all"
-                                            class="bottom-information-list-right-content"><span
-                                                class="bottom-information-contents-all">:</span><a
-                                                href="https://jwkane.tistory.com/" target="_blank">
-                                                https://jwkane.tistory.com/</a> <i class="fas fa-blog icon-blog"></i>
-                                    </li>
-                                    <li class="bottom-information-content-list">
-                                        <div class="bottom-information-contents-all"
-                                            class="bottom-information-list-left-content">GitHub 주소</div>
-                                        <div class="bottom-information-contents-all"
-                                            class="bottom-information-list-right-content"><span
-                                                class="bottom-information-contents-all">:</span><a
-                                                href="https://github.com/Kozy5" target="_blank">
-                                                https://github.com/Kozy5</a></i>
-                                            <i class="fa-brands fa-github icon-github"></i>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                    내용
+                </div>
+                <div>
+                    <button>추가</button>
                 </div>
             </div>
         </div>
-
-        <div id="bottom-right">
-            <i style="display:none" id="bottom-right-tmi-warning-icon" class="fas fa-triangle-exclamation"></i>
+        <div>
+            <div>
+                방명록 제목
+            </div>
+            <div>
+                방명록 내용 띄우기
+            </div>
         </div>
     </div>
 
+
+    <!--
     <div id="tmi-modal-box" style="display:none">
         <div id="tmi-modal-outer">
             <span id="tmi-modal-inner-text">TMI입니다.. 그래도 보시겠습니까..??</span>
@@ -212,6 +144,7 @@
         </div>
         <div><button id="bottom-right-tmi-user-component-del-btn" type="button" class="btn btn-info">없애기</button></div>
     </div>
+    -->
     <script src="JS/top.js"></script>
     <script src="JS/middle.js"></script>
     <script src="JS/bottom.js"></script>
