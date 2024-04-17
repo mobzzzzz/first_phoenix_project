@@ -1,13 +1,16 @@
 .top_navigation {
-    background-color: darksalmon;
+    background-color: slategrey;
 }
 
 .top_navigation_span {
     margin: 0 auto 0 auto;
+    color: white;
+    font-size: xx-large;
 }
 
 .content_container {
     margin-top: 30px;
+    margin-bottom: 100px;
 }
 
 .figure_introduction {
@@ -22,4 +25,46 @@
 .card-text {
     padding: 30px auto 30px auto;
     text-align: center;
+}
+
+.objective_container {
+    width: 60%;
+    margin: 30px auto 0 auto;
+    padding: 30px 15px 0 30px;
+    background-color: #e2e3e5;
+}
+
+.objective_header_text {
+    color: black;
+}
+
+.objective_input_container {
+    height: 40px;
+    margin-top: 5px;
+    padding-left: 0;
+}
+
+.guest_book_container {
+    width: 60%;
+    margin: 30px auto 0 auto;
+    padding: 30px 15px 0 30px;
+    background-color: #e2e3e5;
+}
+
+.guest_book_header_text {
+    color: black;
+}
+
+.guest_book_input_container {
+    height: 10vh;
+    margin-top: 5px;
+    padding: 5px 5px 10px 5px;
+}
+
+.input-group {
+    height: 20px;
+}
+
+dd {
+    margin-bottom: 13px;
 }
