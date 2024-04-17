@@ -8,9 +8,8 @@
 
 #accordionTarget{
     width: 70vw;
-    position: absolute;
-    left: 15%;
-    top: 60%;
+    position: relative;
+    top: 20px;
 }
 
 #accordionGuestbook
@@ -22,4 +21,13 @@
 #initTarget{
     width: 70vw;
     margin-bottom: 20px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.card-footer > a{
+    text-decoration: none;
+    color: black;
 }
