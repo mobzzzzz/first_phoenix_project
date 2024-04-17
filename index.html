@@ -14,7 +14,114 @@
         </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script >
+    <script type="module">
+
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+        import { getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDz4wh7z369v-whnyYeWaI3quPab2hxFmA",
+            authDomain: "phoenix-first-project.firebaseapp.com",
+            projectId: "phoenix-first-project",
+            storageBucket: "phoenix-first-project.appspot.com",
+            messagingSenderId: "943608506043",
+            appId: "1:943608506043:web:c6dc699ceedf5090406b9e"
+        };
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // 동작하기 시작
+
+        // 목표 저장하기
+        $("#button1").click(async function () {
+            let text = $('#goalText').val()
+            let doc = { "content": text };
+            await addDoc(collection(db, "minsu-objective"), doc);
+            window.location.reload(); // 화면을 다시 불러와서 남아있는거 없애기
+
+            // 디버깅
+            // console.log("작동함")
+            // alert("목표 저장 완료");
+
+        })
+
+        // 목표 가져오기
+        let docs_goal = await getDocs(collection(db, "minsu-objective"));
+        docs_goal.forEach(element => {
+            let rows = element.data();
+            console.log(rows["content"])
+            let addText = `            
+            <li>${rows["content"]}</li>            
+            `;
+            $('#postinglist').append(addText)
+        });
+
+        // 토글 
+        $("#guestButton").click(async function () {
+            console.log("열자")
+            $(`#postingGuest`).toggle();
+            $(`#addGuest`).toggle();
+            if ($(`#postingGuest`).css("display") == "none") {
+                $(`#guestButton`).text("방명록 열기")
+            } else {
+                $(`#guestButton`).text("방명록 닫기")
+            }
+        })
+
+        // 방명록 저장하기
+        $("#guestAdd").click(async function () {
+            let idInput = $('#nicknameInput').val()
+            let commentInput = $('#commentInput').val()
+
+            // 날짜 및 시간
+            let today = new Date();
+            let year = today.getFullYear();
+            let month = today.getMonth() + 1;
+            let day = today.getDate();
+            let hours = today.getHours(); // 시
+            let minutes = today.getMinutes();  // 분
+            let seconds = today.getSeconds();  // 초
+
+            let doc = { 
+                "idInput": idInput ,
+                "commentInput": commentInput ,
+                "year": year ,
+                "month": month ,
+                "day": day ,
+                "hours": hours ,
+                "minutes": minutes ,
+                "seconds": seconds 
+            };
+            await addDoc(collection(db, "minsu-guestbook"), doc);
+            window.location.reload(); // 화면을 다시 불러와서 남아있는거 없애기
+            
+            // 디버깅
+            // console.log("작동함")
+            // alert("목표 저장 완료");
+
+        })
+
+        // 방명록 가져오기
+        let docs_guest = await getDocs(collection(db, "minsu-guestbook"));
+        docs_guest.forEach(element => {
+            let rows = element.data();
+            console.log(rows["idInput"])
+            let addText = `
+            <div class="commentList">
+                <p id="nicknameRead">${rows["idInput"]}</p>
+                <p id="contentRead">${rows["commentInput"]}</p>
+                <p id="timeRead">${rows["year"]}-${rows["month"]}-${rows["day"]} ${rows["hours"]}:${rows["minutes"]}:${rows["seconds"]}</p>                
+            </div>
+            `;
+            $('#postingGuest').append(addText)
+        });
+        // 동작하기 끝
 
 
         // 함수로 버튼 클릭 동작 --> type이 모듈로 되서 의미 없어짐 나중에 지울 것
@@ -51,18 +158,18 @@
             `;
             $('#postingGuest').append(addText)
 
-            
+
 
             // 디버깅
             // console.log("동작했다.");
             // console.log(idInput);
             // console.log(commentInput);
-            console.log(year);
-            console.log(month);
-            console.log(day);
-            console.log(hours);
-            console.log(minutes);
-            console.log(seconds);
+            // console.log(year);
+            // console.log(month);
+            // console.log(day);
+            // console.log(hours);
+            // console.log(minutes);
+            // console.log(seconds);
         }
         function guestOpenClose() {
             $(`#postingGuest`).toggle();
@@ -180,7 +287,7 @@
 
             margin: 50px auto 0 auto;
 
-            background-color: yellow;
+            /* background-color: yellow; */
             width: 80vw;
         }
 
@@ -188,12 +295,12 @@
         .commentListBox {
             border: 2px solid black;
             width: 80%;
-            background-color: black;
+            /* background-color: black; */
         }
 
         .commentList {
 
-            background-color: green;
+            /* background-color: green; */
             display: flex;
             flex-direction: row;
             /* align-items: center; */
@@ -205,21 +312,24 @@
         /* 작성자 내용 시간 영역 */
         #nicknameRead {
             text-align: center;
-            background-color: red;
+            /* background-color: red; */
             width: 20%;
+            border:1px solid black;
         }
 
         #contentRead {
             text-align: center;
-            background-color: purple;
+            /* background-color: purple; */
             width: 60%;
+            border:1px solid black;
         }
 
         #timeRead {
             text-align: center;
             width: 20%;
-            background-color: yellow;
+            /* background-color: yellow; */
             height: 50px;
+            border:1px solid black;
         }
 
         #guestButton {
@@ -231,7 +341,7 @@
         }
 
         .commentBox {
-            background-color: red;
+            /* background-color: red; */
             width: 80%;
             height: 150px;
         }
@@ -337,8 +447,8 @@
                 <p>+</p>
                 <input type="text" class="form-control" placeholder="" aria-label="content"
                     aria-describedby="button-addon2" id="goalText">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2"
-                    onclick="goalAdd()">추가</button>
+                <button class="btn btn-outline-secondary" type="button" id="button1">추가</button>
+                <!-- onclick="goalAdd()" -->
             </div>
         </div>
     </div>
@@ -349,22 +459,15 @@
                 <p id="nicknameRead">작성자</p>
                 <p id="contentRead">내용</p>
                 <p id="timeRead">시간</p>
-                <!-- <h2>작성된 것</h2> -->
             </div>
-            <!-- <div class="commentList">
-                <p id="nicknameRead">작성자</p>
-                <p id="contentRead">내용</p>
-                <p id="timeRead">시간</p>
-                
-            </div> -->
         </div>
 
         <div class="commentBox" id="addGuest" style="display: none;">
             <input type="email" id="nicknameInput" placeholder="별명">
             <input type="text" id="commentInput" placeholder="내용">
-            <button onclick="guestAdd()">추가</button>
+            <button id="guestAdd" >추가</button> <!-- onclick="guestAdd()" -->
         </div>
-        <button id="guestButton" onclick="guestOpenClose()">방명록 열기</button>
+        <button id="guestButton" >방명록 열기</button> <!-- onclick="guestOpenClose()" -->
     </div>
 </body>
 
