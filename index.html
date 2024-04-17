@@ -67,6 +67,7 @@
             console.log("열자")
             $(`#postingGuest`).toggle();
             $(`#addGuest`).toggle();
+            $(`#guestSubject`).toggle();
             if ($(`#postingGuest`).css("display") == "none") {
                 $(`#guestButton`).text("방명록 열기")
             } else {
@@ -292,8 +293,14 @@
         }
 
         /* 방명록 내역 꾸미기 */
+        #guestSubject {
+            background-color: gray;
+            margin-bottom: 5px;;
+            width: 80%;
+            text-align: center;
+        }
         .commentListBox {
-            border: 2px solid black;
+            /* border: 2px solid black; */
             width: 80%;
             /* background-color: black; */
         }
@@ -310,6 +317,7 @@
         }
 
         /* 작성자 내용 시간 영역 */
+        
         #nicknameRead {
             text-align: center;
             /* background-color: red; */
@@ -341,7 +349,7 @@
         }
 
         .commentBox {
-            /* background-color: red; */
+            background-color: rgb(177, 71, 142);
             width: 80%;
             height: 150px;
         }
@@ -454,11 +462,14 @@
     </div>
 
     <div class="guestBox">
+        <div id="guestSubject" style="display: none;">
+            <h3>방명록 내역</h3>
+        </div>
         <div class="commentListBox" id="postingGuest" style="display: none;">
             <div class="commentList">
-                <p id="nicknameRead">작성자</p>
-                <p id="contentRead">내용</p>
-                <p id="timeRead">시간</p>
+                <p id="nicknameRead" style="text-align: center;">작성자</p>
+                <p id="contentRead" style="text-align: center;">내용</p>
+                <p id="timeRead" style="text-align: center;">시간</p>
             </div>
         </div>
 
