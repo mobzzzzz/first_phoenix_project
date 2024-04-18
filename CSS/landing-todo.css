@@ -67,3 +67,15 @@
     height:2.2vw;
     font-size:1vw;
 }
+#landing-todo-content-list-item-update-button{
+    width:7vw;
+    height:2vw;
+    font-size:0.7vw;
+    text-align:center
+}
+#landing-todo-content-list-item-delete-button{
+    width:7vw;
+    height:2vw;
+    font-size:0.7vw;
+    text-align:center
+}
