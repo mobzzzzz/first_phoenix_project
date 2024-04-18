@@ -5,125 +5,210 @@ import {
   doc,
   setDoc,
   getDocs,
+  deleteDoc,
   updateDoc,
 } from "/script/config.js";
 
-var lastObjectiveIndex = 0;
-var lastGuestBookIndex = 0;
+const OBJECTIVE_COLLECTION_NAME = "objective"
+const GUEST_BOOK_COLLECTION_NAME = "guestbook"
 
-$("#objective_add_button").click(async function () {
-  let content = $("#objective_content_form").val();
+const date = new Date();
+const months = String(date.getMonth() + 1).padStart(2, "0");
+const dates = String(date.getDate()).padStart(2, "0");
+const hours = String(date.getHours()).padStart(2, "0");
+const minutes = String(date.getMinutes()).padStart(2, "0");
+const seconds = String(date.getSeconds()).padStart(2, "0");
+const time = `${date.getFullYear()}-${months}-${dates}-${hours}-${minutes}-${seconds}`;
 
-  let docData = {
-    index: lastObjectiveIndex + 1,
-    status: "A",
-    content: content,
-    created_at: Timestamp.fromDate(new Date()),
-  };
+///manager///
+let indexManager = { objective: 0, guestbook: 0 };
+///manager//
 
-  // 문서 ID도 Index로 지정하기 위해 setDoc 사용
-  await setDoc(
-    doc(firestoreDB, "jaewon-objective", (lastObjectiveIndex + 1).toString()),
-    docData
-  );
-  getObjective();
+///buttton Event///
+$("#landing-todo-content-write-button").click(async function () {
+  await setEvent("objective", "#landing-todo-content-write-input");
 });
 
-$("#guest_book_add_button").click(async function () {
-  let nickname = $("#guest_book_nickname_form").val();
-  let content = $("#guest_book_content_form").val();
-
-  let docData = {
-    index: lastGuestBookIndex + 1,
-    content: content,
-    nickname: nickname,
-    created_at: Timestamp.fromDate(new Date()),
-  };
-
-  await setDoc(
-    doc(firestoreDB, "jaewon-guestbook", (lastGuestBookIndex + 1).toString()),
-    docData
+$("#landing-post-write-content-button").click(async function () {
+  await setEvent(
+    "guestbook",
+    "#landing-post-write-content",
+    "#landing-post-write-nickname"
   );
-  getGuestBook();
 });
 
-getObjective();
-getGuestBook();
+async function setEvent(collectionID, contentID, nicknameID = "false") {
+  let nickname = $(nicknameID).val();
+  let content = $(contentID).val();
 
-async function getObjective() {
-  let docs = await getDocs(collection(firestoreDB, "jaewon-objective"));
+  // 비어있는 칸 인식
+  if ((nicknameID != "false" && nickname == "") || content == "") {
+    alert("비어있는 값이 있으면 안됩니다!");
+    console.log(nickname, content);
+  } else {
+    let docs;
 
-  //   container 내용을 전부 비우고 새로 담겠다는 꼼수인데, 퍼포먼스를 고려하면 전체를 업데이트하는 getObjective와 별개의 함수로 배열 분리등을 해서 현재 상태에서 update할 수 있으면 더욱 좋을 것
-  $("#objective_row_container").html("");
+    if (collectionID == "objective") {
+      docs = {
+        index: ++indexManager[collectionID],
+        content: content,
+      };
+      alert("항해를 시작합니다");
+    } else if (collectionID == "guestbook") {
+      let writemonth = date.getMonth() + 1;
+      let writedate = date.getDate();
+      let writehours = date.getHours();
+      let writeminutes = date.getMinutes();
 
-  //   docs의 타입은 QuerySnapshot, .foreach로 순회는 가능하지만 map으로 변형하기 위해선 배열이 필요하기에 docs.docs로 배열로 사용 가능하다
-  let sortedData = docs.docs
-    .map((doc) => {
-      return doc.data();
-    })
-    .toSorted((first, second) => {
-        // 목표의 상태가 살아있지 않으면 sort를 진행하지 않음
-      if (first["status"] != "A" || second["status"] != "A") return 0;
-      // 반환되는 값이 음수, 양수, 0인지를 구분함
-      return first["index"] - second["index"];
-    })
-    .forEach((data) => {
-      lastObjectiveIndex = data["index"];
+      docs = {
+        nickname: nickname,
+        content: content,
+        writemonth: writemonth,
+        writedate: writedate,
+        writehours: writehours,
+        writeminutes: writeminutes,
+        index: ++indexManager[collectionID],
+      };
 
-      if (data["status"] != "A") return;
+      console.log(docs["index"]);
+      alert("펄럭 펄럭");
+    }
+    await setDoc(doc(firestoreDB, collectionID, time), docs);
 
-      let content = data["content"];
-      let temp_html = `
-    <dl class="row">
-        <dd class="col-sm-11 border-start border-3 border-light">
-            ${content}
-        </dd>
-        <dd class="col-sm-1"><button class="btn btn-outline-primary objective_remove_button" data-index="${data["index"]}">X</button></dd>
-    </dl>
-    `;
+    getEvent(collectionID, )
+  }
+}
+///buttton Event///
 
-      $("#objective_row_container").append(temp_html);
-    });
+///load Event///
+await getEvent(OBJECTIVE_COLLECTION_NAME);
+await getEvent(GUEST_BOOK_COLLECTION_NAME);
 
-  const removeButtons = document.querySelectorAll(".objective_remove_button");
-  removeButtons.forEach((button) => {
-    button.addEventListener("click", deleteObjectiveWithStatusUpdate);
+async function getEvent (collectionID) {
+  let dataBase = await getDocs(collection(firestoreDB, collectionID));
+  let prev = 0;
+
+  if (collectionID == OBJECTIVE_COLLECTION_NAME) {
+    $("#landing-todo-content-list").html("");
+  } else if (collectionID == GUEST_BOOK_COLLECTION_NAME) {
+    $("#landing-post-read").html("");
+  }
+
+  dataBase.forEach((docs) => {
+    indexManager[collectionID] = Math.max(
+      prev,
+      parseInt(docs.data()["index"], 10)
+    );
+    prev = indexManager[collectionID];
+
+    let docid = docs.id;
+    let content = docs.data()["content"];
+    let temp_html;
+
+    if (content != null && content != "") {
+      if (collectionID == OBJECTIVE_COLLECTION_NAME) {
+        temp_html = `<div id="landing-todo-read-content">
+            <div class="landing-todo-content-list-item-box">
+                <span class="landing-todo-content-list-item"><i class="fa-solid fa-sailboat"></i> ${content} </span>
+            </div>
+            <div class="landing-todo-content-list-item-box">
+                <button id="landing-todo-content-list-item-update-button" type="button"
+                    class="btn btn-info landing-todo-content-list-item-buttons"><i class="fas fa-diamond-turn-right"></i> 경로 수정 <span style ="display:none">${docid}</span><span style ="display:none">${collectionID}</span></button>
+                <button id="landing-todo-content-list-item-delete-button" type="button"
+                    class="btn btn-danger landing-todo-content-list-item-buttons"><i class="fas fa-anchor"></i>항해 종료 <span style ="display:none">${docid}</span></button>
+            </div>
+        </div>`;
+
+        $("#landing-todo-content-list").append(temp_html);
+      } else if (collectionID == GUEST_BOOK_COLLECTION_NAME) {
+        let nickname = docs.data()["nickname"];
+        let writemonth = docs.data()["writemonth"];
+        let writedate = docs.data()["writedate"];
+        let writehours = docs.data()["writehours"];
+        let writeminutes = docs.data()["writeminutes"];
+
+        temp_html = ` <div id="landing-post-read-main">
+            <div><i id="landing-post-read-icon-bird" class="fa-solid fa-dove"></i></div>
+            <div id="landing-post-read-box">
+                <div id="landing-post-read-nickname">@${nickname} <span
+                        id="landing-post-read-write-date">${writemonth}월${writedate}일${writehours}시${writeminutes}분</span>
+                </div>
+                <div id="landing-post-read-content">
+                    <div>
+                        <span id="landing-post-read-content-text">${content}</span>
+                    </div>
+                    
+                    <div>
+                        <button id="landing-todo-content-list-item-update-button" type="button"
+                        class="btn btn-success"><i class="fas fa-plane-departure"></i></i> 빠른 새에게 수정 요청<span style ="display:none">${docid}</span><span style ="display:none">${collectionID}</span></button>
+                        <button id="landing-post-read-content-button" type="button" class="btn btn-danger">새
+                            복귀요청<span style ="display:none">${docid}</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+        $("#landing-post-read").append(temp_html);
+      }
+    }
   });
 }
+///load Event///
 
-async function deleteObjectiveWithStatusUpdate(event) {
-  const index = event.target.dataset.index;
+//항해 목표 데이터베이스 값 삭제하기
+$(document).on(
+  "click",
+  "#landing-todo-content-list-item-delete-button",
+  async function (delevent) {
+    let deldocid = delevent.target.children["1"].innerHTML;
+    await deleteDoc(doc(firestoreDB, "objective", deldocid));
+    alert("해당 항해를 종료합니다");
+    
+    getEvent(OBJECTIVE_COLLECTION_NAME);
+  }
+);
 
-  const objectiveDoc = doc(firestoreDB, "jaewon-objective", index.toString());
-  await updateDoc(objectiveDoc, {
-    status: "D",
-  }).then(function () {
-    getObjective();
-  });
-}
+//댓글 데이터베이스 값 삭제하기
+$(document).on(
+  "click",
+  "#landing-post-read-content-button",
+  async function (delevent) {
+    let deldocid = delevent.target.children["0"].innerHTML;
+    await deleteDoc(doc(firestoreDB, "guestbook", deldocid));
+    alert("(새를 부르는 휘파람 소리)");
+    
+    getEvent(GUEST_BOOK_COLLECTION_NAME);
+  }
+);
 
-async function getGuestBook() {
-  let docs = await getDocs(collection(firestoreDB, "jaewon-guestbook"));
-
-  $("#guest_book_row_container").html("");
-
-  let sortedData = docs.docs
-    .map((doc) => {
-      return doc.data();
-    })
-    .toSorted((first, second) => {
-      // 반환되는 값이 음수, 양수, 0인지를 구분함
-      return first["index"] - second["index"];
-    })
-    .forEach((data) => {
-      lastGuestBookIndex = data["index"];
-
-      let content = data["content"];
-      let nickname = data["nickname"];
-      let createdAt = Date(data["created_at"]);
-
-      let temp_html = `<dd class="col-sm-12 border-start border-3 border-light guest_book_comment">${content} ${nickname} ${createdAt}</dd>`;
-
-      $("#guest_book_row_container").append(temp_html);
-    });
-}
+// 내용 업데이트 (어디든 쓰일 수 있게)
+$(document).on(
+  "click",
+  "#landing-todo-content-list-item-update-button",
+  async function (updatebuttonevent) {
+    console.dir(updatebuttonevent.target);
+    $("#landing-modal-box").css("display", "inline");
+    $(document).on(
+      "click",
+      "#landing-modal-inner-button-yes",
+      async function () {
+        let updatecid = updatebuttonevent.target.children[1].innerHTML;
+        let collctionname =
+          updatebuttonevent.target.children[2].innerHTML;
+        await updateDoc(doc(firestoreDB, collctionname, updatecid), {
+          content: $("#landing-modal-inner-input").val(),
+        });
+        alert("해당 정보를 수정합니다");
+        getEvent(collctionname)
+        $("#landing-modal-box").css("display", "none");
+      }
+    );
+    $(document).on(
+      "click",
+      "#landing-modal-inner-button-no",
+      async function () {
+        $("#landing-modal-box").css("display", "none");
+      }
+    );
+  }
+);
