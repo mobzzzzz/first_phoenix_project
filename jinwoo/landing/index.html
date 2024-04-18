@@ -33,10 +33,10 @@
         // Firebase SDK 라이브러리 가져오기
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
         import { getFirestore } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+        import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
         import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
         import { getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
         import {
-            doc,
             deleteDoc,
         } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
@@ -54,21 +54,30 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+
+        //목표 설정
         $("#landing-todo-content-write-button").click(async function () {
-            let doc = {
-                'content': $("#landing-todo-content-write-input").val()
-            };
-            await addDoc(collection(db, "jinwoo-objective"), doc);
-            alert("항해를 시작합니다");
-            window.location.reload();
+            let content = $('#landing-todo-content-write-input').val()
+            if (content == "") {
+                alert("목표를 입력해주세요!");
+            } else {
+                let docs = {
+                    'content': content
+                };
+                let today = new Date();
+                let time = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate()}${today.getHours()}${today.getMinutes()}${today.getSeconds()}`;
+                await setDoc(doc(db, "jinwoo-objective", time), docs);
+                alert("항해를 시작합니다");
+                window.location.reload();
+            }
         })
 
-        let docs = await getDocs(collection(db, "jinwoo-objective"));
-        docs.forEach((doc) => {
+        // 데이터베이스에서 값 불러오기
+        let docs1 = await getDocs(collection(db, "jinwoo-objective"));
+        docs1.forEach((doc) => {
             let rows = doc.data();
             let content = rows["content"];
             let docid = doc.id;
-            console.dir(doc)
 
             let todo_html = ` <div id="landing-todo-read-content">
                 <div class="landing-todo-content-list-item-box">
@@ -85,6 +94,84 @@
             let deldocid = delevent.target.children["1"].innerHTML;
             await deleteDoc(doc(db, "jinwoo-objective", deldocid));
             alert("항해 종료");
+            window.location.reload();
+        });
+
+
+
+        $("#landing-post-write-content-button").click(async function () {
+            let nickname = $('#landing-post-write-nickname').val()
+            let content = $('#landing-post-write-content').val()
+            if (nickname == "" || content == "") {
+                alert("비어있는 값이 있으면 안됩니다!");
+                console.log(nickname, content)
+            } else {
+                let today = new Date();
+                let time = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate()}${today.getHours()}${today.getMinutes()}${today.getSeconds()}`;
+                let writemonth = today.getMonth() + 1
+                let writedate = today.getDate()
+                let writehours = today.getHours()
+                let writeminutes = today.getMinutes()
+                let docs = {
+                    'nickname': nickname,
+                    'content': content,
+                    'writemonth': writemonth,
+                    'writedate': writedate,
+                    'writehours': writehours,
+                }
+                await setDoc(doc(db, "jinwoo-guestbook", time), docs);
+                alert("펄럭 펄럭");
+                window.location.reload();
+            }
+        })
+
+        /* addDoc
+           $("#landing-post-write-content-button").click(async function () {
+               let doc = {
+                   'nickname': $("#landing-post-write-nickname").val(),
+                   'content': $("#landing-post-write-content").val()
+               };
+               await addDoc(collection(db, "jinwoo-guestbook"), doc);
+               alert("펄럭 펄럭");
+               window.location.reload();
+           })
+           */
+
+        let docs2 = await getDocs(collection(db, "jinwoo-guestbook"));
+        docs2.forEach((doc) => {
+            let rows = doc.data();
+            let nickname = rows["nickname"];
+            let content = rows["content"];
+            let writemonth = row["writemonth"]
+            let writedate = row["writedate"]
+            let writehours = row["writehours"]
+            let writeminutes = row["writeminutes"]
+            let docid = doc.id;
+
+            let post_html = ` <div id="landing-post-read-main">
+                <div><i id="landing-post-read-icon-bird" class="fa-solid fa-dove"></i></div>
+                <div id="landing-post-read-box">
+                    <div id="landing-post-read-nickname">@${nickname} <span
+                            id="landing-post-read-write-date">${writemonth}월${writedate}일${writehours}시${writeminutes}분</span>
+                    </div>
+                    <div id="landing-post-read-content">
+                        <div>
+                            <span id="landing-post-read-content-text">${content}</span>
+                        </div>
+                        <div>
+                            <button id="landing-post-read-content-button" type="button" class="btn btn-danger">새
+                                복귀요청<span style ="display:none">${docid}</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            $("#landing-post-read").append(post_html);
+        });
+
+        $(document).on("click", "#landing-post-read-content-button", async function (delevent) {
+            let deldocid = delevent.target.children["1"].innerHTML;
+            await deleteDoc(doc(db, "jinwoo-guestbook", deldocid));
+            alert("(새를 부르는 휘파람 소리)");
             window.location.reload();
         });
 
@@ -188,7 +275,7 @@
                         id="landing-post-write-nickname" class="btn btn-outline-info">
                 </div>
                 <div>
-                    <div id="landing-post-write-content">
+                    <div id="landing-post-write-content-box">
                         <input type="text" maxlength="40" placeholder="하고 싶은 말은.." id="landing-post-write-content"
                             class="btn btn-outline-success">
                     </div>
