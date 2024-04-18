@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="module">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
@@ -23,8 +23,6 @@
     <link rel="stylesheet" href="CSS/landing-bottom.css">
     <link rel="stylesheet" href="CSS/landing-modal.css">
 
-
-
     <title>Document</title>
     <script src="https://kit.fontawesome.com/f7affbdaa9.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
@@ -42,6 +40,7 @@
         } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
         import { updateDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
+
         const firebaseConfig = {
             apiKey: "AIzaSyDz4wh7z369v-whnyYeWaI3quPab2hxFmA",
             authDomain: "phoenix-first-project.firebaseapp.com",
@@ -50,8 +49,64 @@
             messagingSenderId: "943608506043",
             appId: "1:943608506043:web:c6dc699ceedf5090406b9e"
         };
+      
+      // Firebase 인스턴스 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const date = new Date();
+        const months = String(date.getMonth() + 1).padStart(2, "0");
+        const dates = String(date.getDate()).padStart(2, "0");
+        const hours = String(date.getHours()).padStart(2, "0");
+        const minutes = String(date.getMinutes()).padStart(2, "0");
+        const seconds = String(date.getSeconds()).padStart(2, "0");
+        const time = `${date.getFullYear()}-${months}-${dates}-${hours}-${minutes}-${seconds}`;
+ 
+        ///buttton Event///
+        $("#btnTarget").click(async function () {
+            await setEvent('#targetText', 'content', "jihoon-objective");
+        })
+        $("#btnGuestbook").click(async function () {
+            await setEvent('#GuestbookText', 'content', "jihoon-guestbook");
+        })
+
+        async function setEvent(id, fild, collectionID) {
+            let Text = $(id).val();
+            let docs = { [fild]: Text, "index": ++indexManager[collectionID] };
+            if (Text != '' && Text != null) {
+                $(id).val('');
+                await setDoc(doc(db, collectionID, (indexManager[collectionID] % 5).toString()), docs);
+            }
+            window.location.reload();
+        }
+        ///buttton Event///
 
 
+        ///load Event///
+        await getEvent('jihoon-objective', 'content', '#targetItem', 'collapseTarget');
+        await getEvent('jihoon-guestbook', 'content', '#guestbookItem', 'collapseGuestbook');
+
+        async function getEvent(collectionID, fild, item, collapse) {
+            let dataBase = await getDocs(collection(db, collectionID));
+            let prev = 0;
+            dataBase.forEach((docs) => {
+                indexManager[collectionID] = Math.max(prev, parseInt(docs.data()['index'], 10));
+                prev = indexManager[collectionID];
+                if (docs.data()[fild] != null && docs.data()[fild] != "") {
+                    let row = docs.data();
+                    //  console.log(row);
+                    let text = `
+            <div id="${collapse}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>${docs.data()[fild]}</strong>
+                </div>
+            </div>`;
+                    $(item).append(text)
+                }
+            });
+        }
+        ///load Event///
+      
         // 토글 
         $("#guestButton").click(async function () {
             // console.log("열자")
@@ -63,20 +118,7 @@
             } else {
                 $(`#guestButton`).text("방명록 닫기")
             }
-        }
-
-        // Firebase 인스턴스 초기화
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        const date = new Date();
-        const months = String(date.getMonth() + 1).padStart(2, "0");
-        const dates = String(date.getDate()).padStart(2, "0");
-        const hours = String(date.getHours()).padStart(2, "0");
-        const minutes = String(date.getMinutes()).padStart(2, "0");
-        const seconds = String(date.getSeconds()).padStart(2, "0");
-        const time = `${date.getFullYear()}-${months}-${dates}-${hours}-${minutes}-${seconds}`;
-
+        })
 
         //항해 목표 설정
         $("#landing-todo-content-write-button").click(async function () {
