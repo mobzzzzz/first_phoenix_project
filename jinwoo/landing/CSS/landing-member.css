@@ -1,3 +1,4 @@
+/*멤버 소개 위치,디자인,폰트 사이즈*/
 #landing-member{
     display: flex;
     flex-direction: column;
@@ -10,6 +11,7 @@
     padding:1% 2%;
     animation:move-right-to-left-text 2s backwards ease-out;
 }
+/*멤버 소개 속 사진 사이즈*/
 .landing-member-nav_item{
     width:11vw;
 }

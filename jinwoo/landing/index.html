@@ -55,7 +55,7 @@
         const db = getFirestore(app);
 
 
-        //목표 설정
+        //항해 목표 설정
         $("#landing-todo-content-write-button").click(async function () {
             let content = $('#landing-todo-content-write-input').val()
             if (content == "") {
@@ -72,7 +72,7 @@
             }
         })
 
-        // 데이터베이스에서 값 불러오기
+        // 항해 목표 데이터베이스에서 값 불러오기
         let docs1 = await getDocs(collection(db, "jinwoo-objective"));
         docs1.forEach((doc) => {
             let rows = doc.data();
@@ -90,6 +90,7 @@
             </div>`;
             $("#landing-todo-content-list").append(todo_html);
         });
+        //항해 목표 데이터베이스 값 삭제하기
         $(document).on("click", "#landing-todo-content-list-item-delete-button", async function (delevent) {
             let deldocid = delevent.target.children["1"].innerHTML;
             await deleteDoc(doc(db, "jinwoo-objective", deldocid));
@@ -98,11 +99,11 @@
 
         });
 
-
-
+        // 댓글 입력하기
         $("#landing-post-write-content-button").click(async function () {
             let nickname = $('#landing-post-write-nickname').val()
             let content = $('#landing-post-write-content').val()
+            // 비어있는 칸 인식
             if (nickname == "" || content == "") {
                 alert("비어있는 값이 있으면 안됩니다!");
                 console.log(nickname, content)
@@ -139,6 +140,7 @@
            })
            */
 
+        // 댓글 데이터베이스에서 값 불러오기
         let docs2 = await getDocs(collection(db, "jinwoo-guestbook"));
         docs2.forEach((doc) => {
             let rows = doc.data();
@@ -170,6 +172,7 @@
             $("#landing-post-read").append(post_html);
         });
 
+        //댓글 데이터베이스 값 삭제하기
         $(document).on("click", "#landing-post-read-content-button", async function (delevent) {
 
             let deldocid = delevent.target.children["0"].innerHTML;
@@ -186,9 +189,11 @@
 </head>
 
 <body>
+    <!-- 최상단 제목-->
     <div id="landing-title">
         <div id="landing-title-text">불사조<i class="fas fa-fire icon-fire"></i>(Phoenix)</div>
     </div>
+    <!-- 네비게이션 -->
     <nav id="landing-nav">
         <ul class="nav__list">
             <li class="nav__btn">
@@ -205,17 +210,18 @@
             </li>
         </ul>
     </nav>
-
+    <!-- 팀 소개 -->
     <div id="landing-introduce">
         <div id="lading-introduce-outer">
             <div id="lading-introduce-title">"불" 같은 열정 그 "사" 이에 보이는 "조" 직력</div>
             <div id="lading-introduce-content">4조 불사조입니다.</div>
         </div>
     </div>
-
+    <!-- 멤버 소개 -->
     <nav id="landing-member">
         <div class="nav__list">
             <div>
+                <!-- abbr 태그를 이용해 각 항목에 부가적인 설명  -->
                 <a class="nav__link" target="_blank" href="../index.html"><abbr title="CSS 원툴.."><img
                             class="landing-member-nav_item" src="resource/고진우.png"></abbr></a>
             </div>
@@ -233,7 +239,7 @@
             </div>
         </div>
     </nav>
-
+    <!-- 항해목표 설정 -->
     <div id="landing-todo">
         <div id="landing-todo-outer">
             <div id="landing-todo-title-box">
@@ -242,6 +248,7 @@
                 </div>
             </div>
             <div id="landing-todo-content-box">
+                <!-- 동적으로 내용 생성 위한 항해목표 리스트 -->
                 <div id="landing-todo-content-list">
 
 
@@ -257,7 +264,7 @@
             </div>
         </div>
     </div>
-
+    <!-- 댓글 달기 -->
     <div id="landing-post">
         <div id="landing-post-box">
             <div id="landing-post-title-box">
@@ -280,6 +287,7 @@
                 </div>
             </form>
 
+            <!-- 동적으로 내용 생성 위한 댓글 리스트-->
             <div id="landing-post-read">
 
 
@@ -289,6 +297,7 @@
         </div>
     </div>
 
+    <!-- 네이버 웹사이트 하단의 모양 따라해보기 -->
     <div id="landing-bottom">
         <div id="landing-bottom-info">
             <div class="landing-bottom-info-section-all">
@@ -321,35 +330,6 @@
 
 
 
-
-    <div id="landing-modal-box" style="display:none">
-        <div id="landing-modal-outer">
-            <span id="landing-modal-inner-text">삭제해도 괜찮을까요?</span>
-            <div id="landing-modal-inner-button-box">
-                <button id="landing-modal-inner-button-yes" type="button" class="btn btn-danger">마음 먹었어요</button>
-                <button id="landing-modal-inner-button-no" type="button" class="btn btn-success">마음의 준비가 필요해요</button>
-            </div>
-
-        </div>
-    </div>
-    <!--
-    <div id="tmi-user-component" style="display:none">
-        <img src="https://ghiblistudio.store/wp-content/uploads/2021/07/Totoro-Merch-My-Neighbor-Totoro.jpg">
-        <div class="bottom-right-tmi-user-component">
-            <div class="bottom-right-tmi-user-component-subtitle">스포츠</div>
-            <div>: 축구 <i class="fas fa-futbol"></i></div>
-        </div>
-        <div class="bottom-right-tmi-user-component">
-            <div class="bottom-right-tmi-user-component-subtitle">게임</div>
-            <div>: 롤( 미드로 마스터까지 가봤습니다..! ) <i class="fas fa-gamepad"></i></div>
-        </div>
-        <div class="bottom-right-tmi-user-component">
-            <div class="bottom-right-tmi-user-component-subtitle">그 외</div>
-            <div>: 노래 부르는 걸 상당히 좋아합니다 <i class="fas fa-microphone-lines"></i></div>
-        </div>
-        <div><button id="bottom-right-tmi-user-component-del-btn" type="button" class="btn btn-info">없애기</button></div>
-    </div>
-    -->
     <script src="JS/landing-todo.js"></script>
     <script src="JS/landing-post.js"></script>
     <script src="JS/landing-modal.js"></script>
