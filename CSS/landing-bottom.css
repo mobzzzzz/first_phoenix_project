@@ -1,0 +1,19 @@
+/*맨 밑 공지사항 부분 위치,디자인 */
+#landing-bottom{
+    width: 99.1vw;
+    height:15vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #232628;
+    font-size:0.8vw;
+}
+#landing-bottom-info{
+    width:50vw;
+}
+.landing-bottom-info-section-all{
+    border-top:1px solid #C5C0B8;
+    border-bottom:1px solid #C5C0B8;
+    padding:1vw 0vw;
+}

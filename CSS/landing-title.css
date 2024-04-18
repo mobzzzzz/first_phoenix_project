@@ -1,0 +1,11 @@
+/*최상단 제목 위치*/
+#landing-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation:phoenix-descent 5s backwards ease-out;
+}
+/*최상단 제목 폰트 사이즈*/
+#landing-title-text{
+    font-size:4vw;
+}

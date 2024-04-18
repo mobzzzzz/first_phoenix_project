@@ -4,35 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>피닉스 미니프로젝트</title>
-
-    <!-- 부트 스트랩 적용 -->
+    <script type="module">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/landing-style.css">
+    <link rel="stylesheet" href="CSS/landing-title.css">
+    <link rel="stylesheet" href="CSS/landing-nav.css">
+    <link rel="stylesheet" href="CSS/landing-member.css">
+    <link rel="stylesheet" href="CSS/landing-introduce.css">
+    <link rel="stylesheet" href="CSS/landing-post.css">
+    <link rel="stylesheet" href="CSS/landing-todo.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-        </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="CSS/landing-animation.css">
+    <link rel="stylesheet" href="CSS/nav.css">
+    <link rel="stylesheet" href="CSS/landing-scroll-up.css">
+    <link rel="stylesheet" href="CSS/landing-bottom.css">
+    <link rel="stylesheet" href="CSS/landing-modal.css">
 
-    <link rel="stylesheet" href="css/all_css.css">
-    <!-- <script src="javaScript/all_script.js" type="module" ></script>
+
+
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/f7affbdaa9.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
     <script type="module">
-        import {hello} from '/javaScript/all_script';
-        hello();
-    </script> -->
-
-    <script type="module">
-
-        // Import the functions you need from the SDKs you need
+        // Firebase SDK 라이브러리 가져오기
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
         import { getFirestore } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+        import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
         import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
         import { getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-        import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"; // 문서 이름을 지정할 수 있게
-        import { deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"; // 문서 삭제
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-        // Your web app's Firebase configuration
+        import {
+            deleteDoc,
+        } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+        import { updateDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
         const firebaseConfig = {
             apiKey: "AIzaSyDz4wh7z369v-whnyYeWaI3quPab2hxFmA",
             authDomain: "phoenix-first-project.firebaseapp.com",
@@ -41,93 +50,6 @@
             messagingSenderId: "943608506043",
             appId: "1:943608506043:web:c6dc699ceedf5090406b9e"
         };
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // 동작하기 시작
-
-        // 목표 저장하기
-        $("#button1").click(async function () {
-            let text = $('#goalText').val()
-            if (text == "") {
-                // console.log("비어있음")
-                alert("목표를 입력해주세요!");
-            } else {
-                let today = new Date();
-                const month = String(today.getMonth() + 1).padStart(2, "0");
-                const date = String(today.getDate()).padStart(2, "0");
-                const hours = String(today.getHours()).padStart(2, "0");
-                const Minutes = String(today.getMinutes()).padStart(2, "0");
-                const seconds = String(today.getSeconds()).padStart(2, "0");
-                let time = `${today.getFullYear()}-${month}-${date}-${hours}-${Minutes}-${seconds}`;
-                let docs = {
-                    "content": text
-                };
-                // await adds(collection(db, "minsu-objective"), doc);
-
-                if ($('#button1').text() == "수정") {
-
-                    await updateDoc(doc(db, "minsu-objective", buttonId), {
-                        "content": text
-                    });
-                } else {
-                    await setDoc(doc(db, "minsu-objective", time), docs);
-                }
-
-
-                window.location.reload(); // 화면을 다시 불러와서 남아있는거 없애기
-
-            }
-        })
-
-        // 목표 가져오기
-        let docs_goal = await getDocs(collection(db, "minsu-objective"));
-        docs_goal.forEach(element => {
-            let rows = element.data();
-            // console.log(rows["content"]) <span><button>삭제</button></span>            
-            let addText = `
-            <li class="${element.id}">${rows["content"]} <button id="${element.id}" class="goalUpdateButton">수정<span style="display:none;">${element.id}</span></button>
-                 <button id="goalDeleteButton" class="goalDeleteButton">삭제<span style="display:none;">${element.id}</span></button> </li>
-            `;
-            $('#postinglist').append(addText)
-
-
-        });
-
-        // 목표 지우기
-        let buttonId = ""
-        $('.goalDeleteButton').on('click', async function (e) {
-            // console.log(e)
-            buttonId = e.target.childNodes[1].innerHTML;  // 이 위치는 html작성법 마다 조금씩 달라짐 --> target 안에서 잘 찾아보면 확인 가능
-            await deleteDoc(doc(db, "minsu-objective", buttonId)); 
-            window.location.reload();
-        })
-
-        // 목표 수정하기
-        $('.goalUpdateButton').on('click', async function (e) {
-            console.log("다시");
-            console.log(e);
-            buttonId = e.target.childNodes[1].innerHTML; // 이 위치는 html작성법 마다 조금씩 달라짐
-            console.log(`목표 가져오기`)
-            
-            let text = e.target.parentElement.innerText.split(' ')[0];
-            let buttonText = e.target.innerText;
-            if (buttonText == "수정") {
-                
-                $('#goalText').val(text);
-                $('#button1').text("수정");
-                // $(`#${buttonId}`).text("취소");
-            } else {
-                // $(`#${buttonId}`).text("수정");
-            }
-            
-            
-            // 디버깅
-            // console.log(e.target.parentElement.className);
-            // console.log(text);
-            console.log(buttonId);
-        })
 
 
         // 토글 
@@ -141,182 +63,329 @@
             } else {
                 $(`#guestButton`).text("방명록 닫기")
             }
+        }
 
-        })
+        // Firebase 인스턴스 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const date = new Date();
+        const months = String(date.getMonth() + 1).padStart(2, "0");
+        const dates = String(date.getDate()).padStart(2, "0");
+        const hours = String(date.getHours()).padStart(2, "0");
+        const minutes = String(date.getMinutes()).padStart(2, "0");
+        const seconds = String(date.getSeconds()).padStart(2, "0");
+        const time = `${date.getFullYear()}-${months}-${dates}-${hours}-${minutes}-${seconds}`;
 
 
-        // 방명록 저장하기
-        $("#guestAdd").click(async function () {
-            let idInput = $('#nicknameInput').val()
-            let commentInput = $('#commentInput').val()
-
-            // 날짜 및 시간
-    
-            let today = new Date();
-            let year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, "0");
-            const date = String(today.getDate()).padStart(2, "0");
-            const hours = String(today.getHours()).padStart(2, "0");
-            const Minutes = String(today.getMinutes()).padStart(2, "0");
-            const seconds = String(today.getSeconds()).padStart(2, "0");
-            // let time = `${today.getFullYear()}-${month}-${date}-${hours}-${Minutes}-${seconds}`;
-
-            if (idInput == "" || commentInput == "") {
-                alert("별명 또는 댓글을 입력해주세요!");
+        //항해 목표 설정
+        $("#landing-todo-content-write-button").click(async function () {
+            let content = $('#landing-todo-content-write-input').val()
+            if (content == "") {
+                alert("목표를 입력해주세요!");
             } else {
+
                 let docs = {
-                    "idInput": idInput,
-                    "commentInput": commentInput,
-                    "year": year,
-                    "month": month,
-                    "day": date,
-                    "hours": hours,
-                    "minutes": Minutes,
-                    "seconds": seconds
+                    'content': content
                 };
-                // await addDoc(collection(db, "minsu-guestbook"), doc);
-
-                let time = `${year}${month}${date}${hours}${Minutes}${seconds}`;
-                await setDoc(doc(db, "minsu-guestbook", time), docs);
-                window.location.reload(); // 화면을 다시 불러와서 남아있는거 없애기
-
+                await setDoc(doc(db, "jinwoo-objective", time), docs);
+                alert("항해를 시작합니다");
+                window.location.reload();
             }
-
-            // 디버깅
-            // console.log("작동함")
-            // alert("목표 저장 완료");
-
         })
-        // 방명록 가져오기
-        let docs_guest = await getDocs(collection(db, "minsu-guestbook"));
 
-        docs_guest.forEach(element => {
-            let rows = element.data();
-            // console.log(rows["idInput"])
-            let addText = `
-    <div class="commentList">
-        <p id="nicknameRead">${rows["idInput"]}</p>
-        <p id="contentRead">${rows["commentInput"]}</p>
-        <p id="timeRead">${rows["year"]}-${rows["month"]}-${rows["day"]} ${rows["hours"]}:${rows["minutes"]}:${rows["seconds"]}</p>
-    </div>
-    `;
-            $('#postingGuest').append(addText)
+        // 항해 목표 데이터베이스에서 값 불러오기
+        let docs1 = await getDocs(collection(db, "jinwoo-objective"));
+        docs1.forEach((doc) => {
+            let rows = doc.data();
+            let content = rows["content"];
+            let docid = doc.id;
+            let collectionid = docs1.query.id;
+            let todo_html = ` <div id="landing-todo-read-content">
+                <div class="landing-todo-content-list-item-box">
+                    <span class="landing-todo-content-list-item"><i class="fa-solid fa-sailboat"></i> ${content} </span>
+                </div>
+                <div class="landing-todo-content-list-item-box">
+                    <button id="landing-todo-content-list-item-update-button" type="button"
+                        class="btn btn-info"><i class="fas fa-anchor"></i>경로 수정 <span style ="display:none">${docid}</span><span style ="display:none">${collectionid}</span></button>
+                    <button id="landing-todo-content-list-item-delete-button" type="button"
+                        class="btn btn-danger"><i class="fas fa-anchor"></i>항해 종료 <span style ="display:none">${docid}</span></button>
+                </div>
+            </div>`;
+            $("#landing-todo-content-list").append(todo_html);
+        });
+
+        //항해 목표 데이터베이스 값 삭제하기
+        $(document).on("click", "#landing-todo-content-list-item-delete-button", async function (delevent) {
+            let deldocid = delevent.target.children["1"].innerHTML;
+            await deleteDoc(doc(db, "jinwoo-objective", deldocid));
+            alert("해당 항해를 종료합니다");
+            window.location.reload();
+        });
+
+        // 댓글 입력하기
+        $("#landing-post-write-content-button").click(async function () {
+            let nickname = $('#landing-post-write-nickname').val()
+            let content = $('#landing-post-write-content').val()
+            // 비어있는 칸 인식
+            if (nickname == "" || content == "") {
+                alert("비어있는 값이 있으면 안됩니다!");
+                console.log(nickname, content)
+            } else {
+
+                let writemonth = date.getMonth() + 1
+                let writedate = date.getDate()
+                let writehours = date.getHours()
+                let writeminutes = date.getMinutes()
+                let docs = {
+                    'nickname': nickname,
+                    'content': content,
+                    'writemonth': writemonth,
+                    'writedate': writedate,
+                    'writehours': writehours,
+                    'writeminutes': writeminutes
+                }
+                await setDoc(doc(db, "jinwoo-guestbook", time), docs);
+                alert("펄럭 펄럭");
+                window.location.reload();
+            }
+        })
+
+        /* addDoc
+           $("#landing-post-write-content-button").click(async function () {
+               let doc = {
+                   'nickname': $("#landing-post-write-nickname").val(),
+                   'content': $("#landing-post-write-content").val()
+               };
+               await addDoc(collection(db, "jinwoo-guestbook"), doc);
+               alert("펄럭 펄럭");
+               window.location.reload();
+           })
+           */
+
+        // 댓글 데이터베이스에서 값 불러오기
+        let docs2 = await getDocs(collection(db, "jinwoo-guestbook"));
+        docs2.forEach((doc) => {
+            let rows = doc.data();
+            let nickname = rows["nickname"];
+            let content = rows["content"];
+            let writemonth = rows["writemonth"]
+            let writedate = rows["writedate"]
+            let writehours = rows["writehours"]
+            let writeminutes = rows["writeminutes"]
+            let docid = doc.id;
+            let collectionid = docs2.query.id;
+
+            let post_html = ` <div id="landing-post-read-main">
+                <div><i id="landing-post-read-icon-bird" class="fa-solid fa-dove"></i></div>
+                <div id="landing-post-read-box">
+                    <div id="landing-post-read-nickname">@${nickname} <span
+                            id="landing-post-read-write-date">${writemonth}월${writedate}일${writehours}시${writeminutes}분</span>
+                    </div>
+                    <div id="landing-post-read-content">
+                        <div>
+                            <span id="landing-post-read-content-text">${content}</span>
+                        </div>
+                        
+                        <div>
+                            <button id="landing-todo-content-list-item-update-button" type="button"
+                            class="btn btn-success"><i class="fas fa-plane-departure"></i></i>빠른 새에게 수정 요청<span style ="display:none">${docid}</span><span style ="display:none">${collectionid}</span></button>
+                            <button id="landing-post-read-content-button" type="button" class="btn btn-danger">새
+                                복귀요청<span style ="display:none">${docid}</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            $("#landing-post-read").append(post_html);
+        });
+
+        //댓글 데이터베이스 값 삭제하기
+        $(document).on("click", "#landing-post-read-content-button", async function (delevent) {
+            let deldocid = delevent.target.children["0"].innerHTML;
+            await deleteDoc(doc(db, "jinwoo-guestbook", deldocid));
+            alert("(새를 부르는 휘파람 소리)");
+            window.location.reload();
 
         });
 
-        // 동작하기 끝
+        // 내용 업데이트 (어디든 쓰일 수 있게)
+        $(document).on("click", "#landing-todo-content-list-item-update-button", async function (updatebuttonevent) {
+            console.dir(updatebuttonevent.target)
+            $("#landing-modal-box").css("display", "inline")
+            $(document).on("click", "#landing-modal-inner-button-yes", async function () {
+                let updatecid = updatebuttonevent.target.children[1].innerHTML
+                let collctionname = updatebuttonevent.target.children[2].innerHTML
+                await updateDoc(doc(db, collctionname, updatecid), {
+                    content: $("#landing-modal-inner-input").val()
+                });
+                alert("해당 정보를 수정합니다");
+                window.location.reload();
+            });
+            $(document).on("click", "#landing-modal-inner-button-no", async function () {
+                $("#landing-modal-box").css("display", "none")
+            });
+        });
 
     </script>
 </head>
 
 <body>
-
-    <div class="subject">
-        <h1>불사조를 소개합니다.</h1>
+    <!-- 최상단 제목-->
+    <div id="landing-title">
+        <div id="landing-title-text">불사조<i class="fas fa-fire icon-fire"></i>(Phoenix)</div>
     </div>
-
-    <div class="indicate_box">
-        <div class="row row-cols-1 row-cols-md-4 g-4">
-            <div class="col">
-                <div class="card h-100">
-                    <a href="jinwoo/index.html"><img
-                            src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdgEvvJ%2FbtsGB2RcjLu%2FQFzSh5zafT9xg5PqC2lQn0%2Fimg.jpg"
-                            class="card-img-top" alt="이미지 오류"></a>
-
-                    <div class="card-body">
-                        <p class="card-title">한줄 소개</p>
-
-                    </div>
-                    <div class="card-footer">
-                        <p class="name">고진우</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card h-100">
-                    <a href="jihoon/index.html"><img src="jaewon/images/profile_image3.jpeg" class="card-img-top"
-                            alt="error"></a>
-                    <div class="card-body">
-                        <p class="card-title">한줄 소개</p>
-
-                    </div>
-                    <div class="card-footer">
-                        <p class="name">권지훈</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card h-100">
-                    <a href="jaewon/mypage.html"><img src="jaewon/images/profile_image2.jpeg" class="card-img-top"
-                            alt="..."></a>
-                    <div class="card-body">
-                        <p class="card-title">한줄 소개</p>
-
-                    </div>
-                    <div class="card-footer">
-                        <p class="name">노재원</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card h-100">
-                    <a href="minsoo/index.html"><img
-                            src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdgEvvJ%2FbtsGB2RcjLu%2FQFzSh5zafT9xg5PqC2lQn0%2Fimg.jpg"
-                            class="card-img-top" alt="..."></a>
-                    <div class="card-body">
-                        <p class="card-title">한줄 소개</p>
-
-                    </div>
-                    <div class="card-footer">
-                        <p class="name">최민수</p>
-                    </div>
-                </div>
-            </div>
+    <!-- 네비게이션 -->
+    <nav id="landing-nav">
+        <ul class="nav__list">
+            <li class="nav__btn">
+                <abbr title="팀 소개"><i id="landing-nav-button-introduce" class="fas fa-question fa-2x"></i></abbr>
+            </li>
+            <li class="nav__btn">
+                <abbr title="멤버들"><i id="landing-nav-button-member" class="fas fa-user fa-2x"></i></abbr>
+            </li>
+            <li class="nav__btn">
+                <abbr title="어디로 가고 있는지"><i id="landing-nav-button-todo" class="fas fa-map fa-2x"></i></abbr>
+            <li class="nav__btn">
+                </span><abbr title="방명록"><i id="landing-nav-button-post"
+                        class="fas fa-feather-pointed fa-2x"></i></i></abbr>
+            </li>
+        </ul>
+    </nav>
+    <!-- 팀 소개 -->
+    <div id="landing-introduce">
+        <div id="lading-introduce-outer">
+            <div id="lading-introduce-title">"불" 같은 열정 그 "사" 이에 보이는 "조" 직력</div>
+            <div id="lading-introduce-content">4조 불사조입니다.</div>
         </div>
     </div>
-
-    <div class="goalBox">
-        <div class="teamGoal">
-            <h3>팀의 목표</h3>
+    <!-- 멤버 소개 -->
+    <nav id="landing-member">
+        <div class="nav__list">
+            <div>
+                <!-- abbr 태그를 이용해 각 항목에 부가적인 설명  -->
+                <a class="nav__link" target="_blank" href="../index.html"><abbr title="CSS 원툴.."><img
+                            class="landing-member-nav_item" src="resource/고진우.png"></abbr></a>
+            </div>
+            <div>
+                <a class="nav__link" target="_blank" href="../../jaewon/mypage.html"><abbr title="팀장님!"><img
+                            class="landing-member-nav_item" src="resource/노재원.png"></abbr></a>
+            </div>
+            <div>
+                <a class="nav__link" target="_blank" href="../../jihoon/index.html"><abbr title="알고리즘 고수!"><img
+                            class="landing-member-nav_item" src="resource/권지훈.png"></abbr></a>
+            </div>
+            <div>
+                <a class="nav__link" target="_blank" href="../../minsoo/index.html"><abbr title="알고리즘 고수!"><img
+                            class="landing-member-nav_item" src="resource/최민수.png"></abbr></a>
+            </div>
         </div>
-        <div class="goalList">
-            <ul id="postinglist">
-                <li>목표1</li>
-                <li>목표2</li>
-                <li>목표3</li>
-            </ul>
-            <div class="input-group mb-3" id="goalInput">
-                <p>+</p>
-                <input type="text" class="form-control" placeholder="" aria-label="content"
-                    aria-describedby="button-addon2" id="goalText">
-                <button class="btn btn-outline-secondary" type="button" id="button1">추가</button>
-                <!-- onclick="goalAdd()" -->
+    </nav>
+    <!-- 항해목표 설정 -->
+    <div id="landing-todo">
+        <div id="landing-todo-outer">
+            <div id="landing-todo-title-box">
+                <div id="landing-todo-title-text">
+                    항해 지도 / 무엇을 향해 가나요? <i class="fas fa-ship"></i>
+                </div>
+            </div>
+            <div id="landing-todo-content-box">
+                <!-- 동적으로 내용 생성 위한 항해목표 리스트 -->
+                <div id="landing-todo-content-list">
+
+
+                </div>
+
+                <form id="landing-todo-content-form">
+                    <input type="text" maxlength="40" placeholder="항로 설정, 돛 펼치기" id="landing-todo-content-write-input"
+                        class="btn btn-outline-primary landing-todo-content-button-add">
+                    <button id="landing-todo-content-write-button" type="button"
+                        class="btn btn-primary landing-todo-content-button-add">
+                        <span class="landing-todo-content-button-add">출항!</span></button>
+                </form>
             </div>
         </div>
     </div>
+    <!-- 댓글 달기 -->
+    <div id="landing-post">
+        <div id="landing-post-box">
+            <div id="landing-post-title-box">
+                <div id="landing-post-title">새가 전달해주는 편지 <i class="fas fa-scroll"></i> (전서구)</div>
+            </div>
+            <form id="landing-post-write">
+                <div>
+                    <input type="text" maxlength="6" style="word-wrap:break-word" placeholder="나는"
+                        id="landing-post-write-nickname" class="btn btn-outline-info">
+                </div>
+                <div>
+                    <div id="landing-post-write-content-box">
+                        <input type="text" maxlength="40" placeholder="하고 싶은 말은.." id="landing-post-write-content"
+                            class="btn btn-outline-success">
+                    </div>
+                </div>
+                <div>
+                    <button id="landing-post-write-content-button" type="button" class="btn btn-outline-success">새 날리기
+                        <i class="fas fa-file-import"></i></button>
+                </div>
+            </form>
 
-    <div class="guestBox">
-        <div id="guestSubject" style="display: none;">
-            <h3>방명록 내역</h3>
+            <!-- 동적으로 내용 생성 위한 댓글 리스트-->
+            <div id="landing-post-read">
+
+
+
+            </div>
+
         </div>
-        <div class="commentListBox" id="postingGuest" style="display: none;">
-            <div class="commentList">
-                <p id="nicknameRead" style="text-align: center;">작성자</p>
-                <p id="contentRead" style="text-align: center;">내용</p>
-                <p id="timeRead" style="text-align: center;">시간</p>
+    </div>
+
+    <!-- 네이버 웹사이트 하단의 모양 따라해보기 -->
+    <div id="landing-bottom">
+        <div id="landing-bottom-info">
+            <div class="landing-bottom-info-section-all">
+                <div>
+                    공지사항
+                </div>
+            </div>
+            <div class="landing-bottom-info-section-all">
+                <div>
+                    <span>Parteners</span>
+                    <span> : 스파르타 코딩클럽</span>
+                </div>
+                <div>
+                    <span>Developers</span>
+                    <span> : 불사조팀</span>
+
+                </div>
+            </div>
+            <div class="landing-bottom-info-section-all">
+                <div>
+                    팀 소개 : 스파르타 코딩 클럽 내일 배움 캠프 4조 불사조
+                </div>
             </div>
         </div>
-
-        <div class="commentBox" id="addGuest" style="display: none;">
-            <input type="email" id="nicknameInput" placeholder="별명">
-            <input type="text" id="commentInput" placeholder="내용">
-            <button id="guestAdd">추가</button> <!-- onclick="guestAdd()" -->
-        </div>
-        <button id="guestButton">방명록 열기</button> <!-- onclick="guestOpenClose()" -->
     </div>
+
+    <!-- 맨위로 버튼 -->
+    <abbr title="이륙 준비 완료!"><i id="landing-nav-button-scroll-up" class="fas fa-circle-arrow-up"></i></abbr>
+
+    <div id="landing-modal-box" style="display:none">
+        <div id="landing-modal-outer">
+
+            <input type="text" maxlength="15" style="word-wrap:break-word" placeholder="수정할 경로"
+                id="landing-modal-inner-input" class="btn btn-outline-primary">
+            <div id="landing-modal-inner-button-box">
+                <button id="landing-modal-inner-button-yes" type="button" class="btn btn-danger">마음 먹었어요</button>
+                <button id="landing-modal-inner-button-no" type="button" class="btn btn-success">그대로 갈래요</button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="JS/landing-nav.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
