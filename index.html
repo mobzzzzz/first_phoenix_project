@@ -62,50 +62,9 @@
         const seconds = String(date.getSeconds()).padStart(2, "0");
         const time = `${date.getFullYear()}-${months}-${dates}-${hours}-${minutes}-${seconds}`;
  
-        ///buttton Event///
-        $("#btnTarget").click(async function () {
-            await setEvent('#targetText', 'content', "jihoon-objective");
-        })
-        $("#btnGuestbook").click(async function () {
-            await setEvent('#GuestbookText', 'content', "jihoon-guestbook");
-        })
+        
 
-        async function setEvent(id, fild, collectionID) {
-            let Text = $(id).val();
-            let docs = { [fild]: Text, "index": ++indexManager[collectionID] };
-            if (Text != '' && Text != null) {
-                $(id).val('');
-                await setDoc(doc(db, collectionID, (indexManager[collectionID] % 5).toString()), docs);
-            }
-            window.location.reload();
-        }
-        ///buttton Event///
-
-
-        ///load Event///
-        await getEvent('jihoon-objective', 'content', '#targetItem', 'collapseTarget');
-        await getEvent('jihoon-guestbook', 'content', '#guestbookItem', 'collapseGuestbook');
-
-        async function getEvent(collectionID, fild, item, collapse) {
-            let dataBase = await getDocs(collection(db, collectionID));
-            let prev = 0;
-            dataBase.forEach((docs) => {
-                indexManager[collectionID] = Math.max(prev, parseInt(docs.data()['index'], 10));
-                prev = indexManager[collectionID];
-                if (docs.data()[fild] != null && docs.data()[fild] != "") {
-                    let row = docs.data();
-                    //  console.log(row);
-                    let text = `
-            <div id="${collapse}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <strong>${docs.data()[fild]}</strong>
-                </div>
-            </div>`;
-                    $(item).append(text)
-                }
-            });
-        }
-        ///load Event///
+        
       
         // 토글 
         $("#guestButton").click(async function () {
@@ -130,22 +89,47 @@
                 let docs = {
                     'content': content
                 };
-                await setDoc(doc(db, "jinwoo-objective", time), docs);
+                await setDoc(doc(db, "objective", time), docs);
                 alert("항해를 시작합니다");
                 window.location.reload();
             }
         })
+        
+        // ///buttton Event///
+        // $("#btnTarget").click(async function () {
+        //     await setEvent('#targetText', 'content', "objective");
+        // })
+        // $("#btnGuestbook").click(async function () {
+        //     await setEvent('#GuestbookText', 'content', "guestbook");
+        // })
+        // async function setEvent(id, fild, collectionID) {
+        //     let Text = $(id).val();
+        //     let docs = { [fild]: Text, "index": ++indexManager[collectionID] };
+        //     if (Text != '' && Text != null) {
+        //         $(id).val('');
+        //         await setDoc(doc(db, collectionID, (indexManager[collectionID] % 5).toString()), docs);
+        //     }
+        //     window.location.reload();
+        // }
+        // ///buttton Event///
 
-        // 항해 목표 데이터베이스에서 값 불러오기
-        let docs1 = await getDocs(collection(db, "jinwoo-objective"));
-        docs1.forEach((doc) => {
-            let rows = doc.data();
-            let content = rows["content"];
-            let docid = doc.id;
-            let collectionid = docs1.query.id;
-            let todo_html = ` <div id="landing-todo-read-content">
+
+        ///load Event///
+        await getEvent('objective', 'content');
+        // await getEvent('guestbook', 'content', '#guestbookItem');
+
+        async function getEvent(collectionID, fild) {
+            let dataBase = await getDocs(collection(db, collectionID));
+            let collectionid = dataBase.query.id;
+
+            console.log("getEvent");
+            dataBase.forEach((docs) => {
+                let docid = docs.id;
+
+                if (docs.data()[fild] != null && docs.data()[fild] != "") {
+                    let todo_html = ` <div id="landing-todo-read-content">
                 <div class="landing-todo-content-list-item-box">
-                    <span class="landing-todo-content-list-item"><i class="fa-solid fa-sailboat"></i> ${content} </span>
+                    <span class="landing-todo-content-list-item"><i class="fa-solid fa-sailboat"></i> ${docs.data()[fild]} </span>
                 </div>
                 <div class="landing-todo-content-list-item-box">
                     <button id="landing-todo-content-list-item-update-button" type="button"
@@ -155,12 +139,36 @@
                 </div>
             </div>`;
             $("#landing-todo-content-list").append(todo_html);
-        });
+                }
+            });
+        }
+        ///load Event///
+
+        // // 항해 목표 데이터베이스에서 값 불러오기
+        // let docs1 = await getDocs(collection(db, "objective"));
+        // docs1.forEach((doc) => {
+        //     let rows = doc.data();
+        //     let content = rows["content"];
+        //     let docid = doc.id;
+        //     let collectionid = docs1.query.id;
+        //     let todo_html = ` <div id="landing-todo-read-content">
+        //         <div class="landing-todo-content-list-item-box">
+        //             <span class="landing-todo-content-list-item"><i class="fa-solid fa-sailboat"></i> ${content} </span>
+        //         </div>
+        //         <div class="landing-todo-content-list-item-box">
+        //             <button id="landing-todo-content-list-item-update-button" type="button"
+        //                 class="btn btn-info"><i class="fas fa-anchor"></i>경로 수정 <span style ="display:none">${docid}</span><span style ="display:none">${collectionid}</span></button>
+        //             <button id="landing-todo-content-list-item-delete-button" type="button"
+        //                 class="btn btn-danger"><i class="fas fa-anchor"></i>항해 종료 <span style ="display:none">${docid}</span></button>
+        //         </div>
+        //     </div>`;
+        //     $("#landing-todo-content-list").append(todo_html);
+        // });
 
         //항해 목표 데이터베이스 값 삭제하기
         $(document).on("click", "#landing-todo-content-list-item-delete-button", async function (delevent) {
             let deldocid = delevent.target.children["1"].innerHTML;
-            await deleteDoc(doc(db, "jinwoo-objective", deldocid));
+            await deleteDoc(doc(db, "objective", deldocid));
             alert("해당 항해를 종료합니다");
             window.location.reload();
         });
@@ -187,26 +195,14 @@
                     'writehours': writehours,
                     'writeminutes': writeminutes
                 }
-                await setDoc(doc(db, "jinwoo-guestbook", time), docs);
+                await setDoc(doc(db, "guestbook", time), docs);
                 alert("펄럭 펄럭");
                 window.location.reload();
             }
         })
 
-        /* addDoc
-           $("#landing-post-write-content-button").click(async function () {
-               let doc = {
-                   'nickname': $("#landing-post-write-nickname").val(),
-                   'content': $("#landing-post-write-content").val()
-               };
-               await addDoc(collection(db, "jinwoo-guestbook"), doc);
-               alert("펄럭 펄럭");
-               window.location.reload();
-           })
-           */
-
         // 댓글 데이터베이스에서 값 불러오기
-        let docs2 = await getDocs(collection(db, "jinwoo-guestbook"));
+        let docs2 = await getDocs(collection(db, "guestbook"));
         docs2.forEach((doc) => {
             let rows = doc.data();
             let nickname = rows["nickname"];
@@ -244,7 +240,7 @@
         //댓글 데이터베이스 값 삭제하기
         $(document).on("click", "#landing-post-read-content-button", async function (delevent) {
             let deldocid = delevent.target.children["0"].innerHTML;
-            await deleteDoc(doc(db, "jinwoo-guestbook", deldocid));
+            await deleteDoc(doc(db, "guestbook", deldocid));
             alert("(새를 부르는 휘파람 소리)");
             window.location.reload();
 
