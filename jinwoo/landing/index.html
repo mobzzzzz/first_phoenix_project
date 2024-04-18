@@ -39,6 +39,7 @@
         import {
             deleteDoc,
         } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+        import { updateDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDz4wh7z369v-whnyYeWaI3quPab2hxFmA",
@@ -62,20 +63,6 @@
         const seconds = String(date.getSeconds()).padStart(2, "0");
         const time = `${date.getFullYear()}-${months}-${dates}-${hours}-${minutes}-${seconds}`;
 
-        function greetingA(evnet) {
-
-            if (localStorage.getItem(NICKNAME) != null) {
-                loginForm.classList.add(HIDDEN_CLASSNAME);
-                greeting.classList.remove(HIDDEN_CLASSNAME);
-                initialbutton.classList.remove(HIDDEN_CLASSNAME)
-                const storagename = localStorage.getItem(USERNAME);
-                greeting.innerText = `다시 돌아왔군! ${storagename}`;
-            } else {
-                initialbutton.classList.add(HIDDEN_CLASSNAME)
-            }
-
-        }
-
 
         //항해 목표 설정
         $("#landing-todo-content-write-button").click(async function () {
@@ -98,25 +85,44 @@
             let rows = doc.data();
             let content = rows["content"];
             let docid = doc.id;
-
+            let collectionid = docs1.query.id;
             let todo_html = ` <div id="landing-todo-read-content">
                 <div class="landing-todo-content-list-item-box">
                     <span class="landing-todo-content-list-item"><i class="fa-solid fa-sailboat"></i> ${content} </span>
                 </div>
                 <div class="landing-todo-content-list-item-box">
+                    <button id="landing-todo-content-list-item-update-button" type="button"
+                        class="btn btn-info"><i class="fas fa-anchor"></i>경로 수정 <span style ="display:none">${docid}</span><span style ="display:none">${collectionid}</span></button>
                     <button id="landing-todo-content-list-item-delete-button" type="button"
                         class="btn btn-danger"><i class="fas fa-anchor"></i>항해 종료 <span style ="display:none">${docid}</span></button>
                 </div>
             </div>`;
             $("#landing-todo-content-list").append(todo_html);
         });
+
+        $(document).on("click", "#landing-todo-content-list-item-update-button", async function (updatebuttonevent) {
+            console.dir(updatebuttonevent.target)
+            $("#landing-modal-box").css("display", "inline")
+            $(document).on("click", "#landing-modal-inner-button-yes", async function () {
+                let updatecid = updatebuttonevent.target.children[1].innerHTML
+                let collctionname = updatebuttonevent.target.children[2].innerHTML
+                await updateDoc(doc(db, collctionname, updatecid), {
+                    content: $("#landing-modal-inner-input").val()
+                });
+                alert("해당 정보를 수정합니다");
+                window.location.reload();
+            });
+            $(document).on("click", "#landing-modal-inner-button-no", async function () {
+                $("#landing-modal-box").css("display", "none")
+            });
+        });
+
         //항해 목표 데이터베이스 값 삭제하기
         $(document).on("click", "#landing-todo-content-list-item-delete-button", async function (delevent) {
             let deldocid = delevent.target.children["1"].innerHTML;
             await deleteDoc(doc(db, "jinwoo-objective", deldocid));
             alert("해당 항해를 종료합니다");
             window.location.reload();
-
         });
 
         // 댓글 입력하기
@@ -170,6 +176,7 @@
             let writehours = rows["writehours"]
             let writeminutes = rows["writeminutes"]
             let docid = doc.id;
+            let collectionid = docs2.query.id;
 
             let post_html = ` <div id="landing-post-read-main">
                 <div><i id="landing-post-read-icon-bird" class="fa-solid fa-dove"></i></div>
@@ -181,7 +188,10 @@
                         <div>
                             <span id="landing-post-read-content-text">${content}</span>
                         </div>
+                        
                         <div>
+                            <button id="landing-todo-content-list-item-update-button" type="button"
+                            class="btn btn-success"><i class="fas fa-plane-departure"></i></i>빠른 새에게 수정 요청<span style ="display:none">${docid}</span><span style ="display:none">${collectionid}</span></button>
                             <button id="landing-post-read-content-button" type="button" class="btn btn-danger">새
                                 복귀요청<span style ="display:none">${docid}</span></button>
                         </div>
@@ -349,10 +359,12 @@
 
     <div id="landing-modal-box" style="display:none">
         <div id="landing-modal-outer">
-            <span id="landing-modal-inner-text">??</span>
+
+            <input type="text" maxlength="15" style="word-wrap:break-word" placeholder="수정할 경로"
+                id="landing-modal-inner-input" class="btn btn-outline-primary">
             <div id="landing-modal-inner-button-box">
                 <button id="landing-modal-inner-button-yes" type="button" class="btn btn-danger">마음 먹었어요</button>
-                <button id="landing-modal-inner-button-no" type="button" class="btn btn-success">마음의 준비가 필요해요</button>
+                <button id="landing-modal-inner-button-no" type="button" class="btn btn-success">그대로 갈래요</button>
             </div>
 
         </div>
