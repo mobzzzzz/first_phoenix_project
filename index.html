@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
@@ -51,6 +52,19 @@
         };
 
 
+        // 토글 
+        $("#guestButton").click(async function () {
+            // console.log("열자")
+            $(`#postingGuest`).toggle();
+            $(`#addGuest`).toggle();
+            $(`#guestSubject`).toggle();
+            if ($(`#postingGuest`).css("display") == "none") {
+                $(`#guestButton`).text("방명록 열기")
+            } else {
+                $(`#guestButton`).text("방명록 닫기")
+            }
+        }
+
         // Firebase 인스턴스 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
@@ -70,6 +84,7 @@
             if (content == "") {
                 alert("목표를 입력해주세요!");
             } else {
+
                 let docs = {
                     'content': content
                 };
@@ -211,9 +226,6 @@
             });
         });
 
-
-
-
     </script>
 </head>
 
@@ -352,7 +364,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- 맨위로 버튼 -->
     <abbr title="이륙 준비 완료!"><i id="landing-nav-button-scroll-up" class="fas fa-circle-arrow-up"></i></abbr>
