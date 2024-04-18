@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="mainCss.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
         import { getFirestore } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
@@ -29,60 +30,93 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        let index=0;
+        ///manager///
+        let indexManager = { "jihoon-objective": 0, "jihoon-guestbook": 0 };
+        ///manager///
+
+        ///buttton Event///
         $("#btnTarget").click(async function () {
-            let Text = $('#targetText').val();
-            if (Text != '' && Text != null) {
-                let docs = { 'content': Text };
-                $('#targetText').val('');
-                let ind = index.toString();
-                await setDoc(doc(db, "jihoon-objective",index.toString()), docs)
-            }
-            window.location.reload();
+            await setEvent('#targetText', 'content', "jihoon-objective");
         })
-
         $("#btnGuestbook").click(async function () {
-            let Text = $('#GuestbookText').val();
-            if (Text != '' && Text != null) {
-                let docs = { 'content': Text };
-                $('#GuestbookText').val('');
-                let ind = index.toString();
-                await setDoc(doc(db, "jihoon-guestbook", index.toString()), docs)
-            }
-            window.location.reload();
+            await setEvent('#GuestbookText', 'content', "jihoon-guestbook");
         })
 
-       
-        
-        let guestbook =  await getDocs(collection(db, "jihoon-guestbook"));
-        guestbook.forEach((docs) => {
-            if (docs.data()['content'] != null && docs.data()['content'] != "") {
-                let row = docs.data();
-                console.log(row);
-                let text = `
-            <div id="collapseGuestbook" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <strong>${docs.data()['content']}</strong>
-                </div>
-            </div>`;
-                $('#guestbookItem').append(text)
+        async function setEvent(id, fild, collectionID) {
+            let Text = $(id).val();
+            let docs = { [fild]: Text, "index": ++indexManager[collectionID] };
+            if (Text != '' && Text != null) {
+                $(id).val('');
+                await setDoc(doc(db, collectionID, (indexManager[collectionID] % 5).toString()), docs);
             }
-        });
+            //window.location.reload();
 
-        let objective = await getDocs(collection(db, "jihoon-objective"));
-        objective.forEach((docs) => {
-            if (docs.data()['content'] != null && docs.data()['content'] != "") {
-                let row = docs.data();
-                console.log(row);
-                let text = `
-            <div id="collapseTarget" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+
+
+            // fetch("https://jsonplaceholder.typicode.com/posts", {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify({
+            //         title : "nomal",
+            //         body : docs,
+            //         usetid: "1"
+            //     }),
+            // })
+            //     .then((response) => { return response.json() })
+            //     .then((data) => console.log('1'+data))
+
+            //reLoadEvent(collectionID, fild, "#targetItem", "collapseTarget",docs);
+            reLoadArea();
+        }
+        ///buttton Event///
+
+
+        ///load Event///
+        await getEvent('jihoon-objective', 'content', '#targetItem', 'collapseTarget');
+        await getEvent('jihoon-guestbook', 'content', '#guestbookItem', 'collapseGuestbook');
+
+        async function getEvent(collectionID, fild, item, collapse) {
+            let dataBase = await getDocs(collection(db, collectionID));
+            let prev = 0;
+            dataBase.forEach((docs) => {
+                indexManager[collectionID] = Math.max(prev, parseInt(docs.data()['index'], 10));
+                prev = indexManager[collectionID];
+                if (docs.data()[fild] != null && docs.data()[fild] != "") {
+                    let row = docs.data();
+                    //  console.log(row);
+                    let text = `
+            <div id="${collapse}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                    <strong>${docs.data()['content']}</strong>
+                    <strong>${docs.data()[fild]}</strong>
                 </div>
             </div>`;
-                $('#targetItem').append(text)
-            }
-        });
+                    $(item).append(text)
+                }
+            });
+        }
+        function reLoadEvent(collectionID, fild, item, collapse, docs) {
+            // fetch("https://jsonplaceholder.typicode.com/posts/1")
+            //     .then((response) => { return response.json() })
+            //     .then((data) => console.log(data)); //자바스크립트 객체 형식으로 변환된다.
+
+            let text = `
+            <div id="${collapse}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>${docs[fild]}</strong>
+                </div>
+            </div>`;
+            $(item).append(text)
+        }
+
+        function reLoadArea()
+        {
+            collapseTarget
+            $('#collapseTarget').remove();
+            getEvent('jihoon-objective', 'content', '#targetItem', 'collapseTarget');
+        }
+        ///load Event///
 
     </script>
 

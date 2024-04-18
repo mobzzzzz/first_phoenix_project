@@ -5,3 +5,4 @@ $(document).ready(function(){
     $("#accordionGuestbook").css("margin-top", "50px");
     $("#initGuestbook").appendTo("#accordionGuestbook");
 });
+
