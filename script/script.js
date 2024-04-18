@@ -1,5 +1,6 @@
 import {
   firestoreDB,
+  Timestamp,
   collection,
   doc,
   setDoc,
@@ -12,13 +13,12 @@ var lastGuestBookIndex = 0;
 
 $("#objective_add_button").click(async function () {
   let content = $("#objective_content_form").val();
-  let date = Date();
 
   let docData = {
     index: lastObjectiveIndex + 1,
     status: "A",
     content: content,
-    created_at: date,
+    created_at: Timestamp.fromDate(new Date()),
   };
 
   // 문서 ID도 Index로 지정하기 위해 setDoc 사용
@@ -32,13 +32,12 @@ $("#objective_add_button").click(async function () {
 $("#guest_book_add_button").click(async function () {
   let nickname = $("#guest_book_nickname_form").val();
   let content = $("#guest_book_content_form").val();
-  let date = Date();
 
   let docData = {
     index: lastGuestBookIndex + 1,
     content: content,
     nickname: nickname,
-    created_at: date,
+    created_at: Timestamp.fromDate(new Date()),
   };
 
   await setDoc(
@@ -119,9 +118,9 @@ async function getGuestBook() {
     .forEach((data) => {
       lastGuestBookIndex = data["index"];
 
-    let createdAt = data["created_at"];
       let content = data["content"];
       let nickname = data["nickname"];
+      let createdAt = Date(data["created_at"]);
 
       let temp_html = `<dd class="col-sm-12 border-start border-3 border-light guest_book_comment">${content} ${nickname} ${createdAt}</dd>`;
 
