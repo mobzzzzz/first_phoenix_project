@@ -37,7 +37,7 @@
 }
 /*댓글 부분 내용 입력란*/
 #landing-post-write-content{
-    width:38vw;
+    width:37vw;
     height:5vw;
     border-top:0px;
     border-left:0px;
@@ -50,7 +50,7 @@
 }
 /*댓글 부분 등록 버튼*/
 #landing-post-write-content-button{
-    width:5vw;
+    width:6vw;
     height:5vw;
     font-size:0.9vw;
     margin-left:0.5vw;
