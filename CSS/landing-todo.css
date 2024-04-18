@@ -1,0 +1,69 @@
+/*항해 목표 전체 div위치 */
+#landing-todo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation:opacity-effect 3s ease-out backwards;
+    animation-delay:3s;
+}
+/*항해 목표 크기 (목표량의 따라 길이 반영하기위해 auto)*/
+#landing-todo-outer{
+    width:50vw;
+    height:auto;
+}
+/*항해 목표 단에 제목 
+"항해 지도" 부분 디자인 */
+#landing-todo-title-box{
+    display: flex;
+    justify-content: center;
+    width:100%;
+    padding: 1% 0%;
+    border:1px solid #C5C0B8;
+}
+/*항해 목표 단에 제목 
+"항해 지도" 부분 폰트 사이즈 */
+#landing-todo-title-text{
+    font-size:1.3vw;
+}
+/*항해 목표 단에 
+동적 생성 내용 및 버튼 위치 */
+#landing-todo-content-box{
+    display: flex;
+    flex-direction: column;
+}
+/*항해 목표 단에 
+동적 생성 내용 디자인 */
+#landing-todo-read-content{
+    display: flex;
+    justify-content: space-between;
+}
+/*항해 목표 단에 
+제목,동적 생성 내용과,버튼
+ 의 사이 간격*/
+.landing-todo-content-list-item-box{
+    margin-top:1vh;
+    margin-bottom: 2vh;
+}
+/*항해 목표 단에 
+동적 생성 내용의 폰트 사이즈*/
+.landing-todo-content-list-item{
+    font-size:1vw;
+}
+/*항해 목표 단에 
+동적 생성 내용과 
+내용 입력 란, 출항 버튼과 간격*/
+#landing-todo-content-form{
+    margin:5vh 0vh;
+}
+/*항해 목표 단에 
+출항 버튼과 입력란의 크기 및 폰트 사이즈,
+출항 버튼 속 span위치, */
+.landing-todo-content-button-add{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:50vw;
+    height:2.2vw;
+    font-size:1vw;
+}

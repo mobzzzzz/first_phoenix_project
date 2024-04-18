@@ -1,0 +1,9 @@
+/*우측 하단 맨위로 버튼*/
+#landing-nav-button-scroll-up{
+    position:fixed;
+    bottom:0;
+    right:0;
+    margin-right: 1vw;
+    margin-bottom:1vw;
+    font-size:2vw;
+}
