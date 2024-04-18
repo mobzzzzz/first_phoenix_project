@@ -1,0 +1,14 @@
+html,body {
+    height:100%;
+}
+body{
+    background-color:#181A1B !important;
+}
+*{
+    font-family: "Noto Sans KR", sans-serif;
+    font-optical-sizing: auto;
+    font-weight:bolder;
+    font-style: normal;
+    color:#C5C0B8;
+
+}

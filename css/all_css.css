@@ -1,0 +1,188 @@
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap');
+
+        /* 소개 페이지 css */
+        .subject {
+            /* width : 90vw; */
+            color: white;
+            background-color: gray;
+            /* 안의 내용 가운데 정렬 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* 폰트 적용 */
+            font-family: "Noto Serif KR", serif;
+            font-weight: 400;
+            font-style: normal;
+
+        }
+
+        /* 자기소개 박스 */
+        .indicate_box {
+            width: 80%;
+            /* background-color: red; */
+
+            margin: 40px auto 0 auto;
+        }
+
+        /* 자기소개 박스의 이름 */
+        .name {
+            text-align: center;
+            font-size: 15px;
+            height: 10px;
+        }
+
+        /* 목표 박스 꾸미기*/
+        .goalBox {
+            width: 80%;
+            margin: 50px auto 0 auto;
+            /* background-color: green; */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .teamGoal {
+            background-color: pink;
+            text-align: center;
+
+            width: 80%;
+
+        }
+
+        .goalList {
+            margin-top: 15px;
+            /* background-color: yellow; */
+            width: 90%;
+            font-size: 20px;
+        }
+
+        #goalInput {
+            height: 50px;
+            /* background-color: red; */
+        }
+
+        #goalText {
+            border: 0px;
+            border-radius: 0%;
+            border-bottom: 2px solid rgb(0, 180, 180);
+            margin-right: 15px;
+            margin-left: 10px;
+            /* background-color: black; */
+            /* height: 25px; */
+        }
+
+        #goalInput>button {
+            background-color: rgb(246, 83, 210);
+            color: white;
+            border-radius: 0%;
+            margin-right: 10px;
+            /* height : 25px;
+            font-size:15px; */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #goalInput>p {
+            font-size: 25px;
+            margin: 0 0 0 5px;
+            height: 25px;
+
+        }
+
+        /*  방명록 꾸미기 */
+        .guestBox {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            margin: 50px auto 0 auto;
+
+            /* background-color: yellow; */
+            width: 80vw;
+        }
+
+        /* 방명록 내역 꾸미기 */
+        #guestSubject {
+            background-color: gray;
+            margin-bottom: 5px;
+            ;
+            width: 80%;
+            text-align: center;
+        }
+
+        .commentListBox {
+            /* border: 2px solid black; */
+            width: 80%;
+            /* background-color: black; */
+        }
+
+        .commentList {
+
+            /* background-color: green; */
+            display: flex;
+            flex-direction: row;
+            /* align-items: center; */
+            justify-content: space-between;
+            width: 100%;
+
+        }
+
+        /* 작성자 내용 시간 영역 */
+
+        #nicknameRead {
+            text-align: center;
+            /* background-color: red; */
+            width: 20%;
+            border: 1px solid black;
+        }
+
+        #contentRead {
+            text-align: center;
+            /* background-color: purple; */
+            width: 60%;
+            border: 1px solid black;
+        }
+
+        #timeRead {
+            text-align: center;
+            width: 20%;
+            /* background-color: yellow; */
+            height: 50px;
+            border: 1px solid black;
+        }
+
+        #guestButton {
+            width: 80%;
+            text-align: center;
+            height: 50px;
+            background-color: rgb(221, 120, 255);
+            margin-top: 20px;
+        }
+
+        .commentBox {
+            background-color: rgb(177, 71, 142);
+            width: 80%;
+            height: 150px;
+        }
+
+        #nicknameInput {
+            width: 90%;
+            margin: 25px auto 0 5%;
+        }
+
+        #commentInput {
+            width: 80%;
+            margin: 25px 10px 0 5%;
+            height: 30%;
+        }
+
+        .commentBox>button {
+            width: 10%;
+            height: 30%;
+            background-color: skyblue;
+        }
