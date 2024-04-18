@@ -61,6 +61,10 @@
     padding: 5px 5px 10px 5px;
 }
 
+.guest_book_comment {
+    padding-left: 12px;
+}
+
 .input-group {
     height: 20px;
 }

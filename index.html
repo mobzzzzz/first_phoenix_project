@@ -15,8 +15,11 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="script/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="module" src="script/script.js"></script>
+
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" href="data:," />
 
     <title>피닉스 미니프로젝트</title>
   </head>
@@ -90,38 +93,24 @@
       <!-- Objective container start-->
       <div class="border border-white objective_container">
         <h2 class="objective_header_text">불사조의 목표와 약속</h2>
-        <dl class="row">
-          <dd class="col-sm-11 border-start border-3 border-light">
-            나약하지만 책임감을 가지려고 노력합니다.
-          </dd>
-          <dd class="col-sm-1">X</dd>
-          <dd class="col-sm-11 border-start border-3 border-light">
-            나약하지만 책임감을 가지려고 노력합니다.
-          </dd>
-          <dd class="col-sm-1">X</dd>
-          <dd class="col-sm-11 border-start border-3 border-light">
-            나약하지만 책임감을 가지려고 노력합니다.
-          </dd>
-          <dd class="col-sm-1">X</dd>
-          <dd class="col-sm-11 border-start border-3 border-light">
-            나약하지만 책임감을 가지려고 노력합니다.
-          </dd>
-          <dd class="col-sm-1">X</dd>
-          <dd class="col-sm-11 border-start border-3 border-light">
-            나약하지만 책임감을 가지려고 노력합니다.
-          </dd>
-          <dd class="col-sm-1">X</dd>
+        <dl class="row objective_row">
+          <div id="objective_row_container" class="col-sm-12"></div>
           <div class="col-sm-12 objective_input_container">
             <dl class="row">
               <dd class="col-sm-10">
                 <input
+                  id="objective_content_form"
                   class="form-control"
                   type="text"
                   placeholder="약속이나 목표 추가하기"
                 />
               </dd>
               <dd class="col-sm-2">
-                <button type="button" class="btn btn-outline-primary">
+                <button
+                  id="objective_add_button"
+                  type="button"
+                  class="btn btn-outline-primary"
+                >
                   추가하기
                 </button>
               </dd>
@@ -135,14 +124,14 @@
       <div class="border border-white guest_book_container">
         <h2 class="guest_book_header_text">방명록</h2>
         <dl class="row">
-          <dd class="col-sm-11 border-start border-3 border-light">방명록1</dd>
-          <dd class="col-sm-11 border-start border-3 border-light">방명록1</dd>
+          <div id="guest_book_row_container"></div>
           <div class="col-sm-12 guest_book_input_container">
             <dl class="row">
               <dd class="col-sm-4">
                 <div class="input-group mb-3 border-bottom">
                   <span class="input-group-text" id="basic-addon1">이름</span>
                   <input
+                    id="guest_book_nickname_form"
                     type="text"
                     class="form-control"
                     placeholder="이름"
@@ -152,10 +141,19 @@
                 </div>
               </dd>
               <dd class="col-sm-10">
-                <input class="form-control" type="text" placeholder="내용" />
+                <input
+                  id="guest_book_content_form"
+                  class="form-control"
+                  type="text"
+                  placeholder="내용"
+                />
               </dd>
               <dd class="col-sm-2">
-                <button type="button" class="btn btn-outline-primary">
+                <button
+                  id="guest_book_add_button"
+                  type="button"
+                  class="btn btn-outline-primary"
+                >
                   추가하기
                 </button>
               </dd>
