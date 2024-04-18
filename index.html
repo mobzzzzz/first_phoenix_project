@@ -20,15 +20,16 @@
         import {hello} from '/javaScript/all_script';
         hello();
     </script> -->
-    
+
     <script type="module">
 
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
         import { getFirestore } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
         import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-        import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"; // 문서 이름을 지정할 수 있게
         import { getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+        import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"; // 문서 이름을 지정할 수 있게
+        import { deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"; // 문서 삭제
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
         // Your web app's Firebase configuration
@@ -53,12 +54,30 @@
                 // console.log("비어있음")
                 alert("목표를 입력해주세요!");
             } else {
-                let docs = { "content": text };
-                // await adds(collection(db, "minsu-objective"), doc);
                 let today = new Date();
-                let time = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate()}${today.getHours()}${today.getMinutes()}${today.getSeconds()}`;
-                await setDoc(doc(db,"minsu-objective",time),docs);
+                const month = String(today.getMonth() + 1).padStart(2, "0");
+                const date = String(today.getDate()).padStart(2, "0");
+                const hours = String(today.getHours()).padStart(2, "0");
+                const Minutes = String(today.getMinutes()).padStart(2, "0");
+                const seconds = String(today.getSeconds()).padStart(2, "0");
+                let time = `${today.getFullYear()}-${month}-${date}-${hours}-${Minutes}-${seconds}`;
+                let docs = {
+                    "content": text
+                };
+                // await adds(collection(db, "minsu-objective"), doc);
+
+                if ($('#button1').text() == "수정") {
+
+                    await updateDoc(doc(db, "minsu-objective", buttonId), {
+                        "content": text
+                    });
+                } else {
+                    await setDoc(doc(db, "minsu-objective", time), docs);
+                }
+
+
                 window.location.reload(); // 화면을 다시 불러와서 남아있는거 없애기
+
             }
         })
 
@@ -66,12 +85,50 @@
         let docs_goal = await getDocs(collection(db, "minsu-objective"));
         docs_goal.forEach(element => {
             let rows = element.data();
-            // console.log(rows["content"])
+            // console.log(rows["content"]) <span><button>삭제</button></span>            
             let addText = `
-            <li>${rows["content"]}</li>
+            <li class="${element.id}">${rows["content"]} <button id="${element.id}" class="goalUpdateButton">수정<span style="display:none;">${element.id}</span></button>
+                 <button id="goalDeleteButton" class="goalDeleteButton">삭제<span style="display:none;">${element.id}</span></button> </li>
             `;
             $('#postinglist').append(addText)
+
+
         });
+
+        // 목표 지우기
+        let buttonId = ""
+        $('.goalDeleteButton').on('click', async function (e) {
+            // console.log(e)
+            buttonId = e.target.childNodes[1].innerHTML;  // 이 위치는 html작성법 마다 조금씩 달라짐 --> target 안에서 잘 찾아보면 확인 가능
+            await deleteDoc(doc(db, "minsu-objective", buttonId)); 
+            window.location.reload();
+        })
+
+        // 목표 수정하기
+        $('.goalUpdateButton').on('click', async function (e) {
+            console.log("다시");
+            console.log(e);
+            buttonId = e.target.childNodes[1].innerHTML; // 이 위치는 html작성법 마다 조금씩 달라짐
+            console.log(`목표 가져오기`)
+            
+            let text = e.target.parentElement.innerText.split(' ')[0];
+            let buttonText = e.target.innerText;
+            if (buttonText == "수정") {
+                
+                $('#goalText').val(text);
+                $('#button1').text("수정");
+                // $(`#${buttonId}`).text("취소");
+            } else {
+                // $(`#${buttonId}`).text("수정");
+            }
+            
+            
+            // 디버깅
+            // console.log(e.target.parentElement.className);
+            // console.log(text);
+            console.log(buttonId);
+        })
+
 
         // 토글 
         $("#guestButton").click(async function () {
@@ -84,7 +141,9 @@
             } else {
                 $(`#guestButton`).text("방명록 닫기")
             }
+
         })
+
 
         // 방명록 저장하기
         $("#guestAdd").click(async function () {
@@ -92,41 +151,42 @@
             let commentInput = $('#commentInput').val()
 
             // 날짜 및 시간
+    
             let today = new Date();
             let year = today.getFullYear();
-            let month = today.getMonth() + 1;
-            let day = today.getDate();
-            let hours = today.getHours(); // 시
-            let minutes = today.getMinutes();  // 분
-            let seconds = today.getSeconds();  // 초
-            
-            if (idInput=="" || commentInput==""){
+            const month = String(today.getMonth() + 1).padStart(2, "0");
+            const date = String(today.getDate()).padStart(2, "0");
+            const hours = String(today.getHours()).padStart(2, "0");
+            const Minutes = String(today.getMinutes()).padStart(2, "0");
+            const seconds = String(today.getSeconds()).padStart(2, "0");
+            // let time = `${today.getFullYear()}-${month}-${date}-${hours}-${Minutes}-${seconds}`;
+
+            if (idInput == "" || commentInput == "") {
                 alert("별명 또는 댓글을 입력해주세요!");
             } else {
                 let docs = {
-                "idInput": idInput,
-                "commentInput": commentInput,
-                "year": year,
-                "month": month,
-                "day": day,
-                "hours": hours,
-                "minutes": minutes,
-                "seconds": seconds
-            };
-            // await addDoc(collection(db, "minsu-guestbook"), doc);
-    
-            let time = `${year}${month}${day}${hours}${minutes}${seconds}`;
-            await setDoc(doc(db,"minsu-objective",time),docs);
-            window.location.reload(); // 화면을 다시 불러와서 남아있는거 없애기
+                    "idInput": idInput,
+                    "commentInput": commentInput,
+                    "year": year,
+                    "month": month,
+                    "day": date,
+                    "hours": hours,
+                    "minutes": Minutes,
+                    "seconds": seconds
+                };
+                // await addDoc(collection(db, "minsu-guestbook"), doc);
+
+                let time = `${year}${month}${date}${hours}${Minutes}${seconds}`;
+                await setDoc(doc(db, "minsu-guestbook", time), docs);
+                window.location.reload(); // 화면을 다시 불러와서 남아있는거 없애기
+
             }
-            
 
             // 디버깅
             // console.log("작동함")
             // alert("목표 저장 완료");
 
         })
-
         // 방명록 가져오기
         let docs_guest = await getDocs(collection(db, "minsu-guestbook"));
 
@@ -141,6 +201,7 @@
     </div>
     `;
             $('#postingGuest').append(addText)
+
         });
 
         // 동작하기 끝
@@ -149,6 +210,7 @@
 </head>
 
 <body>
+
     <div class="subject">
         <h1>불사조를 소개합니다.</h1>
     </div>
