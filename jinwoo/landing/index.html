@@ -186,7 +186,6 @@
 
         //댓글 데이터베이스 값 삭제하기
         $(document).on("click", "#landing-post-read-content-button", async function (delevent) {
-
             let deldocid = delevent.target.children["0"].innerHTML;
             await deleteDoc(doc(db, "jinwoo-guestbook", deldocid));
             alert("(새를 부르는 휘파람 소리)");
@@ -194,7 +193,7 @@
 
         });
 
-        // 내용 업데이트 모두 공유
+        // 내용 업데이트 (어디든 쓰일 수 있게)
         $(document).on("click", "#landing-todo-content-list-item-update-button", async function (updatebuttonevent) {
             console.dir(updatebuttonevent.target)
             $("#landing-modal-box").css("display", "inline")
