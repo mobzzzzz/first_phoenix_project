@@ -2,11 +2,14 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 50vw;
-    height: 20vh;
+    width: 60vw;
+    height: 40vh;
     margin: 3% auto;
     border:1px solid #C5C0B8;
     font-size:1vw;
     padding:1% 2%;
     animation:move-right-to-left-text 2s backwards ease-out;
+}
+.landing-member-nav_item{
+    width:11vw;
 }

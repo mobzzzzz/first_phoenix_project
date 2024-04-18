@@ -95,6 +95,7 @@
             await deleteDoc(doc(db, "jinwoo-objective", deldocid));
             alert("항해 종료");
             window.location.reload();
+
         });
 
 
@@ -118,6 +119,7 @@
                     'writemonth': writemonth,
                     'writedate': writedate,
                     'writehours': writehours,
+                    'writeminutes': writeminutes
                 }
                 await setDoc(doc(db, "jinwoo-guestbook", time), docs);
                 alert("펄럭 펄럭");
@@ -142,10 +144,10 @@
             let rows = doc.data();
             let nickname = rows["nickname"];
             let content = rows["content"];
-            let writemonth = row["writemonth"]
-            let writedate = row["writedate"]
-            let writehours = row["writehours"]
-            let writeminutes = row["writeminutes"]
+            let writemonth = rows["writemonth"]
+            let writedate = rows["writedate"]
+            let writehours = rows["writehours"]
+            let writeminutes = rows["writeminutes"]
             let docid = doc.id;
 
             let post_html = ` <div id="landing-post-read-main">
@@ -169,11 +171,14 @@
         });
 
         $(document).on("click", "#landing-post-read-content-button", async function (delevent) {
-            let deldocid = delevent.target.children["1"].innerHTML;
+
+            let deldocid = delevent.target.children["0"].innerHTML;
             await deleteDoc(doc(db, "jinwoo-guestbook", deldocid));
             alert("(새를 부르는 휘파람 소리)");
             window.location.reload();
+
         });
+
 
 
 
@@ -209,24 +214,24 @@
     </div>
 
     <nav id="landing-member">
-        <ul class="nav__list">
-            <li class="nav__btn">
-                <a class="nav__link" target="_blank" href="../index.html"><abbr title="사이트 만들기 원툴.."><img
-                            src="">고진우</abbr></a>
-            </li>
-            <li class="nav__btn">
+        <div class="nav__list">
+            <div>
+                <a class="nav__link" target="_blank" href="../index.html"><abbr title="CSS 원툴.."><img
+                            class="landing-member-nav_item" src="resource/고진우.png"></abbr></a>
+            </div>
+            <div>
                 <a class="nav__link" target="_blank" href="../../jaewon/mypage.html"><abbr title="팀장님!"><img
-                            src="">노재원</abbr></a>
-            </li>
-            <li class="nav__btn">
+                            class="landing-member-nav_item" src="resource/노재원.png"></abbr></a>
+            </div>
+            <div>
                 <a class="nav__link" target="_blank" href="../../jihoon/index.html"><abbr title="알고리즘 고수!"><img
-                            src="">권지훈</abbr></a>
-            </li>
-            <li class="nav__btn">
+                            class="landing-member-nav_item" src="resource/권지훈.png"></abbr></a>
+            </div>
+            <div>
                 <a class="nav__link" target="_blank" href="../../minsoo/index.html"><abbr title="알고리즘 고수!"><img
-                            src="">최민수</abbr></a>
-            </li>
-        </ul>
+                            class="landing-member-nav_item" src="resource/최민수.png"></abbr></a>
+            </div>
+        </div>
     </nav>
 
     <div id="landing-todo">
@@ -237,19 +242,8 @@
                 </div>
             </div>
             <div id="landing-todo-content-box">
-
                 <div id="landing-todo-content-list">
 
-                    <div id="landing-todo-read-content">
-                        <div class="landing-todo-content-list-item-box">
-                            <span class="landing-todo-content-list-item"><i class="fa-solid fa-sailboat"></i> 최강 불사조의
-                                페이지의 댓글입니다. 화이팅 화이팅 입니다.</span>
-                        </div>
-                        <div class="landing-todo-content-list-item-box">
-                            <button id="landing-todo-content-list-item-delete-button" type="button"
-                                class="btn btn-danger"><i class="fas fa-anchor"></i>항해 종료</button>
-                        </div>
-                    </div>
 
                 </div>
 
@@ -271,7 +265,7 @@
             </div>
             <form id="landing-post-write">
                 <div>
-                    <input type="text" maxlength="5" style="word-wrap:break-word" placeholder="나는"
+                    <input type="text" maxlength="6" style="word-wrap:break-word" placeholder="나는"
                         id="landing-post-write-nickname" class="btn btn-outline-info">
                 </div>
                 <div>
@@ -288,24 +282,6 @@
 
             <div id="landing-post-read">
 
-
-                <div id="landing-post-read-main">
-                    <div><i id="landing-post-read-icon-bird" class="fa-solid fa-dove"></i></div>
-                    <div id="landing-post-read-box">
-                        <div id="landing-post-read-nickname">@Nickname <span
-                                id="landing-post-read-write-date">4월17일3시22분</span>
-                        </div>
-                        <div id="landing-post-read-content">
-                            <div>
-                                <span id="landing-post-read-content-text">최강 불사조의 페이지의 댓글입니다. 화이팅 화이팅 입니다.</span>
-                            </div>
-                            <div>
-                                <button id="landing-post-read-content-button" type="button" class="btn btn-danger">새
-                                    복귀요청</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
 
             </div>
@@ -346,18 +322,17 @@
 
 
 
-    <!--
-    <div id="tmi-modal-box" style="display:none">
-        <div id="tmi-modal-outer">
-            <span id="tmi-modal-inner-text">TMI입니다.. 그래도 보시겠습니까..??</span>
-            <div id="tmi-modal-inner-button-box">
-                <button id="tmi-modal-inner-button-yes" type="button" class="btn btn-danger">마음 먹었어요</button>
-                <button id="tmi-modal-inner-button-no" type="button" class="btn btn-success">마음의 준비가 필요해요</button>
+    <div id="landing-modal-box" style="display:none">
+        <div id="landing-modal-outer">
+            <span id="landing-modal-inner-text">삭제해도 괜찮을까요?</span>
+            <div id="landing-modal-inner-button-box">
+                <button id="landing-modal-inner-button-yes" type="button" class="btn btn-danger">마음 먹었어요</button>
+                <button id="landing-modal-inner-button-no" type="button" class="btn btn-success">마음의 준비가 필요해요</button>
             </div>
 
         </div>
     </div>
-
+    <!--
     <div id="tmi-user-component" style="display:none">
         <img src="https://ghiblistudio.store/wp-content/uploads/2021/07/Totoro-Merch-My-Neighbor-Totoro.jpg">
         <div class="bottom-right-tmi-user-component">
