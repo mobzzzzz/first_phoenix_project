@@ -2,10 +2,10 @@ $("#landing-nav-button-introduce").click(function(){
     window.scroll({top:100,behavior: "smooth"})
 })
 $("#landing-nav-button-member").click(function(){
-    window.scroll({top:300,behavior: "smooth"})
+    window.scroll({top:500,behavior: "smooth"})
 })
 $("#landing-nav-button-todo").click(function(){
-    window.scroll({top:600,behavior: "smooth"})
+    window.scroll({top:900,behavior: "smooth"})
 })
 $("#landing-nav-button-post").click(function(){
     window.scroll({top:5000,behavior: "smooth"})

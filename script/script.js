@@ -140,8 +140,8 @@ async function getEvent (collectionID) {
                     
                     <div>
                         <button id="landing-todo-content-list-item-update-button" type="button"
-                        class="btn btn-success landing-post-read-content-update-button"><i class="fas fa-plane-departure"></i></i> 수정 요청<span style ="display:none">${docid}</span><span style ="display:none">${collectionID}</span></button>
-                        <button id="landing-post-read-content-button" type="button" class="btn btn-danger">새
+                        class="btn btn-success landing-post-read-content-update-buttons"><i class="fas fa-plane-departure"></i></i> 내용 수정<span style ="display:none">${docid}</span><span style ="display:none">${collectionID}</span></button>
+                        <button id="landing-post-read-content-button" type="button" class="btn btn-danger"> <i class="fas fa-arrow-rotate-left"></i> 새
                             복귀요청<span style ="display:none">${docid}</span></button>
                     </div>
                 </div>
