@@ -1,9 +1,10 @@
 import {
-  firebaseApp,
   firestoreDB,
   collection,
-  addDoc,
+  doc,
+  setDoc,
   getDocs,
+  updateDoc,
 } from "/script/config.js";
 
 var lastObjectiveIndex = 0;
@@ -13,14 +14,18 @@ $("#objective_add_button").click(async function () {
   let content = $("#objective_content_form").val();
   let date = Date();
 
-  let doc = {
+  let docData = {
     index: lastObjectiveIndex + 1,
     status: "A",
     content: content,
     created_at: date,
   };
 
-  await addDoc(collection(firestoreDB, "jaewon-objective"), doc);
+  // 문서 ID도 Index로 지정하기 위해 setDoc 사용
+  await setDoc(
+    doc(firestoreDB, "jaewon-objective", (lastObjectiveIndex + 1).toString()),
+    docData
+  );
   getObjective();
 });
 
@@ -29,14 +34,17 @@ $("#guest_book_add_button").click(async function () {
   let content = $("#guest_book_content_form").val();
   let date = Date();
 
-  let doc = {
+  let docData = {
     index: lastGuestBookIndex + 1,
     content: content,
     nickname: nickname,
     created_at: date,
   };
 
-  await addDoc(collection(firestoreDB, "jaewon-guestbook"), doc);
+  await setDoc(
+    doc(firestoreDB, "jaewon-guestbook", (lastGuestBookIndex + 1).toString()),
+    docData
+  );
   getGuestBook();
 });
 
@@ -55,25 +63,43 @@ async function getObjective() {
       return doc.data();
     })
     .toSorted((first, second) => {
+        // 목표의 상태가 살아있지 않으면 sort를 진행하지 않음
+      if (first["status"] != "A" || second["status"] != "A") return 0;
       // 반환되는 값이 음수, 양수, 0인지를 구분함
       return first["index"] - second["index"];
     })
     .forEach((data) => {
-    lastObjectiveIndex = data["index"];
+      lastObjectiveIndex = data["index"];
 
-    if (data["status"] != "A") return;
+      if (data["status"] != "A") return;
 
-    let content = data["content"];
-    let temp_html = `
+      let content = data["content"];
+      let temp_html = `
     <dl class="row">
         <dd class="col-sm-11 border-start border-3 border-light">
             ${content}
         </dd>
-        <dd class="col-sm-1">X</dd>
+        <dd class="col-sm-1"><button class="btn btn-outline-primary objective_remove_button" data-index="${data["index"]}">X</button></dd>
     </dl>
     `;
 
-    $("#objective_row_container").append(temp_html);
+      $("#objective_row_container").append(temp_html);
+    });
+
+  const removeButtons = document.querySelectorAll(".objective_remove_button");
+  removeButtons.forEach((button) => {
+    button.addEventListener("click", deleteObjectiveWithStatusUpdate);
+  });
+}
+
+async function deleteObjectiveWithStatusUpdate(event) {
+  const index = event.target.dataset.index;
+
+  const objectiveDoc = doc(firestoreDB, "jaewon-objective", index.toString());
+  await updateDoc(objectiveDoc, {
+    status: "D",
+  }).then(function () {
+    getObjective();
   });
 }
 
@@ -91,14 +117,14 @@ async function getGuestBook() {
       return first["index"] - second["index"];
     })
     .forEach((data) => {
-    lastGuestBookIndex = data["index"];
+      lastGuestBookIndex = data["index"];
 
-    let content = data["content"];
-    let nickname = data["nickname"];
     let createdAt = data["created_at"];
+      let content = data["content"];
+      let nickname = data["nickname"];
 
-    let temp_html = `<dd class="col-sm-12 border-start border-3 border-light guest_book_comment">${content} ${nickname} ${createdAt}</dd>`;
+      let temp_html = `<dd class="col-sm-12 border-start border-3 border-light guest_book_comment">${content} ${nickname} ${createdAt}</dd>`;
 
-    $("#guest_book_row_container").append(temp_html);
-  });
+      $("#guest_book_row_container").append(temp_html);
+    });
 }

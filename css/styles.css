@@ -44,6 +44,10 @@
     padding-left: 0;
 }
 
+.objective_remove_button {
+    padding: 0 12px 0 12px;
+}
+
 .guest_book_container {
     width: 60%;
     margin: 30px auto 0 auto;
