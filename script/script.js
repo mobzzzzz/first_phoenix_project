@@ -155,61 +155,61 @@ async function getEvent (collectionID) {
 }
 ///load Event///
 
-//항해 목표 데이터베이스 값 삭제하기
-$(document).on(
-  "click",
-  "#landing-todo-content-list-item-delete-button",
-  async function (delevent) {
-    let deldocid = delevent.target.children["1"].innerHTML;
-    await deleteDoc(doc(firestoreDB, "objective", deldocid));
-    alert("해당 항해를 종료합니다");
+// //항해 목표 데이터베이스 값 삭제하기
+// $(document).on(
+//   "click",
+//   "#landing-todo-content-list-item-delete-button",
+//   async function (delevent) {
+//     let deldocid = delevent.target.children["1"].innerHTML;
+//     await deleteDoc(doc(firestoreDB, "objective", deldocid));
+//     alert("해당 항해를 종료합니다");
     
-    getEvent(OBJECTIVE_COLLECTION_NAME);
-  }
-);
+//     getEvent(OBJECTIVE_COLLECTION_NAME);
+//   }
+// );
 
-//댓글 데이터베이스 값 삭제하기
-$(document).on(
-  "click",
-  "#landing-post-read-content-button",
-  async function (delevent) {
-    let deldocid = delevent.target.children["1"].innerHTML;
-    console.log(delevent, deldocid);
-    await deleteDoc(doc(firestoreDB, "guestbook", deldocid));
-    alert("(새를 부르는 휘파람 소리)");
+// //댓글 데이터베이스 값 삭제하기
+// $(document).on(
+//   "click",
+//   "#landing-post-read-content-button",
+//   async function (delevent) {
+//     let deldocid = delevent.target.children["1"].innerHTML;
+//     console.log(delevent, deldocid);
+//     await deleteDoc(doc(firestoreDB, "guestbook", deldocid));
+//     alert("(새를 부르는 휘파람 소리)");
     
-    getEvent(GUEST_BOOK_COLLECTION_NAME);
-  }
-);
+//     getEvent(GUEST_BOOK_COLLECTION_NAME);
+//   }
+// );
 
-// 내용 업데이트 (어디든 쓰일 수 있게)
-$(document).on(
-  "click",
-  "#landing-todo-content-list-item-update-button",
-  async function (updatebuttonevent) {
-    console.dir(updatebuttonevent.target);
-    $("#landing-modal-box").css("display", "inline");
-    $(document).on(
-      "click",
-      "#landing-modal-inner-button-yes",
-      async function () {
-        let updatecid = updatebuttonevent.target.children[1].innerHTML;
-        let collctionname =
-          updatebuttonevent.target.children[2].innerHTML;
-        await updateDoc(doc(firestoreDB, collctionname, updatecid), {
-          content: $("#landing-modal-inner-input").val(),
-        });
-        alert("해당 정보를 수정합니다");
-        getEvent(collctionname)
-        $("#landing-modal-box").css("display", "none");
-      }
-    );
-    $(document).on(
-      "click",
-      "#landing-modal-inner-button-no",
-      async function () {
-        $("#landing-modal-box").css("display", "none");
-      }
-    );
-  }
-);
+// // 내용 업데이트 (어디든 쓰일 수 있게)
+// $(document).on(
+//   "click",
+//   "#landing-todo-content-list-item-update-button",
+//   async function (updatebuttonevent) {
+//     console.dir(updatebuttonevent.target);
+//     $("#landing-modal-box").css("display", "inline");
+//     $(document).on(
+//       "click",
+//       "#landing-modal-inner-button-yes",
+//       async function () {
+//         let updatecid = updatebuttonevent.target.children[1].innerHTML;
+//         let collctionname =
+//           updatebuttonevent.target.children[2].innerHTML;
+//         await updateDoc(doc(firestoreDB, collctionname, updatecid), {
+//           content: $("#landing-modal-inner-input").val(),
+//         });
+//         alert("해당 정보를 수정합니다");
+//         getEvent(collctionname)
+//         $("#landing-modal-box").css("display", "none");
+//       }
+//     );
+//     $(document).on(
+//       "click",
+//       "#landing-modal-inner-button-no",
+//       async function () {
+//         $("#landing-modal-box").css("display", "none");
+//       }
+//     );
+//   }
+// );
