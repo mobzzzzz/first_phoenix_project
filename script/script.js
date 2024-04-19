@@ -1,13 +1,37 @@
+// import {
+//   firestoreDB,
+//   Timestamp,
+//   collection,
+//   doc,
+//   setDoc,
+//   getDocs,
+//   deleteDoc,
+//   updateDoc,
+// } from "./script/config.js";
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import {
-  firestoreDB,
+  getFirestore,
   Timestamp,
   collection,
   doc,
-  setDoc,
   getDocs,
+  setDoc,
   deleteDoc,
   updateDoc,
-} from "./script/config.js";
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDz4wh7z369v-whnyYeWaI3quPab2hxFmA",
+  authDomain: "phoenix-first-project.firebaseapp.com",
+  projectId: "phoenix-first-project",
+  storageBucket: "phoenix-first-project.appspot.com",
+  messagingSenderId: "943608506043",
+  appId: "1:943608506043:web:c6dc699ceedf5090406b9e",
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const firestoreDB = getFirestore(firebaseApp);
 
 const OBJECTIVE_COLLECTION_NAME = "objective"
 const GUEST_BOOK_COLLECTION_NAME = "guestbook"
