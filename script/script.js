@@ -173,7 +173,8 @@ $(document).on(
   "click",
   "#landing-post-read-content-button",
   async function (delevent) {
-    let deldocid = delevent.target.children["0"].innerHTML;
+    let deldocid = delevent.target.children["1"].innerHTML;
+    console.log(delevent, deldocid);
     await deleteDoc(doc(firestoreDB, "guestbook", deldocid));
     alert("(새를 부르는 휘파람 소리)");
     
