@@ -7,7 +7,7 @@ import {
   getDocs,
   deleteDoc,
   updateDoc,
-} from "/script/config.js";
+} from "./script/config.js";
 
 const OBJECTIVE_COLLECTION_NAME = "objective"
 const GUEST_BOOK_COLLECTION_NAME = "guestbook"
