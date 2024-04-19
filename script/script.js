@@ -21,8 +21,6 @@ import {
   updateDoc,
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-console.log("test");
-
 const firebaseConfig = {
   apiKey: "AIzaSyDz4wh7z369v-whnyYeWaI3quPab2hxFmA",
   authDomain: "phoenix-first-project.firebaseapp.com",
