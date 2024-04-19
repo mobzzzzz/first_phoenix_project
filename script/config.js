@@ -10,22 +10,13 @@ import {
   updateDoc,
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-// const firebaseConfig = {
-//     apiKey: process.env.FIREBASE_API_KEY,
-//     authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-//     projectId: process.env.FIREBASE_PROJECT_ID,
-//     storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-//     messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-//     appId: process.env.FIREBASE_APP_ID
-// };
-
 const firebaseConfig = {
-  apiKey: "AIzaSyDz4wh7z369v-whnyYeWaI3quPab2hxFmA",
-  authDomain: "phoenix-first-project.firebaseapp.com",
-  projectId: "phoenix-first-project",
-  storageBucket: "phoenix-first-project.appspot.com",
-  messagingSenderId: "943608506043",
-  appId: "1:943608506043:web:c6dc699ceedf5090406b9e",
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.FIREBASE_APP_ID
 };
 
 // Initialize Firebase
